@@ -13,6 +13,12 @@ AC_CHECK_PROG(have_git, git, git, [])
 if test x"${have_git}" = x; then
     AC_MSG_ERROR([please install 'git'])
 fi
+## Check for git-lfs
+AC_CHECK_PROG(have_git_lfs, git-lfs, yes)
+if test x"${have_git_lfs}" != x"yes"; then
+    AC_MSG_ERROR([please install 'git-lfs'. Do not forget to run `git lfs install`. https://github.com/git-lfs/git-lfs])
+fi
+
 AC_SUBST(have_git)
 
 # Checks for libraries.
