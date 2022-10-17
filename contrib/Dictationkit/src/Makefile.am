@@ -15,7 +15,7 @@ $(DKITPATH):
 
 $(PHONEMODELS): $(DKITPATH)
 
-%.jconf:%_template.jconf
+%.jconf : %_template.jconf
 	sed 's;{{DICTDATADIR}};$(dictdir);g' $< > $@
 
 .PHONY: clean-local
