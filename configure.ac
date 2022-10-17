@@ -22,6 +22,6 @@ AC_CONFIG_FILES([Makefile
 AC_CONFIG_SUBDIRS([contrib/Dictationkit])
 AX_SUBDIRS_CONFIGURE(
                      [contrib/Julius], 
-                     [--build=aarch64-unknown-linux-gnu --with-mictype=alsa],
+                     [[--build=aarch64-unknown-linux-gnu], [--with-mictype=alsa]],
                      [], [], [])
 AC_OUTPUT
