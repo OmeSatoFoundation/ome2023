@@ -22,10 +22,16 @@ RUN curl -L -o git-lfs.tar.gz https://github.com/git-lfs/git-lfs/releases/downlo
     && cd git-lfs-3.2.0 \
     && ./install.sh
 
-# Julius dependencies
-RUN apt update \
+# Install crosstools
+## TODO: use toolchain-ng
+RUN dpkg --add-architecture arm64 \
+    && sed -i 's/^deb/deb [arch=amd64,arm64]/g' /etc/apt/sources.list \
+    && apt update \
     && apt install -y \
-    libasound2-dev \
-    libsdl2-dev \
-    zlib1g-dev \
-    && rm -rf /var/lib/apt/lists
+    g++-aarch64-linux-gnu \
+    libasound2-dev:arm64 \
+    libsdl2-dev:arm64 \
+    zlib1g-dev:arm64 \
+    && rm -rf /var/lib/apt/lists \
+
+WORKDIR /work
