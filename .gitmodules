@@ -2,5 +2,5 @@
 	path = contrib/Julius
 	url = git@github.com:julius-speech/julius.git
 [submodule "contrib/OpenHSP"]
-	path = contrib/OpenHSP
+	path = contrib/OpenHSP/OpenHSP
 	url = git@github.com:OmeSatoFoundation/OpenHSP.git

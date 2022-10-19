@@ -18,8 +18,10 @@ AC_PROG_MAKE_SET
 # Checks for library functions.
 
 AC_CONFIG_FILES([Makefile
-                 contrib/Makefile])
-AC_CONFIG_SUBDIRS([contrib/Dictationkit])
+                 contrib/Makefile
+                 contrib/OpenHSP/Makefile])
+AC_CONFIG_SUBDIRS([contrib/Dictationkit
+                   contrib/OpenHSP])
 AX_SUBDIRS_CONFIGURE(
                      [contrib/Julius], 
                      [[--build=x86_64-pc-linux-gnu], [--host=aarch64-linux-gnu], [--target=aarch64-linux-gnu], [--with-mictype=alsa]],

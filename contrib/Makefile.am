@@ -1,1 +1,1 @@
-SUBDIRS = Julius Dictationkit
+SUBDIRS = Julius Dictationkit OpenHSP
