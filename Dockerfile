@@ -43,4 +43,10 @@ RUN dpkg --add-architecture arm64 \
     zlib1g-dev:arm64 \
     && rm -rf /var/lib/apt/lists
 
+# Install qemu to build OpenHSP
+RUN apt update \
+    apt install -y \
+    qemu-user-static \
+    && rm -rf /var/lib/apt/lists
+
 WORKDIR /work
