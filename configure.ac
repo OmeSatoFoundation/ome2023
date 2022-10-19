@@ -6,6 +6,11 @@ AC_INIT([ome2023], 0.1, [d8221101@u-aizu.ac.jp])
 AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE
 
+# runstatedir not available for autoconf <= 2.69
+if test "x$runstatedir" = "x" ; then
+    runstatedir='${localstatedir}/run'
+fi
+
 # Checks for programs.
 AC_PROG_MAKE_SET
 
