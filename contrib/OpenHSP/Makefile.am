@@ -2,10 +2,10 @@ SRCDIR = OpenHSP
 TARGETS = hsp3dish hsp3cl hspcmp hsed
 DEST = /usr/local/bin
 all-local:
-	cd $(SRCDIR) && $(MAKE) -f makefile.raspbian $(AM_MAKEFLAGS) all
+	cd $(SRCDIR) && $(MAKE) $(AM_MAKEFLAGS) all
 
 clean-local:
-	cd $(SRCDIR) && $(MAKE) -f makefile.raspbian $(AM_MAKEFLAGS) clean
+	cd $(SRCDIR) && $(MAKE) $(AM_MAKEFLAGS) clean
 
 install-exec-local:
 	$(INSTALL) -d $(DEST)
@@ -17,4 +17,4 @@ install-exec-local:
 
 uninstall-local:
 	list='$(TARGETS)'; \
-	@for file in $$list; do rm -rf $(DEST)/$$file; done
+	@for file in $$list; do rm -rf $(DEST)/$$file || /bin/true; done
