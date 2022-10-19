@@ -27,3 +27,5 @@ include /usr/share/dpkg/buildtools.mk
 override_dh_autoreconf:
 	/bin/true
 
+override_dh_auto_configure:
+	./configure --prefix=/usr --includedir=\${prefix}/include --mandir=\${prefix}/share/man --infodir=\${prefix}/share/info --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir=\${prefix}/lib/aarch64-linux-gnu --libexecdir=\${prefix}/lib/aarch64-linux-gnu --disable-maintainer-mode --disable-dependency-tracking
