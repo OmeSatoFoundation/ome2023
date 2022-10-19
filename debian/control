@@ -1,0 +1,16 @@
+Source: ome2023
+Section: misc
+Priority: optional
+Maintainer: Yohei Shimmyo <d8221101@u-aizu.ac.jp>
+Build-Depends: debhelper-compat (= 13), autotools-dev, curl, git, make, g++-aarch64-linux-gnu, libasound2-dev:arm64, libcurl4-openssl-dev:arm64, libegl1-mesa-dev:arm64, libgles2-mesa-dev:arm64, libglew-dev:arm64, libgtk2.0-dev:arm64, libsdl2-dev:arm64, libsdl2-dev:arm64, libsdl2-image-dev:arm64, libsdl2-mixer-dev:arm64, libsdl2-ttf-dev:arm64, zlib1g-dev:arm64
+Standards-Version: 4.5.1
+Homepage: https://github.com/OmeSatoFoundation/ome2023
+#Vcs-Browser: https://salsa.debian.org/debian/ome2023
+#Vcs-Git: https://salsa.debian.org/debian/ome2023.git
+Rules-Requires-Root: no
+
+Package: ome2023
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libasound2, libcurl4, libegl1-mesa, libgles2, libglew2.1, libgtk2.0-0, libsdl2-2.0-0, libsdl2-image-2.0-0, libsdl2-mixer-2.0-0, libsdl2-ttf-2.0-0, zlib1g
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
