@@ -22,8 +22,10 @@ AC_CONFIG_FILES([Makefile
                  contrib/OpenHSP/Makefile])
 AC_CONFIG_SUBDIRS([contrib/Dictationkit
                    contrib/OpenHSP])
-AX_SUBDIRS_CONFIGURE(
-                     [contrib/Julius], 
+AX_SUBDIRS_CONFIGURE([contrib/Julius],
                      [[--build=x86_64-pc-linux-gnu], [--host=aarch64-linux-gnu], [--target=aarch64-linux-gnu], [--with-mictype=alsa]],
+                     [], [], [])
+AX_SUBDIRS_CONFIGURE([contrib/OpenHSP],
+                     [[AR=aarch64-linux-gnu-gcc-ar], [CC=aarch64-linux-gnu-gcc], [CXX=aarch64-linux-gnu-g++]],
                      [], [], [])
 AC_OUTPUT
