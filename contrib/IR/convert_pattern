@@ -1,0 +1,31 @@
+#!/usr/bin/python
+import sys
+
+if len(sys.argv) != 2:
+    print("Usage: python " + sys.argv[0] + "<filename>")
+    sys.exit(1)
+
+siglans = None
+with open(sys.argv[1]) as f:
+    signals = [(line.split()[0], line.split()[1]) for line in f.readlines()[1:]]
+
+idx = 0
+while signals[idx][0] == 'space':
+    idx += 1
+
+signals = signals[idx:]
+signals = signals[:255]
+if len(signals) % 2 == 0:
+    signals = signals[:-1]
+
+cnt = 0
+result = ""
+for sig in signals:
+    s = sig[1]
+    cnt += len(str(s)) + 1
+    if cnt >= 50:
+        result += '\n'
+        cnt = 0
+    result += s + " "
+
+print(result)

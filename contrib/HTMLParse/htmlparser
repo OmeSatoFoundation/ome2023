@@ -1,0 +1,131 @@
+#!/usr/bin/env python2
+#encoding:utf-8
+import sys
+import ast
+import getopt
+from bs4 import BeautifulSoup
+
+all_args = {'tag': {'arg': ['-t', '--tag'], 'description': 'htmlタグを指定する。'},
+            'command': {'arg': ['-c', '--command'], 'description':'実行コマンドを指定する。'},
+            'attr' : {'arg': ['-a', '--attr'], 'description':'属性を指定する'},
+            'filename': {'arg': ['-f', '--filename'], 'description':'入力ファイルを指定する。'},
+            'stdin' : {'arg': ['-s', '--stdin'], 'description':'標準入力から入力する。-fオプションが指定されている場合は-fが優先される。'},
+            'pos': {'arg': ['-p', '--pos'], 'description':'htmltagnコマンドのときの開始位置を指定する。それ以外のコマンドのときは無視される。'},
+            'number': {'arg': ['-n', '--number'], 'description':'htmltagnコマンドのときの開始位置からの個数を指定する。それ以外のコマンドのときは無視される。'},
+            'help': {'arg': ['-h', '--help'], 'description':'ヘルプを表示する'}}
+
+
+class HTMLParser:
+    def __init__(self, f):
+        self.html = f 
+        self.soup = BeautifulSoup(self.html, 'html.parser')
+        self.data = []
+    def htmlsrc(self, tag):
+        result = self.soup.find_all(tag)
+        for i in result:
+            self.data.append(i.get('src'))
+    def htmltag(self, tag):
+        self.htmltagattr(tag, {})
+    def htmltagattr(self, tag, attr):
+        result = self.soup.find_all(tag, attrs=attr)
+        for i in result:
+            self.data.append(i)
+    def htmltext(self, tag):
+        result = self.soup.find_all(tag)
+        for i in result:
+            for j in i:
+                self.data.append(j)
+    def htmllink(self, tag):
+        result = self.soup.find_all(tag)
+        for i in result:
+            self.data.append(i.get('href'))
+    def htmlval(self, tag, attr):
+        result = self.soup.find_all(tag)
+        for i in result:
+            self.data.append(i.get(attr))
+    def htmltagn(self, tag, pos, n):
+        result = self.soup.find_all(tag)
+        if n == -1:
+            result = result[pos:]
+        else:
+            result = result[pos:pos+n]
+        for i in result:
+            self.data.append(i)
+    def htmluntag(self):
+        self.data.append(self.soup.text)
+    def parseattr(self, attr):
+        if(len(attr) == 0):
+            a = {}
+        else:
+            a = '{"' + attr.split(':')[0] + '":"' + ' '.join(attr.split(':')[1].split(',')) + '"}'
+            a = ast.literal_eval(a) 
+        return a
+    def emitdata(self):
+        if self.data == None:
+            return 1
+        for i in self.data:
+            if i == None:
+                continue
+            print(i.encode('utf-8'))
+        return 0
+def usage():
+    global all_args
+    print("{} options".format(sys.argv[0]))
+    for k, v in all_args.items():
+        print("{} {}: {}".format(v['arg'][0], v['arg'][1], v['description']))
+    sys.exit()
+def main():
+    s = True
+    filename = sys.stdin
+    tag = ''
+    command = ''
+    attr = ''
+    pos = 0
+    number = 1
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 'a:t:c:f:p:n:hs', ['attr=', 'tag=','command=','filename=','pos=','number=','help','stdin'])
+    except getopt.GetoptError as e:
+        print(e)
+        usage()
+    for o, a in opts:
+        if o in all_args['tag']['arg']:
+            tag = a
+        elif o in all_args['command']['arg']:
+            command = a
+        elif o in all_args['attr']['arg']:
+            attr = a
+        elif o in all_args['filename']['arg']:
+            filename = a
+            s = False
+        elif o in all_args['stdin']['arg']:
+            # s and filename can be overriden by explict -f, --file option
+            continue
+        elif o in all_args['pos']['arg']:
+            pos = int(a)
+        elif o in all_args['number']['arg']:
+            number = int(a)
+        elif o in all_args['help']['arg']:
+            usage()
+    if(s):
+        hp = HTMLParser(filename)
+    else:
+        hp = HTMLParser(open(filename))
+    if(command == 'htmlsrc'):
+        hp.htmlsrc(tag)
+    elif(command == 'htmltagattr'):
+        hp.htmltagattr(tag, hp.parseattr(attr))
+    elif(command == 'htmltext'):
+        hp.htmltext(tag)
+    elif(command == 'htmllink'):
+        hp.htmllink(tag)
+    elif(command == 'htmltag'):
+        hp.htmltag(tag)
+    elif(command == 'htmlval'):
+        hp.htmlval(tag, attr)
+    elif(command == 'htmltagn'):
+        hp.htmltagn(tag, pos, number)
+    elif(command == 'htmluntag'):
+        hp.htmluntag()
+    return hp.emitdata()
+if __name__ == '__main__':
+    sys.exit(main())
