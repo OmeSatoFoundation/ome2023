@@ -7,6 +7,7 @@ RUN apt update \
     build-essential \
     curl \
     debhelper \
+    devscripts \
     dh-make \
     dpkg \
     dpkg-dev \
@@ -28,6 +29,7 @@ RUN dpkg --add-architecture arm64 \
     && sed -i 's/^deb/deb [arch=amd64,arm64]/g' /etc/apt/sources.list \
     && apt update \
     && apt install -y \
+    dpkg-cross \
     g++-aarch64-linux-gnu \
     libasound2-dev:arm64 \
     libcurl4-openssl-dev:arm64 \
@@ -45,7 +47,7 @@ RUN dpkg --add-architecture arm64 \
 
 # Install qemu to build OpenHSP
 RUN apt update \
-    apt install -y \
+    && apt install -y \
     qemu-user-static \
     && rm -rf /var/lib/apt/lists
 
