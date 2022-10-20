@@ -1,0 +1,24 @@
+#include "rpz-gpio.as"
+
+	redraw 0
+	mes "Reset..."
+	redraw 1
+
+	celload "tamane_s1.png",1
+	geti2c_lux_init
+
+*main
+	geti2c_lux
+	x=rpz_lux/32
+	y=60
+
+	redraw 0
+	color 255,255,255:boxf
+	color 0,0,0:pos 0,0:mes "="+rpz_lux
+	pos x,y
+	gmode 2
+	celput 1,0,0.5,0.5
+
+	redraw 1
+	await 1000/30
+	goto *main

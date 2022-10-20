@@ -1,0 +1,17 @@
+#include "hsp3dish.as"
+
+*main
+	sw1=gpioin(5)
+
+	font "",20
+
+	redraw 0
+
+	color 0,0,0
+	pos 20,20
+	mes "センサーボードのスイッチ="+sw1
+
+	redraw 1
+	await 66
+	goto *main
+

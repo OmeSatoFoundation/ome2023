@@ -1,0 +1,27 @@
+#include "hsp3cl.as"
+#include "rpz-gpio-cl.as"
+#include "cgi.as"
+mes "Content-type: text/html\n"
+mes "<html><head><meta charset=\"utf-8\"></head><body>"
+
+; クエリストリングからledを探して、値をled_portへ入れる
+getqueryval "led", led_port
+; クエリストリングからvalを探して、値をled_valへ入れる
+getqueryval "val", led_val
+;文字列なので数値へ変換する
+led_port = int(led_port)
+led_val = int(led_val)
+
+; 点灯消灯を判断して、メッセージをpタグで表示する
+if(led_val = 1) {
+    mes "<p>GPIO" + led_port + "を点灯します</p>"
+} else {
+    mes "<p>GPIO" + led_port + "を消灯します</p>"
+}
+
+; クエリストリングのledで指定されたGPIOにvalで指定された値を書き込む
+; localhost:3000/cgi-bin/qsled.hsp?led=17&val=1
+; の場合、LED17を点灯させる
+cgpio led_port, led_val
+mes "</body></html>"
+end

@@ -1,0 +1,28 @@
+#include "hsp3cl.as"
+#include "cmdexec.as"
+#include "htmlparser.as"
+
+; 結果を入れる配列変数
+sdim genre, 128, 128 
+sdim time, 128, 128
+sdim station, 128, 128
+sdim ptitle, 128, 128
+;検索する単語 
+word = "サザエさん"
+cmd = "tv.py " + word
+; 検索した単語にあった番組の情報から1つ分取得して、result変数へいれる
+; 番組名をresult変数に情報をいれる
+cmdexec cmd, result
+
+; 情報を改行で分割
+splitnl result, program_list
+;　見つかった番組の数
+program_count = stat - 1
+
+repeat program_count
+    ; カンマ（,)で文字列を分解してそれぞれ、配列変数へ入れる。
+    split program_list(cnt), "," , ptitle(cnt), time(cnt), station(cnt),genre(cnt)
+    mes ptitle(cnt) + "　" + time(cnt)
+loop
+
+end

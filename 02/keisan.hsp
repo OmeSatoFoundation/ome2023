@@ -1,0 +1,11 @@
+#include "hsp3dish.as"
+
+x=100
+
+redraw 0
+font "",60
+pos 20,120
+color 0,0,255
+mes "こたえは"+x
+redraw 1
+

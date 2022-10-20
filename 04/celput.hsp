@@ -1,0 +1,12 @@
+#include "hsp3dish.as"
+
+celload "sozai1.jpg",1
+
+redraw 0
+pos 0,0
+celput 1
+font "",100
+color 0,0,255
+pos 60,160
+mes "こんにちは"
+redraw 1

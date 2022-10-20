@@ -1,0 +1,17 @@
+#include "hsp3dish.as"
+
+celload "sozai4.jpg",1	; 背景
+celload "apple.png",2	; りんご
+
+x=300:y=200
+
+*main
+	redraw 0
+	pos 0,0
+	celput 1	; 背景を表示
+	gmode 2		; 重ね合わせる
+	pos x,y		; りんごを表示
+	celput 2
+	redraw 1
+	await 1000/30
+	goto *main

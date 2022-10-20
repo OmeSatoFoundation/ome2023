@@ -1,0 +1,47 @@
+#include "hsp3dish.as"
+#include "julius.as"
+
+redraw 0
+pos 0, 0
+mes "Loading Julius..."
+redraw 1
+
+init_julius "/home/pi/ome/06/kudamono.dic"
+
+sockidx = 0
+domain = "127.0.0.1"
+PORT = 10500
+
+sockopen sockidx, domain, PORT
+
+if stat != 0 {
+*errorjulius
+  redraw 0
+  pos 0, 0
+  mes "Error in opening socket"
+  redraw 1
+  await 30
+  goto *errorjulius
+  stop
+}
+
+sdim words, 4096, 0
+ddim cm, 0
+
+repeat -1
+  if is_recieved(sockidx) == 0 {
+    get_word_list words, cm
+    len =  "L1 " + length(words)
+    repeat length(words)
+      if cm(cnt) > 0.5 {
+          ans =  "" + cnt + ": " + words(cnt) + " CM = " + cm(cnt)
+      }
+    loop
+  }
+  redraw 0
+  pos 0,0
+  mes len
+  mes ans
+  redraw 1
+  await 30
+loop

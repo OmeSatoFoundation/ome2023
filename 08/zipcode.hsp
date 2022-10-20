@@ -1,0 +1,22 @@
+#include "hsp3cl.as"
+#include "cmdexec.as"
+
+
+;	郵便番号から住所を表示する
+;	http://zip.cgis.biz/
+;
+
+; 検索する郵便番号を指定
+code="1980082"	; 郵便番号
+cmd = "zipcode.py " + code
+cmdexec cmd, result
+split result, ",", state, city, address
+
+; 結果を出力
+mes "郵便番号 " + code
+mes "都道府県 " + state
+mes "市町村 " + city
+mes "町 " + address
+
+; プログラムの終了
+end

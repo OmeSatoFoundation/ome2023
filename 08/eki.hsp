@@ -1,0 +1,32 @@
+#include "hsp3cl.as"
+#include "cmdexec.as"
+#include "htmlparser.as"
+
+;使用したAPIはHeart Rails Expressです
+;https://express.heartrails.com/api.html
+
+; 結果を入れる配列変数
+
+sdim station, 29, 29
+sdim name,29,29
+sdim lines,29,29
+;検索する緯度経度
+ido = "35.78767"
+keido = "139.27542"
+cmd = "eki.py " + keido +" "+ ido
+; 検索した緯度経度の情報から1つ分取得して、result変数へいれる
+; result変数に駅名をいれる
+cmdexec cmd, result
+
+; 駅名を改行で分割
+splitnl result ,station
+;　見つかった駅の数
+station_count = stat - 1
+repeat station_count
+    ;カンマ（,）で文字列を分解してそれぞれ配列変数へ入れる
+    split station(cnt),",",name(cnt),lines(cnt)
+    mes name(cnt)+" "+lines(cnt) 
+loop
+
+mes "情報: Heart Rails Inc."
+end 

@@ -1,0 +1,16 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+*main
+	redraw 0
+	font "",20
+	pos 20,20
+	mes "センサーが動いたり止まったりします"
+	redraw 1
+
+	gpio 23,1
+	wait 100
+	gpio 23,0
+	wait 100
+	goto *main
+
