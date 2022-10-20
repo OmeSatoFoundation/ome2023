@@ -1,0 +1,22 @@
+#include "hsp3cl.as"
+#include "hspcurl.as"
+#include "htmlparser.as"
+
+sdim meaning, 32, 32
+; 検索する英語を指定
+word = "hello"
+cmd = "weblio.py " + word
+; Weblioのサイトから英語単語の意味を検索して、result変数へいれる
+; 意味1,意味2 ..のようにカンマ(,)で意味が区切られている
+; 意味の個数は検索する英語によって違う
+cmdexec cmd, result
+; カンマ(,)で結果を分解してmeaning(意味)変数へいれる
+split result, ",", meaning
+meaning_count = stat - 1
+
+repeat meaning_count
+    mes meaning(cnt)
+loop
+
+; プログラムの終了
+end

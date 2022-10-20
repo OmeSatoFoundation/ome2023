@@ -1,0 +1,21 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+spiopen 0
+
+*main
+
+	data = spiget(0,0)
+	kyori = -1*(data*5000/1023)/36+845/9
+	res = "距離 : "+kyori
+	
+	redraw 0
+	font "",20
+	pos 30,30
+	mes res
+	redraw 1
+
+	wait 10
+	goto *main
+
+spiclose 0

@@ -1,0 +1,35 @@
+#include "hsp3cl.as"
+#include "hspcurl.as"
+#include "htmlparser.as"
+
+sdim ascii, 5, 128
+url = "https://en.wikipedia.org/wiki/ASCII"
+i = 0
+curl url, buf
+htmltagattr buf, "table", "class:chset", buf
+htmltag buf, "a", buf
+htmluntag buf, buf
+splitnl buf, ascii
+
+mes "Content-type: text/html\n"
+mes "<html><head><meta charset=\"utf-8\"></head>"
+mes "<body>"
+mes "<h2>ASCIIコード表</h2>"
+mes "<table border=\"1\">"
+mes "<thead>"
+mes "<tr>"
+mes "<th>HEX</th><th>ASCII文字</th><th>HEX</th><th>ASCII文字</th><th>HEX</th><th>ASCII文字</th><th>HEX</th><th>ASCII文字</th>"
+mes "</tr>"
+mes "</thead>"
+mes "<tbody>"
+
+repeat 32
+	mes "<tr>"
+	mes strf("<td>%#04x</td><td>%s</td><td>%#04x</td><td>%s</td><td>%#04x</td><td>%s</td><td>%#04x</td><td>%s</td>", i, ascii(i), i+1, ascii(i+1), i+2, ascii(i+2), i+3, ascii(i+3))
+	i = i + 4	  	
+	mes "</tr>"
+loop
+mes "</tbody>"
+mes "</table>"
+mes "</body></html>"
+end

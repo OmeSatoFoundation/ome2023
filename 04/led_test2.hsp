@@ -1,0 +1,24 @@
+
+;	LED test
+
+#include "hsp3dish.as"
+
+	frame=0
+*main
+	gpio 17, (frame/4)\2
+	in1 = gpioin(5)
+	in2 = gpioin(6)
+	update
+	goto *main
+
+#deffunc update
+
+	redraw 0
+	pos 0,0
+	mes "OK"+in1+"/"+in2
+	redraw 1
+	await 66
+	frame++
+	return
+
+

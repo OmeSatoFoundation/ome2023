@@ -1,0 +1,19 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+spiopen 0
+
+*main
+	data = spiget(0,0)
+	res = "結果 : "+data+"\n"
+
+	redraw 0
+	pos 20,20
+	font "",30
+	mes res
+	redraw 1
+
+	wait 10
+	goto *main
+
+spiclose 0

@@ -1,0 +1,8 @@
+sudo service lircd stop
+mode2 -d /dev/lirc1 | tee onoff.txt
+convert_pattern onoff.txt > onoff.pattern
+cp /home/pi/ome/05/template.lircd.conf /home/pi/Desktop/fan.lircd.conf
+leafpad /home/pi/Desktop/fan.lircd.conf
+sudo cp /home/pi/Desktop/fan.lircd.conf /etc/lirc/lircd.conf.d/
+sudo systemctl restart lircd
+irsend SEND_ONCE fan onoff
