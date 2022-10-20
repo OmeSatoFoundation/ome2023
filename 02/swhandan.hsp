@@ -1,0 +1,25 @@
+#include "hsp3dish.as"
+
+*hata
+	redraw 0
+	font "",60
+	pos 60,180
+	color 0,0,255
+	mes "スイッチ押して"
+	redraw 1
+	await 16
+
+	if gpioin(5)=0 : goto *hata2
+	goto *hata
+
+*hata2
+	redraw 0
+	font "",60
+	pos 60,180
+	color 255,0,0
+	mes "押しましたね!"
+	redraw 1
+	await 16
+
+	if gpioin(6)=0 : goto *hata
+	goto *hata2

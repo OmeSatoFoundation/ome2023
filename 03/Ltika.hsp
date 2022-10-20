@@ -1,0 +1,13 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+	redraw 0
+	mes "0.5秒毎に青色のLEDがチカチカするよ"
+	redraw 1
+
+*led
+	gpio 22,0
+	wait 50
+	gpio 22, 1
+	wait 50
+	goto *led

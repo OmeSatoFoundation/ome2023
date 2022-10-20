@@ -1,0 +1,47 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+	redraw 0
+	font "",30
+	pos 20,20
+	mes "赤いボタンで光るLEDを変えることができるよ"
+	redraw 1
+
+	ima_btn = 1
+	mae_btn = 1
+	ledidx = 0
+
+*hata
+	ima_btn = gpioin(5)
+	if ima_btn=0 {
+		ledidx = (ledidx+1) \ 4
+
+		if ledidx=1 {
+			gpio 17, 1
+			gpio 18, 0
+			gpio 22, 0
+			gpio 27, 0
+		}
+		else : if ledidx=2 {
+			gpio 17, 0
+			gpio 18, 1
+			gpio 22, 0
+			gpio 27, 0
+		}
+		else : if ledidx=3 {
+			gpio 17, 0
+			gpio 18, 0
+			gpio 22, 1
+			gpio 27, 0
+		}
+		else : if ledidx=0 {
+			gpio 17, 0
+			gpio 18, 0
+			gpio 22, 0
+			gpio 27, 1
+		}
+	}
+	mae_btn = ima_btn
+
+	await 10
+	goto *hata

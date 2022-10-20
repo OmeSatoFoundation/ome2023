@@ -1,0 +1,33 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+spiopen 0
+
+*main
+	data = spiget(0,0)
+
+	redraw 0
+	font "",20
+	pos 30,30
+	color 0,0,0
+	mes "値　：　" +data
+
+	if (data < 300){
+		color 255,0,0
+		boxf 100,100,200,200
+	}
+	else : if (data < 600){
+		color 0,255,0
+		boxf 100,100,300,300
+	}
+	else {
+		color 0,0,255
+		circle 100,100,200,200
+	}
+
+	redraw 1
+
+	wait 10
+	goto *main
+
+spiclose 0

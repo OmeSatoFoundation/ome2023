@@ -1,0 +1,20 @@
+#include "hsp3cl.as"
+#include "cmdexec.as"
+
+cmdexec "amedas.py", result
+split result, ",", jikan, kion, kousui, kazamuki, fusoku, nisyou, sekisetsu
+
+mes kion + "度"
+if int(kion) > 28 {
+	mes "気温が高いです。熱中症に注意しましょう"
+	gpio 17, 1
+	await 100
+	gpio 17, 0
+} else {
+	mes "比較的涼しいです。"
+	gpio 18, 1
+	await 100
+	gpio 18, 0
+}
+; プログラムの終了
+end

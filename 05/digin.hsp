@@ -1,0 +1,20 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+*main
+	redraw 0
+	pos 30,30
+	mes "デジタル入力そうちでLEDを光らせよう"
+	redraw 1
+	if gpioin(24)=1 : goto *digital_on
+	goto *digital_off
+        
+*digital_on
+	gpio 17, 1
+	wait 10
+	goto *main
+
+*digital_off
+	gpio 17, 0
+	wait 10
+	goto *main 

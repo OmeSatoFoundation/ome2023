@@ -1,0 +1,29 @@
+
+;	LED test
+
+#include "hsp3dish.as"
+
+*main
+	gpio 17,1
+	gpio 18,1
+	gpio 22,0
+	gpio 27,0
+	update 5
+
+	gpio 17,0
+	gpio 18,0
+	gpio 22,1
+	gpio 27,1
+	update 5
+
+	goto *main
+
+#deffunc update int _p1
+	repeat _p1
+	redraw 0
+	pos 20,20
+	mes "LEDを制御しています。"
+	redraw 1
+	await 66
+	loop
+	return

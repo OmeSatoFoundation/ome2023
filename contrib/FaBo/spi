@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+#
+# FaBo Brick Sample
+#
+# #104 Angle Brick
+#
+
+import RPi.GPIO as GPIO
+import spidev
+import time
+import sys
+
+args=sys.argv
+if len(args)==2 : ANGLEPIN = int(args[1])
+else : ANGLEPIN = 0
+#print(args[1])
+#print(ANGLEPIN)
+
+# GPIOポートを設定
+GPIO.setwarnings(False)
+GPIO.setmode( GPIO.BCM )
+
+# 初期化
+spi = spidev.SpiDev()
+spi.open(0,0)
+spi.max_speed_hz = 5000
+
+def readadc(channel):
+    adc = spi.xfer2([1,(8+channel)<<4,0])
+    data = ((adc[1]&3) << 8) + adc[2]
+    return data
+
+def arduino_map(x, in_min, in_max, out_min, out_max):
+    return (x - in_min) * (out_max - out_min) // (in_max - in_min) + out_min
+
+if __name__ == '__main__':
+    try:
+        data = readadc(ANGLEPIN)
+        print("data : {:8} ".format(data))
+        #value = arduino_map(data, 0, 1023, 0, 100)
+        #LED.ChangeDutyCycle(value)
+        time.sleep( 0.01 )
+    except KeyboardInterrupt:
+        #LED.stop()
+        GPIO.cleanup()
+        spi.close()
+        sys.exit(0)

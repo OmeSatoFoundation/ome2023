@@ -1,0 +1,14 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+	redraw 0
+	font "",30
+	pos 20,20
+	mes "ボタンを押している間LEDが光るよ"
+	redraw 1
+
+*led
+	btn1 = gpioin(5)
+	if btn1==0 : gpio 18, 1 : else : gpio 18, 0
+	await 10
+	goto *led

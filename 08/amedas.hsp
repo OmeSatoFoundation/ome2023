@@ -1,0 +1,11 @@
+#include "hsp3cl.as"
+#include "cmdexec.as"
+
+cmdexec "amedas.py", result
+split result, ",", jikan, kion, kousui, kazamuki, fusoku, nisyou, sekisetsu
+
+; 結果を出力
+mes "時刻 " + "気温 " + "降水 "  
+mes jikan + "  " + kion + "   " + kousui
+; プログラムの終了
+end

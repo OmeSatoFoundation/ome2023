@@ -1,0 +1,24 @@
+#include "hsp3cl.as"
+#include "hspcurl.as"
+#include "htmlparser.as"
+
+; 友達のIPアドレス
+friend_ip = "127.0.0.1"
+; 友達のポート番号 
+friend_port = 3000
+;ダウンロードするウェブページのURL
+url = friend_ip + ":" + friend_port + "/index.html"
+
+; urlで指定したウェブページのHTMLを取得してhtml変数へいれる
+curl url, html
+; html変数内のtitleタグを探してtag変数へいれる
+htmltag html, "title", tag
+; tag変数を表示
+mes tag
+; タグ(<title>,</title>)を取り除いてテキストのみにしてtext変数に入れる
+htmluntag tag, text
+; buf変数を表示
+mes text
+; プログラム終了
+end
+
