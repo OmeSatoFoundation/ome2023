@@ -13,6 +13,9 @@ fi
 
 # Checks for programs.
 AC_PROG_MAKE_SET
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_CXX
 
 # Checks for libraries.
 
@@ -25,8 +28,7 @@ AC_PROG_MAKE_SET
 AC_CONFIG_FILES([Makefile
                  contrib/Makefile
                  contrib/OpenHSP/Makefile])
-AC_CONFIG_SUBDIRS([contrib/Dictationkit
-                   contrib/OpenHSP])
+AC_CONFIG_SUBDIRS([contrib/Dictationkit])
 AX_SUBDIRS_CONFIGURE([contrib/Julius],
                      [[--with-mictype=alsa]],
                      [], [], [])

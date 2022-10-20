@@ -1,7 +1,7 @@
 OPENHSPSRCDIR = OpenHSP
 OPENHSPTARGETS = hsp3dish hsp3cl hspcmp hsed
 all-local:
-	cd $(OPENHSPSRCDIR) && $(MAKE) $(AM_MAKEFLAGS) all
+	cd $(OPENHSPSRCDIR) && $(MAKE) CXX=$(CXX) $(AM_MAKEFLAGS) all
 
 clean-local:
 	cd $(OPENHSPSRCDIR) && $(MAKE) $(AM_MAKEFLAGS) clean
