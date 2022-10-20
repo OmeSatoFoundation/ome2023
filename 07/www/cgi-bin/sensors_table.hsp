@@ -1,0 +1,38 @@
+#include "rpz-gpio-cl.as"
+#include "hsp3cl.as"
+
+mes "Content-type: text/html\n"
+mes "<html><head><meta charset=\"utf-8\"></head><body>"
+
+i2c_ch_bme = 0
+i2c_ch_tsl = 1
+
+fail = init_bme(i2c_ch_bme)		; 温湿度気圧センサ bm280 を初期化する
+if fail {				; 初期化成功チェック
+  mes "failed to init bme: " + fail
+  end
+}
+
+init_lux i2c_ch_tsl			; 照度センサ tsl2572を初期化する
+
+*main
+	
+	temp = get_temp(i2c_ch_bme)		; 温度取得
+	hum  = get_humidity(i2c_ch_bme)		; 湿度取得
+	press= get_pressure(i2c_ch_bme)		; 気圧取得
+	lux  = get_lux(i2c_ch_tsl)		; 照度取得
+
+
+	; 取得したデータの表示
+    mes "<table>"
+    mes "<tr>"
+    mes "<th>センサー種類</th>"
+    mes "<th>センサーの値</th>"
+    mes "</tr>"
+    mes "<tr>"
+	mes "<td>温度</td>" + "<td>" + temp + " [℃]</td>"
+    mes "</tr>"
+    mes "</table>"
+
+    mes "</body></html>"
+    end

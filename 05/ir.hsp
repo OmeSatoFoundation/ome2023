@@ -1,0 +1,23 @@
+#include "hsp3dish.as"
+
+BUTTON_PIN = 24
+prev = 0
+status=0
+
+*main
+	redraw 0
+	font "",20
+	pos 0,0
+	mes "ボタンPUSHで赤外線照射!"
+	redraw 1
+	wait 1
+	goto *edge
+
+*edge
+	current = gpioin(BUTTON_PIN)
+	if (prev=0) & (current=1) {
+		exec "irsend SEND_ONCE fan onoff"
+	}
+	prev = current
+	wait 1
+	goto *edge

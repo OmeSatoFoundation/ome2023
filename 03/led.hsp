@@ -1,0 +1,15 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+	redraw 0
+	font "",30
+	pos 20,20
+	mes "LEDが光るよ"
+	redraw 1
+
+*led
+	gpio 17, 1
+	await 100
+	goto *led
+
+	gpio 17, 0

@@ -1,0 +1,20 @@
+#include "hsp3cl.as"
+#include "hspcurl.as"
+#include "htmlparser.as"
+
+; 友達のIPアドレス
+friend_ip = "127.0.0.1"
+; 友達のポート番号 
+friend_port = 3000
+; ダウンロードするウェブページのURLを指定
+url = friend_ip + ":" + friend_port + "/index.html"
+
+; curlでURLで指定されるファイルをダウンロードしてbufに入れる　
+curl url, buf
+; bufから一番最初のolタグを1個分探して、結果をbufに入れる
+htmltagn buf, "ol", 0, 1, buf
+; 結果を出力 
+mes buf
+
+; プログラムの終了
+end 

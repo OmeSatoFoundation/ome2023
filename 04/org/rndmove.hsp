@@ -1,0 +1,22 @@
+#include "hsp3dish.as"
+
+celload "sozai4.jpg",1
+celload "apple.png",2
+
+x=300:y=200
+
+*main
+	redraw 0
+	pos 0,0
+	celput 1
+	gmode 2
+	pos x,y
+	celput 2
+	redraw 1
+	await 1000/30
+
+	a=rnd(4)
+	if a=0 : x=x-4
+	if a=1 : x=x+4
+
+	goto *main

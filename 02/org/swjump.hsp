@@ -1,0 +1,250 @@
+#include "hsp3dish.as"
+
+#define global WINSX 640
+#define global WINSY 480
+
+#module
+#deffunc fprt str _p1
+	;	fprt "message"
+	;	(画像を使用したフォント表示を行ないます)
+	;	"message" : 表示するメッセージ
+	;	表示座標は、posで指定した位置から
+	;
+	i=0:st=_p1
+	x=ginfo_cx
+	y=ginfo_cy
+	repeat
+	a1=peek(st,i):i++:if a1=0 : break
+	if a1=32 : x+=16 : continue
+	pos x,y
+	celput 1,a1
+	x+=16
+	loop
+	return
+
+#deffunc fprtc str _p1, int _p2
+	;	fprt "message",y
+	;	(画像を使用したフォント表示を行ないます)
+	;	"message" : 表示するメッセージ
+	;	表示座標は、Xをセンタリング、Yを指定
+	;
+	i=0:st=_p1
+	x=(WINSX-(strlen(_p1)*16))/2
+	y=_p2
+	repeat
+	a1=peek(st,i):i++:if a1=0 : break
+	if a1=32 : x+=16 : continue
+	pos x,y
+	celput 1,a1
+	x+=16
+	loop
+	return
+
+#global
+
+
+*init
+	;	画面の準備
+	;
+	celload "80font.png",1
+	celdiv 1,16,16,0,0
+	celload "jp88chr.png",2
+	celdiv 2,32,32,0,0
+	celload "jp88bg.png",3
+
+	mmload "jp_jump.wav",0
+	mmload "jp_dead.wav",1
+	;mmload "jmp06.mp3",2
+
+	high = 0
+
+	frame = 0
+	randomize
+
+*gtitle
+	;	スタートボタンチェック
+	;
+	stick key,$130
+	if gpioin(5)=0 : key|=256
+	if key&128 : end
+
+	if key&$130 : goto *gstart
+
+	gflag = -1
+	myx = 0 : myy = -99
+	gosub *makescr
+	await 1000/30
+	goto *gtitle
+
+*gstart
+	;	ゲームスタート
+	;
+	gflag = 0
+	score = 0
+	myx = 16*4
+	myy = 16*15
+	myjump = 0
+	mylimit = 16*15
+	mychk = myx + 32 + 7
+	myupper = 16*7
+	fps = 15
+
+	barmax=30
+	dim bx,barmax
+	dim by,barmax
+	barint=30
+	barcnt=barint
+	levup=100
+
+	mmplay 2
+
+*main
+	;	ゲームループ
+	;
+	stick key,256
+	if key&128 : end
+	if gpioin(5)=0 : key|=256
+
+	barcnt--
+	if barcnt=0 {
+		gosub *makebar
+		barcnt=barint
+	}
+
+	gosub *makescr
+	await 1000/fps
+
+	if gflag!=0 {
+		gflag++
+		if gflag>50 : goto *gtitle
+		goto *main
+	}
+
+	score++
+	if score>high : high=score
+	if score>levup {
+		levup+=100
+		barint--
+		if barint<10 : barint=10
+		fps+=2
+		if fps>=60 : fps=60
+	}
+
+	goto *main
+
+*makebar
+	;	ハードル出現
+	;
+	id=-1
+	repeat barmax
+		if bx(cnt)=0 : id=cnt : break
+	loop
+	if id<0 : return
+
+	if score>1000 {
+		y=mylimit-16*rnd(2)
+	} else {
+		y = mylimit-16*rnd(4)
+	}
+
+	bx(id) = 16*38 + 7
+	by(id) = y
+
+	return
+
+*makescr
+	;	画面作成
+	;
+	redraw 0
+
+	;	背景の表示
+	;
+	color 0,0,0:boxf
+	gmode 0,WINSX,WINSY:pos 0,0:gcopy 3
+
+	;	キャラを表示
+	;
+	gmode 2
+	if gflag<0 : goto *scr_demo
+	if gflag>0 : goto *scr_dead
+
+	if myjump<2 {
+		if key&256 {
+			if myjump=0 : mmplay 0
+			myjump=1
+			myy-=8
+			goto *mymove
+		}
+		myjump=2
+		myy+=8
+		goto *mymove
+	}
+	myy+=8
+*mymove
+	if myy<myupper {
+		myjump=2
+		;gosub *to_dead
+	}
+	if myy>mylimit : myy=mylimit : myjump = 0
+
+	i=(frame>>1)&1
+	pos myx,myy:celput 2,i
+	gosub *putbar
+	goto *scr_ok
+
+*scr_dead
+	myy+=8
+	if myy>mylimit : myy=mylimit
+	pos myx,myy:celput 2,2
+	gosub *putbar
+	fprtc "GAME OVER",16*11
+	goto *scr_ok
+
+*scr_demo
+	if frame&16 {
+		fprtc "PUSH START",16*11
+	}
+*scr_ok
+	;	スコア類を表示
+	;
+	pos 30*8,16*2:fprt strf("HIGH  % 5d",high)
+	pos 30*8,16*3:fprt strf("SCORE % 5d",score)
+
+	redraw 1
+	frame++
+
+	return
+
+*putbar
+	;	ハードルの表示&移動
+	;
+	color 0,255,0:ymax=16*17
+	repeat barmax
+		x=bx(cnt)
+		if x>0 {
+			y=by(cnt)
+			boxf x,y,x+2,ymax
+
+			if gflag!=0 : goto *nomov
+			if x=mychk {
+				if y<=myy+16 {
+					gosub *to_dead
+				}
+			}
+
+			if frame&1 : goto *nomov
+			x-=16
+			if x<0 : x=0
+			bx(cnt)=x
+*nomov
+		}
+	loop
+	return
+
+*to_dead
+	if gflag!=0 : return
+	mmstop
+	mmplay 1
+	gflag=1
+
+	return

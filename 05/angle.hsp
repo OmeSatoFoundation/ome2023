@@ -1,0 +1,24 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+celload("hyou.png"),2
+p = 50
+
+spiopen 0
+
+*main
+	data = spiget(0,0)
+	p = rasp_map(data, 0, 1023, 0, 440)
+
+	redraw 0
+	pos 100,100
+	mes data
+	mes p
+	pos 0,0
+	celput 2
+	redraw 1
+
+	wait 10	
+	goto *main
+
+spiclose 0

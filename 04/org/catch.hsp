@@ -1,0 +1,69 @@
+#include "rpz-gpio.as"
+
+	redraw 0
+	mes "Reset..."
+	redraw 1
+
+	celload "sozai4.jpg",1
+	celload "apple.png",2
+	celload "tamane_s1.png",3
+	celload "tamane_s3.png",4
+
+	geti2c_lux_init
+
+	catch=0
+*fall
+	x=rnd(600)
+	y=-80
+*main
+	geti2c_lux
+	tx=rpz_lux/32
+	ty=260
+
+	if ((x+64>=tx)&&(tx+128>x)&&(y>=ty)) : catch=1
+
+	redraw 0
+	pos 0,0
+	gmode 0
+	celput 1
+
+	gmode 2
+
+	pos tx,ty
+	celput 3,0,0.25,0.25
+
+	pos x,y
+	celput 2
+
+	redraw 1
+	await 1000/30
+
+	if catch=1 : goto *main2
+	y=y+2
+	if y>480 : goto *fall
+	goto *main
+
+*main2
+	redraw 0
+	pos 0,0
+	gmode 0
+	celput 1
+
+	gmode 2
+
+	pos tx,ty
+	celput 4,0,0.25,0.25
+
+	pos x,y
+	celput 2
+
+	pos 120,130
+	font "",90
+	color 0,255,255
+	mes "キャッチ!"
+
+	redraw 1
+	await 1000/30
+
+	goto *main2
+

@@ -1,0 +1,36 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+
+init_bme		; 温湿度気圧センサ bm280 を初期化する
+if stat {				; 初期化成功チェック
+  redraw  0
+  mes "failed to init bme: " + stat
+  redraw 1
+  stop
+}
+
+geti2c_lux_init			; 照度センサ tsl2572を初期化する
+
+*main
+	redraw 0
+	pos 60, 60
+  get_temp  ; rpz_tempに温度取得
+  temp = rpz_temp
+  get_humidity		; rpz_humに湿度取得
+  hum = rpz_hum
+  get_pressure		; rpz_pressに気圧取得
+  press = rpz_press
+  geti2c_lux_als  ; rpz_luxに照度取得
+	lux = rpz_lux
+
+
+	; 取得したデータの表示
+	mes "温度: " + temp + " [℃]"
+	mes "湿度: " + hum  + " [%]"
+	mes "気圧: " + press+ " [hPa]"
+	mes "照度: " + lux  + " [lx]"
+
+	redraw 1
+	wait 100
+	goto *main

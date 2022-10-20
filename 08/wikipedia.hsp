@@ -1,0 +1,22 @@
+#include "hsp3cl.as"
+#include "cmdexec.as"
+
+; 結果をいれる配列の準備
+sdim text, 2048, 32
+; 検索する単語を指定
+word = "Raspberry_Pi"
+; wikipedia.py 検索する単語
+cmd = "wikipedia.py " + word
+; 結果は行ごとにカンマ（,)で区切られている。
+cmdexec cmd, result
+; 行はカンマ(,)区切りになっているので分解する。textは配列変数
+split result, ",", text
+; 行数の最大値はtext_max変数に入っている
+text_max = stat - 1
+; 3行分表示する
+repeat 3
+    ; 行を表示
+    mes text(cnt)
+loop
+; プログラムの終了
+end

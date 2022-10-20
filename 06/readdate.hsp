@@ -1,0 +1,13 @@
+#include "hsp3dish.as"
+#include "jtalk.as"
+
+date = "" + gettime(0) + "年" + gettime(1) + "月" + gettime(3) + "日"
+
+redraw 0
+mes "日付を読み上げます"
+mes date
+redraw 1
+
+jtload date, 0
+mmplay 0
+stop
