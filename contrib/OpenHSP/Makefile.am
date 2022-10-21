@@ -2,7 +2,7 @@ OPENHSPSRCDIR = OpenHSP
 OPENHSPTARGETS = hsp3dish hsp3cl hspcmp hsed
 
 all-local:
-	cd $(OPENHSPSRCDIR) && $(MAKE) CC=$(CC) CXX=$(CXX) $(AM_MAKEFLAGS) all
+	cd $(OPENHSPSRCDIR) && $(MAKE) PKG_CONFIG=$(PKG_CONFIG) CC=$(CC) CXX=$(CXX) $(AM_MAKEFLAGS) all
 
 clean-local:
 	cd $(OPENHSPSRCDIR) && $(MAKE) $(AM_MAKEFLAGS) clean
@@ -25,6 +25,7 @@ install-data-local:
 	@echo " $(INSTALL_DATA) $(OPENHSPSRCDIR)/hsed.png '$(PIXMAPS)'" ;\
 	$(INSTALL_DATA) $(OPENHSPSRCDIR)/hsed.png "$(PIXMAPS)"
 	sed -i "s:/usr/share/pixmaps:$(PIXMAPS):g;s:/home/pi/OpenHSP:$(DESTDIR)$(bindir):g" $(APPLICATIONS)/hsed.desktop
+	sh -c 'cd $(OPENHSPSRCDIR) && find common -type f -exec $(INSTALL_DATA) -D "{}" "$(DESTDIR)$(bindir)/{}" \;'
 
 
 uninstall-local:

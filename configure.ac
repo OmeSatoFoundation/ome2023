@@ -28,7 +28,8 @@ PKG_PROG_PKG_CONFIG
 
 AC_CONFIG_FILES([Makefile
                  contrib/Makefile
-                 contrib/OpenHSP/Makefile])
+                 contrib/OpenHSP/Makefile
+                 contrib/FaBo/Makefile])
 AC_CONFIG_SUBDIRS([contrib/Dictationkit])
 AX_SUBDIRS_CONFIGURE([contrib/Julius],
                      [[--with-mictype=alsa]],
