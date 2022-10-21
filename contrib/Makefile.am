@@ -1,1 +1,1 @@
-SUBDIRS = Julius Dictationkit OpenHSP FaBo
+SUBDIRS = Julius Dictationkit OpenHSP FaBo JuliusMisc IR OpenJTalk
