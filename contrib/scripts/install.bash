@@ -32,7 +32,7 @@ done
 
 OBJDIR=./obj # Destination where binaries, executables and the other files are cross-compiled. Supposed this script to be ran at project root ome2023/.
 OBJDIR_EMU=/ome2023
-PREFIX_EMU=/usr/local/bin
+PREFIX_EMU=/usr/local
 
 IMG_NAME=2022-09-22-raspios-bullseye-arm64.img
 if [ ! -e $IMG_NAME ]; then
