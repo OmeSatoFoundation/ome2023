@@ -96,7 +96,9 @@ LOCALE_CONF="LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:en LC_CTYPE=ja_JP.UTF-8 LC_NUMERIC=
 chroot $MOUNT_POINT sh -c "$LOCALE_CONF" apt update
 chroot $MOUNT_POINT sh -c "apt install xdg-user-dirs-gtk ; LANG=C xdg-user-dirs-gtk-update --force"
 chroot $MOUNT_POINT su -c 'xdg-user-dirs-update' pi
-## TODO: install dependencies of openhsp, julius, jtalk, etc.
+## TODO: summarize dependencies into "control" in a deb package with contesnts of obj (${OBJDIR})and here apt should call that package.
+chroot $MOUNT_POINT su -c apt install \
+fcitx-mozc i2c-tools python-smbus open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001 build-essential zlib1g-dev libsdl2-dev libasound2-dev dnsutils nmap telnet nkf lirc fswebcam gimp vlc python-games tuxtype minecraft-pi ruby libgtk2.0-dev libglew-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libgles2-mesa-dev libegl1-mesa-dev open-jtalk open-jtalk-mecab-naist-jdic
 chroot $MOUNT_POINT su -c "cd $OBJDIR_EMU; find ./ -type f -exec install -D \"{}\" $PREFIX_EMU/\"{}\" \\;"
 
 # release resources
