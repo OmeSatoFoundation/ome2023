@@ -67,7 +67,6 @@ mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot
 mkdir -p $MOUNT_POINT/$OBJDIR_EMU
 mount --bind . $MOUNT_POINT/$OBJDIR_EMU
 mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
-mount --bind /run $MOUNT_POINT/run
 
 sed $MOUNT_POINT/boot/config.txt -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
 
@@ -109,7 +108,6 @@ umount_sysfds
 umount $MOUNT_POINT/boot
 umount $MOUNT_POINT/$OBJDIR_EMU
 umount $MOUNT_POINT/etc/resolv.conf
-umount $MOUNT_POINT/run
 umount $MOUNT_POINT
 
 # Truncate filesystem and partition
