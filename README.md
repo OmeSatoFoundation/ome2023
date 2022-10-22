@@ -6,6 +6,6 @@
 
 ```bash 
 docker build . -t ome2023
-docker run --rm -ti -v $(pwd):/ome2023-0.1.0 -v $(pwd)/obj:/obj --workdir=/ome2023-0.1.0 ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/obj && make -j6 && make install'
+docker run --rm -ti -v $(pwd):/work -v --workdir=/work ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6'
 sudo contrib/scripts/install.bash #TODO: run in container
 ```
