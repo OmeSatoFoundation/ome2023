@@ -65,7 +65,7 @@ mount ${DEVICE_PATH}p2 $MOUNT_POINT
 mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot
 ## mount object files which are to be stored in /usr/local.
 mkdir -p $MOUNT_POINT/$OBJDIR_EMU
-mount --bind ${OBJDIR} $MOUNT_POINT/$OBJDIR_EMU
+mount --bind . $MOUNT_POINT/$OBJDIR_EMU
 
 sed $MOUNT_POINT/boot/config.txt -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
 
@@ -100,7 +100,7 @@ chroot $MOUNT_POINT su -c 'xdg-user-dirs-update' pi
 ## TODO: summarize dependencies into "control" in a deb package with contesnts of obj (${OBJDIR})and here apt should call that package.
 chroot $MOUNT_POINT apt install -y \
 fcitx-mozc i2c-tools open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001 build-essential zlib1g-dev libsdl2-dev libasound2-dev dnsutils nmap telnet nkf lirc fswebcam gimp vlc tuxtype ruby libgtk2.0-dev libglew-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libgles2-mesa-dev libegl1-mesa-dev open-jtalk open-jtalk-mecab-naist-jdic
-chroot $MOUNT_POINT su -c "cd $OBJDIR_EMU; find ./ -type f -exec install -D \"{}\" $PREFIX_EMU/\"{}\" \\;"
+chroot $MOUNT_POINT su -c "cd $OBJDIR_EMU; make install"
 
 # release resources
 umount_sysfds
