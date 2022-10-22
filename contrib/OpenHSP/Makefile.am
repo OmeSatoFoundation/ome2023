@@ -1,5 +1,5 @@
 OPENHSPSRCDIR = OpenHSP
-OPENHSPTARGETS = hsp3dish hsp3cl hspcmp hsed
+OPENHSPTARGETS = hsp3dish hsp3cl hspcmp hsed ipaexg.ttf
 
 all-local:
 	cd $(OPENHSPSRCDIR) && $(MAKE) PKG_CONFIG=$(PKG_CONFIG) CC=$(CC) CXX=$(CXX) $(AM_MAKEFLAGS) all
