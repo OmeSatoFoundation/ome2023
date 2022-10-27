@@ -1,5 +1,8 @@
 # IT未来塾講義用 Raspberry Pi OS
 ## Prerequisites
+QEMU > 5.2
+
+QEMU == 3 では apt 実行中にランタイムエラーが起こることを確認している。 https://github.com/docker/buildx/issues/1170
 
 ## Image Build
 ### Docker
