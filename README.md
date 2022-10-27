@@ -2,7 +2,7 @@
 ## Prerequisites
 QEMU > 5.2
 
-QEMU == 3 では apt 実行中にランタイムエラーが起こることを確認している。 https://github.com/docker/buildx/issues/1170
+QEMU == 3.1+dfsg-8+deb10u9 では apt 実行中にランタイムエラーが起こることを確認している。 QEMU 5.2 と 7.1 で動作確認済み。 https://github.com/docker/buildx/issues/1170
 
 ## Image Build
 ### Docker
