@@ -5,6 +5,20 @@ QEMU > 5.2
 QEMU == 3.1+dfsg-8+deb10u9 では apt 実行中にランタイムエラーが起こることを確認している。 QEMU 5.2 と 7.1 で動作確認済み。 https://github.com/docker/buildx/issues/1170
 
 ## Image Build
+リポジトリをクローンする
+
+```bash
+git clone git@github.com:OmeSatoFoundation/ome2023.git --recurse
+```
+
+`--recurse` オプションを忘れないこと。もし忘れてしまったら、リポジトリのディレクトリで
+
+```bash
+git submodule update --init
+```
+
+を実行する。
+
 ### Docker
 
 ```bash 
