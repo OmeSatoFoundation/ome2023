@@ -14,6 +14,10 @@ RUN apt update \
     git \
     libtool \
     make \
+    wget \
+    cloud-guest-utils \
+    fdisk \
+    gawk \
     && rm -rf /var/lib/apt/lists
 
 # Install git-lfs
