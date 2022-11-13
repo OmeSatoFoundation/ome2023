@@ -1,8 +1,6 @@
 # IT未来塾講義用 Raspberry Pi OS
 ## Prerequisites
-QEMU > 5.2
-
-QEMU == 3.1+dfsg-8+deb10u9 では apt 実行中にランタイムエラーが起こることを確認している。 QEMU 5.2 と 7.1 で動作確認済み。 https://github.com/docker/buildx/issues/1170
+- Docker Desktop Server https://docs.docker.com/engine/install/ (Desktop でもおそらく可)
 
 ## Image Build
 リポジトリをクローンする
