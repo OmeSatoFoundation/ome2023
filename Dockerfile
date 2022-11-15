@@ -29,6 +29,7 @@ RUN dpkg --add-architecture arm64 \
     && sed -i 's/^deb/deb [arch=amd64,arm64]/g' /etc/apt/sources.list \
     && apt update \
     && apt install -y \
+    cloud-guest-utils \
     dpkg-cross \
     g++-aarch64-linux-gnu \
     libasound2-dev:arm64 \
