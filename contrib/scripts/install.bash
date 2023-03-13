@@ -94,10 +94,9 @@ cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/local/bin
 # installation of material
 LOCALE_CONF="LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:en LC_CTYPE=ja_JP.UTF-8 LC_NUMERIC=ja_JP.UTF-8 LC_TIME=ja_JP.UTF-8 LC_COLLATE=ja_JP.UTF-8 LC_MONETARY=ja_JP.UTF-8 LC_MESSAGES=ja_JP.UTF-8 LC_PAPER=ja_JP.UTF-8 LC_NAME=ja_JP.UTF-8 LC_ADDRESS=ja_JP.UTF-8 LC_TELEPHONE=ja_JP.UTF-8 LC_MEASUREMENT=ja_JP.UTF-8 LC_IDENTIFICATION=ja_JP.UTF-8 LC_ALL=ja_JP.UTF-8"
 
-
-# Remove the initial wizard and create default user `pi` with pw `raspberry`
+# Remove the initial wizard and change pw into `raspberry`
 chroot $MOUNT_POINT rm /etc/xdg/autostart/piwiz.desktop
-chroot $MOUNT_POINT useradd -mk -s bash -u 1000 -p "5CSPR.F8pkaas" pi
+chroot $MOUNT_POINT sh -c "echo \"pi:5CSPR.F8pkaas\" | chpasswd -e"
 
 # Configuration by dpkg-creconfigure: console, keyboard, locale and timezone
 chroot $MOUNT_POINT DEBCONF_DB_OVERRIDE='File{contrib/scripts/assets/debconf_db.dat}' dpkg-reconfigure -fnointeractive console-setup
