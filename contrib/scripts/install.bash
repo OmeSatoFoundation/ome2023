@@ -95,13 +95,29 @@ cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/local/bin
 LOCALE_CONF="LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:en LC_CTYPE=ja_JP.UTF-8 LC_NUMERIC=ja_JP.UTF-8 LC_TIME=ja_JP.UTF-8 LC_COLLATE=ja_JP.UTF-8 LC_MONETARY=ja_JP.UTF-8 LC_MESSAGES=ja_JP.UTF-8 LC_PAPER=ja_JP.UTF-8 LC_NAME=ja_JP.UTF-8 LC_ADDRESS=ja_JP.UTF-8 LC_TELEPHONE=ja_JP.UTF-8 LC_MEASUREMENT=ja_JP.UTF-8 LC_IDENTIFICATION=ja_JP.UTF-8 LC_ALL=ja_JP.UTF-8"
 
 
+# Remove the initial wizard and create default user `pi` with pw `raspberry`
+chroot $MOUNT_POINT rm /etc/xdg/autostart/piwiz.desktop
+chroot $MOUNT_POINT useradd -mk -s bash -u 1000 -p "5CSPR.F8pkaas" pi
+
+# Configuration by dpkg-creconfigure: console, keyboard, locale and timezone
+chroot $MOUNT_POINT DEBCONF_DB_OVERRIDE='File{contrib/scripts/assets/debconf_db.dat}' dpkg-reconfigure -fnointeractive console-setup
+chroot $MOUNT_POINT DEBCONF_DB_OVERRIDE='File{contrib/scripts/assets/debconf_db.dat}' dpkg-reconfigure -fnointeractive keyboard-configuration
+chroot $MOUNT_POINT DEBCONF_DB_OVERRIDE='File{contrib/scripts/assets/debconf_db.dat}' dpkg-reconfigure -fnointeractive locales
+chroot $MOUNT_POINT DEBCONF_DB_OVERRIDE='File{contrib/scripts/assets/debconf_db.dat}' dpkg-reconfigure -fnointeractive tzdata
+
+# Package-related configuration
 chroot $MOUNT_POINT sh -c "$LOCALE_CONF apt update"
+
+## Use ascii directory names for user directories (e.g. $HOME/Downloads)
 chroot $MOUNT_POINT sh -c "apt install xdg-user-dirs-gtk ; LANG=C xdg-user-dirs-gtk-update --force"
-chroot $MOUNT_POINT su -c 'xdg-user-dirs-update' pi
+chroot $MOUNT_POINT su -c "LANG=C xdg-user-dirs-update --force"
+
+## Install depending packages
 ## TODO: summarize dependencies into "control" in a deb package with contesnts of obj (${OBJDIR})and here apt should call that package.
 chroot $MOUNT_POINT apt install -y \
 fcitx-mozc i2c-tools open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001 build-essential zlib1g-dev libsdl2-dev libasound2-dev dnsutils nmap telnet nkf lirc fswebcam gimp vlc tuxtype ruby libgtk2.0-dev libglew-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libgles2-mesa-dev libegl1-mesa-dev open-jtalk open-jtalk-mecab-naist-jdic
 chroot $MOUNT_POINT su -c "cd $OBJDIR_EMU; make install"
+
 
 # release resources
 umount_sysfds

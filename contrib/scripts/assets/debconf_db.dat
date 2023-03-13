@@ -1,0 +1,41 @@
+locales locales/locales_to_be_generated multiselect     ja_JP.UTF-8 UTF-8
+locales locales/default_environment_locale      select  ja_JP.UTF-8
+tzdata  tzdata/Zones/Atlantic   select
+tzdata  tzdata/Zones/Asia       select  Tokyo
+tzdata  tzdata/Zones/Antarctica select
+tzdata  tzdata/Zones/Indian     select
+tzdata  tzdata/Zones/Africa     select
+tzdata  tzdata/Zones/Australia  select
+tzdata  tzdata/Zones/Pacific    select
+tzdata  tzdata/Zones/Etc        select  UTC
+tzdata  tzdata/Zones/Europe     select  London
+tzdata  tzdata/Areas    select  Asia
+tzdata  tzdata/Zones/America    select
+tzdata  tzdata/Zones/Arctic     select
+tzdata  tzdata/Zones/US select
+keyboard-configuration  keyboard-configuration/layoutcode       string  us
+keyboard-configuration  keyboard-configuration/store_defaults_in_debconf_db     boolean true
+keyboard-configuration  keyboard-configuration/toggle   select  No toggling
+keyboard-configuration  keyboard-configuration/unsupported_layout       boolean true
+keyboard-configuration  keyboard-configuration/layout   select  English (US)
+keyboard-configuration  keyboard-configuration/switch   select  No temporary switch
+keyboard-configuration  keyboard-configuration/ctrl_alt_bksp    boolean false
+keyboard-configuration  keyboard-configuration/variantcode      string
+keyboard-configuration  keyboard-configuration/optionscode      string
+keyboard-configuration  keyboard-configuration/xkb-keymap       select  gb
+keyboard-configuration  keyboard-configuration/unsupported_config_options       boolean true
+keyboard-configuration  keyboard-configuration/compose  select  No compose key
+keyboard-configuration  keyboard-configuration/unsupported_config_layout        boolean true
+keyboard-configuration  keyboard-configuration/variant  select  English (US)
+keyboard-configuration  keyboard-configuration/modelcode        string  pc101
+keyboard-configuration  keyboard-configuration/unsupported_options      boolean true
+keyboard-configuration  keyboard-configuration/model    select  Generic 101-key PC
+keyboard-configuration  keyboard-configuration/altgr    select  The default for the keyboard layout
+console-setup   console-setup/codesetcode       string  guess
+console-setup   console-setup/store_defaults_in_debconf_db      boolean true
+console-setup   console-setup/fontface47        select  Do not change the boot/kernel font
+console-setup   console-setup/fontsize-text47   select  8x
+console-setup   console-setup/fontsize  string
+console-setup   console-setup/charmap47 select  UTF-8
+console-setup   console-setup/codeset47 select  Guess optimal character set
+console-setup   console-setup/fontsize-fb47     select  8x
