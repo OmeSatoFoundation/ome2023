@@ -91,21 +91,32 @@ done
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/bin
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/local/bin
 
-# installation of material
-LOCALE_CONF="LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:en LC_CTYPE=ja_JP.UTF-8 LC_NUMERIC=ja_JP.UTF-8 LC_TIME=ja_JP.UTF-8 LC_COLLATE=ja_JP.UTF-8 LC_MONETARY=ja_JP.UTF-8 LC_MESSAGES=ja_JP.UTF-8 LC_PAPER=ja_JP.UTF-8 LC_NAME=ja_JP.UTF-8 LC_ADDRESS=ja_JP.UTF-8 LC_TELEPHONE=ja_JP.UTF-8 LC_MEASUREMENT=ja_JP.UTF-8 LC_IDENTIFICATION=ja_JP.UTF-8 LC_ALL=ja_JP.UTF-8"
 
 # Remove the initial wizard and change pw into `raspberry`
 chroot $MOUNT_POINT rm /etc/xdg/autostart/piwiz.desktop
 chroot $MOUNT_POINT sh -c "echo \"pi:5CSPR.F8pkaas\" | chpasswd -e"
 
-# Configuration by dpkg-creconfigure: console, keyboard, locale and timezone
-chroot $MOUNT_POINT DEBCONF_DB_OVERRIDE='File{contrib/scripts/assets/debconf_db.dat}' dpkg-reconfigure -fnointeractive console-setup
-chroot $MOUNT_POINT DEBCONF_DB_OVERRIDE='File{contrib/scripts/assets/debconf_db.dat}' dpkg-reconfigure -fnointeractive keyboard-configuration
-chroot $MOUNT_POINT DEBCONF_DB_OVERRIDE='File{contrib/scripts/assets/debconf_db.dat}' dpkg-reconfigure -fnointeractive locales
-chroot $MOUNT_POINT DEBCONF_DB_OVERRIDE='File{contrib/scripts/assets/debconf_db.dat}' dpkg-reconfigure -fnointeractive tzdata
+# Configure locales
+chroot $MOUNT_POINT locale-gen --purge ja_JP.UTF-8
+chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive locales
+
+# Configure timezone
+chroot $MOUNT_POINT sh -c "echo \"Asia/Tokyo\" > /etc/timezone"
+chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive tzdata
+
+# Configure keyboard
+echo'
+XKBMODEL="pc101"
+XKBLAYOUT="us"
+XKBVARIANT=""
+XKBOPTIONS=""
+
+BACKSPACE="guess"
+' > $MOUNT_POINT/etc/default/keyboard
+chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive keyboard-configuration
 
 # Package-related configuration
-chroot $MOUNT_POINT sh -c "$LOCALE_CONF apt update"
+chroot $MOUNT_POINT sh -c "apt update"
 
 ## Use ascii directory names for user directories (e.g. $HOME/Downloads)
 chroot $MOUNT_POINT sh -c "apt install xdg-user-dirs-gtk ; LANG=C xdg-user-dirs-gtk-update --force"
