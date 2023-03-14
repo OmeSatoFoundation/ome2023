@@ -97,15 +97,19 @@ chroot $MOUNT_POINT rm /etc/xdg/autostart/piwiz.desktop
 chroot $MOUNT_POINT sh -c "echo \"pi:5CSPR.F8pkaas\" | chpasswd -e"
 
 # Configure locales
-chroot $MOUNT_POINT locale-gen --purge ja_JP.UTF-8
+chroot $MOUNT_POINT sh -c 'echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen'
+chroot $MOUNT_POINT locale-gen
+chroot $MOUNT_POINT update-locale LANG=ja_JP.UTF-8 LANGUAGE=
 chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive locales
 
 # Configure timezone
+
 chroot $MOUNT_POINT sh -c "echo \"Asia/Tokyo\" > /etc/timezone"
+chroot $MOUNT_POINT ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive tzdata
 
 # Configure keyboard
-echo'
+echo '
 XKBMODEL="pc101"
 XKBLAYOUT="us"
 XKBVARIANT=""
