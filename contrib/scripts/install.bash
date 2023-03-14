@@ -119,8 +119,8 @@ chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive keyboard-configuration
 chroot $MOUNT_POINT sh -c "apt update"
 
 ## Use ascii directory names for user directories (e.g. $HOME/Downloads)
-chroot $MOUNT_POINT sh -c "apt install xdg-user-dirs-gtk ; LANG=C xdg-user-dirs-gtk-update --force"
-chroot $MOUNT_POINT su -c "LANG=C xdg-user-dirs-update --force"
+chroot $MOUNT_POINT sh -c "LANG=C xdg-user-dirs-update"
+rm $MOUNT_POINT/home/pi/.config/user-dirs.locale # disable initial check of locale coincidence by xdg-user-dirs-gtk-update
 
 ## Install depending packages
 ## TODO: summarize dependencies into "control" in a deb package with contesnts of obj (${OBJDIR})and here apt should call that package.
