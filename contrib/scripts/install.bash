@@ -103,6 +103,9 @@ chroot $MOUNT_POINT apt install -y \
 fcitx-mozc i2c-tools open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001 build-essential zlib1g-dev libsdl2-dev libasound2-dev dnsutils nmap telnet nkf lirc fswebcam gimp vlc tuxtype ruby libgtk2.0-dev libglew-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libgles2-mesa-dev libegl1-mesa-dev open-jtalk open-jtalk-mecab-naist-jdic
 chroot $MOUNT_POINT su -c "cd $OBJDIR_EMU; make install"
 
+# remove APT cache
+rm -rf $MOUNT_POINT/var/lib/apt/lists/*
+
 # release resources
 umount_sysfds
 umount $MOUNT_POINT/boot
