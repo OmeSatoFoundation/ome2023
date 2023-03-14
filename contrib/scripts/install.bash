@@ -132,7 +132,6 @@ chroot $MOUNT_POINT su -c "cd $OBJDIR_EMU; make install"
 ## /usr/lib/userconf-pi/userconf calls /usr/bin/cancel-rename and then
 ## /usr/bin/cancel-rename calls raspi-config to launch a desktop.
 chroot $MOUNT_POINT /usr/lib/userconf-pi/userconf pi pi 'pi:5CSPR.F8pkaas'
-chroot $MOUNT_POINT rm /etc/xdg/autostart/piwiz.desktop
 chroot $MOUNT_POINT sh -c "echo \"[Desktop Entry]\nType=Application\nName=Select HDMI Audio\nExec=sh -c '/usr/bin/hdmi-audio-select; sudo rm /etc/xdg/autostart/hdmiaudio.desktop'\" > /etc/xdg/autostart/hdmiaudio.desktop"
 
 
