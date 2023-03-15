@@ -91,17 +91,51 @@ done
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/bin
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/local/bin
 
-# installation of material
-LOCALE_CONF="LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:en LC_CTYPE=ja_JP.UTF-8 LC_NUMERIC=ja_JP.UTF-8 LC_TIME=ja_JP.UTF-8 LC_COLLATE=ja_JP.UTF-8 LC_MONETARY=ja_JP.UTF-8 LC_MESSAGES=ja_JP.UTF-8 LC_PAPER=ja_JP.UTF-8 LC_NAME=ja_JP.UTF-8 LC_ADDRESS=ja_JP.UTF-8 LC_TELEPHONE=ja_JP.UTF-8 LC_MEASUREMENT=ja_JP.UTF-8 LC_IDENTIFICATION=ja_JP.UTF-8 LC_ALL=ja_JP.UTF-8"
 
+# Configure locales
+chroot $MOUNT_POINT sh -c 'echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen'
+chroot $MOUNT_POINT locale-gen
+chroot $MOUNT_POINT update-locale LANG=ja_JP.UTF-8 LANGUAGE=
+chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive locales
 
-chroot $MOUNT_POINT sh -c "$LOCALE_CONF apt update"
-chroot $MOUNT_POINT sh -c "apt install xdg-user-dirs-gtk ; LANG=C xdg-user-dirs-gtk-update --force"
-chroot $MOUNT_POINT su -c 'xdg-user-dirs-update' pi
+# Configure timezone
+
+chroot $MOUNT_POINT sh -c "echo \"Asia/Tokyo\" > /etc/timezone"
+chroot $MOUNT_POINT ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive tzdata
+
+# Configure keyboard
+echo '
+XKBMODEL="pc101"
+XKBLAYOUT="us"
+XKBVARIANT=""
+XKBOPTIONS=""
+
+BACKSPACE="guess"
+' > $MOUNT_POINT/etc/default/keyboard
+chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive keyboard-configuration
+
+# Package-related configuration
+chroot $MOUNT_POINT sh -c "apt update"
+
+## Use ascii directory names for user directories (e.g. $HOME/Downloads)
+chroot $MOUNT_POINT su pi -c 'LANG=C xdg-user-dirs-update'
+rm $MOUNT_POINT/home/pi/.config/user-dirs.locale # disable initial check of locale coincidence by xdg-user-dirs-gtk-update
+
+## Install depending packages
 ## TODO: summarize dependencies into "control" in a deb package with contesnts of obj (${OBJDIR})and here apt should call that package.
 chroot $MOUNT_POINT apt install -y \
 fcitx-mozc i2c-tools open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001 build-essential zlib1g-dev libsdl2-dev libasound2-dev dnsutils nmap telnet nkf lirc fswebcam gimp vlc tuxtype ruby libgtk2.0-dev libglew-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libgles2-mesa-dev libegl1-mesa-dev open-jtalk open-jtalk-mecab-naist-jdic
-chroot $MOUNT_POINT su -c "cd $OBJDIR_EMU; make install"
+# TODO: `make install` should not run under chroot; otherwise, when the host owns gawk, automake sets AWK=gawk but Raspberry Pi OS does not have gawk but awk.
+# A workaround could be to set AWK=awk but the other dependencies will potentially be broken.
+chroot $MOUNT_POINT su -c "make -C $OBJDIR_EMU AWK=awk install"
+
+# Remove the initial wizard and change pw into `raspberry`
+## /usr/lib/userconf-pi/userconf calls /usr/bin/cancel-rename and then
+## /usr/bin/cancel-rename calls raspi-config to launch a desktop.
+chroot $MOUNT_POINT /usr/lib/userconf-pi/userconf pi pi '5CSPR.F8pkaas'
+chroot $MOUNT_POINT sh -c "echo \"[Desktop Entry]\nType=Application\nName=Select HDMI Audio\nExec=sh -c '/usr/bin/hdmi-audio-select; sudo rm /etc/xdg/autostart/hdmiaudio.desktop'\" > /etc/xdg/autostart/hdmiaudio.desktop"
+
 
 # release resources
 umount_sysfds
