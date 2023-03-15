@@ -1,6 +1,15 @@
 # SUBDIRS = 01 02 03 04 05 06 07 08 dist
 SUBDIRS = contrib/
-omedatadir = $(datadir)/ome
+omedatadir = /home/pi/ome
+
+# Run
+#
+# ```
+# find 01 02 03 04 05 06 07 08 -type f | sort
+# ```
+#
+# and put the result into below `nobase_dist_omedata_DATA`
+# with newline-escapes whenever you commit new lecture materials.
 nobase_dist_omedata_DATA = \
 01/ps.png \
 01/school.jpg \
