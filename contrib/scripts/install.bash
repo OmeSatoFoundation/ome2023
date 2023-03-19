@@ -129,6 +129,7 @@ fcitx-mozc i2c-tools open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-
 # TODO: `make install` should not run under chroot; otherwise, when the host owns gawk, automake sets AWK=gawk but Raspberry Pi OS does not have gawk but awk.
 # A workaround could be to set AWK=awk but the other dependencies will potentially be broken.
 chroot $MOUNT_POINT su -c "make -C $OBJDIR_EMU AWK=awk install"
+chown -R 1000:1000 $MOUNT_POINT/home/pi/ome
 
 # Remove the initial wizard and change pw into `raspberry`
 ## /usr/lib/userconf-pi/userconf calls /usr/bin/cancel-rename and then
