@@ -25,7 +25,8 @@ WORKDIR /download
 RUN curl -L -o git-lfs.tar.gz https://github.com/git-lfs/git-lfs/releases/download/v3.2.0/git-lfs-linux-amd64-v3.2.0.tar.gz \
     && tar xvf git-lfs.tar.gz \
     && cd git-lfs-3.2.0 \
-    && ./install.sh
+    && ./install.sh \
+    && git lfs install
 
 # Install crosstools
 ## TODO: use toolchain-ng

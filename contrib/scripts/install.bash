@@ -30,6 +30,14 @@ do
     esac
 done
 
+# Check if git-lfs installed
+git lfs install
+retVal=$?
+if [ $retVal -ne 0 ]; then
+    echo "git-lfs is required but not installed. Visit https://git-lfs.com/ and install git-lfs."
+    exit 1
+fi
+
 OBJDIR=./obj # Destination where binaries, executables and the other files are cross-compiled. Supposed this script to be ran at project root ome2023/.
 OBJDIR_EMU=/ome2023
 PREFIX_EMU=/usr/local
