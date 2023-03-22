@@ -1,0 +1,4 @@
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.htsvoice filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+03/rensyu.tar.gz filter=lfs diff=lfs merge=lfs -text
