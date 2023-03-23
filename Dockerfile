@@ -56,4 +56,7 @@ RUN apt update \
     qemu-user-static \
     && rm -rf /var/lib/apt/lists
 
+# Avoid dubious ownership
+RUN git config --global --add safe.directory /work
+
 WORKDIR /work

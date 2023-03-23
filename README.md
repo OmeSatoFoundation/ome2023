@@ -18,12 +18,27 @@ git submodule update --init
 を実行する。
 
 ### Docker
+ビルドを始める前に，前回の作業用 `.img` ファイルが残っていないか確認する．
+
+```bash
+rm -f 2022-09-22-raspios-bullseye-arm64.img
+```
+
 次のコマンドを実行することで、コンテナ上で作成されたRaspberry Pi OSのイメージがローカルに置かれる。
 
 ```bash 
 docker build . -t ome2023
-docker run --rm -ti -v /dev/:/dev --privileged -v $(pwd):/work --workdir=/work ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6 && ./contrib/scripts/install.bash'
+docker run --rm -ti -v $HOME/.ssh:/root/.ssh -v /dev/:/dev --privileged -v $(pwd):/work --workdir=/work ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6 && ./contrib/scripts/install.bash'
 ```
+
+ssh 鍵にパスワードを設定している場合は，ssh-agent を起動してソケットをマウントする．
+
+```bash
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+docker run --rm -ti -v $HOME/.ssh:/root/.ssh -v /dev/:/dev --privileged -v $(pwd):/work -v --workfdir=/work -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6 && ./contrib/scripts/install.bash'
+```
+
 
 ## Modification of Lecture Materials
 ディレクトリ `01/`, `02/`, ..., `08/` に変更を加えた際には，
