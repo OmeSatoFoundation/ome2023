@@ -140,14 +140,11 @@ chroot $MOUNT_POINT apt install -y \
 fcitx-mozc i2c-tools open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001 build-essential zlib1g-dev libsdl2-dev libasound2-dev dnsutils nmap telnet nkf lirc fswebcam gimp vlc tuxtype ruby libgtk2.0-dev libglew-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libgles2-mesa-dev libegl1-mesa-dev open-jtalk open-jtalk-mecab-naist-jdic
 # TODO: `make install` should not run under chroot; otherwise, when the host owns gawk, automake sets AWK=gawk but Raspberry Pi OS does not have gawk but awk.
 # A workaround could be to set AWK=awk but the other dependencies will potentially be broken.
-chroot $MOUNT_POINT su -c "make -C $OBJDIR_EMU AWK=awk install"
-chown -R 1000:1000 $MOUNT_POINT/home/pi/ome
+make DESTDIR=$MOUNT_POINT/usr/local install
 
-# Remove the initial wizard and change pw into `raspberry`
-## /usr/lib/userconf-pi/userconf calls /usr/bin/cancel-rename and then
-## /usr/bin/cancel-rename calls raspi-config to launch a desktop.
-chroot $MOUNT_POINT /usr/lib/userconf-pi/userconf pi pi '5CSPR.F8pkaas'
-chroot $MOUNT_POINT sh -c "echo \"[Desktop Entry]\nType=Application\nName=Select HDMI Audio\nExec=sh -c '/usr/bin/hdmi-audio-select; sudo rm /etc/xdg/autostart/hdmiaudio.desktop'\" > /etc/xdg/autostart/hdmiaudio.desktop"
+# Copy material files like 01, 02, ..., 08
+chroot $MOUNT_POINT mkdir /home/ome
+cp -ar 01 02 03 04 05 06 07 08 $MOUNT_POINT/home/ome/
 
 
 # release resources

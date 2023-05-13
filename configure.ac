@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([ome2023], 0.1, [d8221101@u-aizu.ac.jp])
+AC_INIT([ome2023], 0.2, [d8221101@u-aizu.ac.jp])
 AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE
 
