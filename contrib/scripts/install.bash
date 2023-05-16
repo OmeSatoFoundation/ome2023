@@ -43,7 +43,6 @@ set -e
 git lfs pull
 
 OBJDIR=./obj # Destination where binaries, executables and the other files are cross-compiled. Supposed this script to be ran at project root ome2023/.
-OBJDIR_EMU=/ome2023
 PREFIX_EMU=/usr/local
 
 IMG_NAME=2022-09-22-raspios-bullseye-arm64.img
@@ -76,8 +75,6 @@ mkdir -p $MOUNT_POINT/boot
 mount ${DEVICE_PATH}p2 $MOUNT_POINT
 mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot
 ## mount object files which are to be stored in /usr/local.
-mkdir -p $MOUNT_POINT/$OBJDIR_EMU
-mount --bind . $MOUNT_POINT/$OBJDIR_EMU
 mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
 
 sed $MOUNT_POINT/boot/config.txt -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
@@ -103,36 +100,8 @@ done
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/bin
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/local/bin
 
-
-# Configure locales
-chroot $MOUNT_POINT sh -c 'echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen'
-chroot $MOUNT_POINT locale-gen
-chroot $MOUNT_POINT update-locale LANG=ja_JP.UTF-8 LANGUAGE=
-chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive locales
-
-# Configure timezone
-
-chroot $MOUNT_POINT sh -c "echo \"Asia/Tokyo\" > /etc/timezone"
-chroot $MOUNT_POINT ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive tzdata
-
-# Configure keyboard
-echo '
-XKBMODEL="pc101"
-XKBLAYOUT="us"
-XKBVARIANT=""
-XKBOPTIONS=""
-
-BACKSPACE="guess"
-' > $MOUNT_POINT/etc/default/keyboard
-chroot $MOUNT_POINT dpkg-reconfigure -fnoninteractive keyboard-configuration
-
 # Package-related configuration
 chroot $MOUNT_POINT sh -c "apt update"
-
-## Use ascii directory names for user directories (e.g. $HOME/Downloads)
-chroot $MOUNT_POINT su pi -c 'LANG=C xdg-user-dirs-update'
-rm $MOUNT_POINT/home/pi/.config/user-dirs.locale # disable initial check of locale coincidence by xdg-user-dirs-gtk-update
 
 ## Install depending packages
 ## TODO: summarize dependencies into "control" in a deb package with contesnts of obj (${OBJDIR})and here apt should call that package.
@@ -140,17 +109,15 @@ chroot $MOUNT_POINT apt install -y \
 fcitx-mozc i2c-tools open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001 build-essential zlib1g-dev libsdl2-dev libasound2-dev dnsutils nmap telnet nkf lirc fswebcam gimp vlc tuxtype ruby libgtk2.0-dev libglew-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libgles2-mesa-dev libegl1-mesa-dev open-jtalk open-jtalk-mecab-naist-jdic
 make DESTDIR=$(realpath $MOUNT_POINT) install
 
-# Remove the initial wizard and change pw into `raspberry`
-## /usr/lib/userconf-pi/userconf calls /usr/bin/cancel-rename and then
-## /usr/bin/cancel-rename calls raspi-config to launch a desktop.
-chroot $MOUNT_POINT /usr/lib/userconf-pi/userconf pi pi '5CSPR.F8pkaas'
-chroot $MOUNT_POINT sh -c "echo \"[Desktop Entry]\nType=Application\nName=Select HDMI Audio\nExec=sh -c '/usr/bin/hdmi-audio-select; sudo rm /etc/xdg/autostart/hdmiaudio.desktop'\" > /etc/xdg/autostart/hdmiaudio.desktop"
-
+# Place .config/user-dirs.locale with ja_JP in /etc/skel to supress locale-inconsistent dialogue.
+## piwiz creates a new user by moving the default user pi: `usermod -m -d "/home/$NEWNAME" "$NEWNAME"`.
+## as in userconf-pi/userconf.
+mkdir -p /home/pi/.config
+echo "ja_JP" > /home/pi/.config/user-dirs.locale
 
 # release resources
 umount_sysfds
 umount $MOUNT_POINT/boot
-umount $MOUNT_POINT/$OBJDIR_EMU
 umount $MOUNT_POINT/etc/resolv.conf
 umount $MOUNT_POINT
 
