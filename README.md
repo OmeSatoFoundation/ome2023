@@ -28,7 +28,7 @@ rm -f 2022-09-22-raspios-bullseye-arm64.img
 
 ```bash 
 docker build . -t ome2023
-docker run --rm -ti -v $HOME/.ssh:/root/.ssh -v /dev/:/dev --privileged -v $(pwd):/work --workdir=/work ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6 && ./contrib/scripts/install.bash'
+docker run --rm -ti -v $HOME/.ssh:/root/.ssh -v /dev/:/dev --privileged -v $(pwd):/work --workdir=/work ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6 && ./contrib/scripts/install.bash -f'
 ```
 
 ssh 鍵にパスワードを設定している場合は，ssh-agent を起動してソケットをマウントする．
@@ -36,7 +36,7 @@ ssh 鍵にパスワードを設定している場合は，ssh-agent を起動し
 ```bash
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa
-docker run --rm -ti -v $HOME/.ssh:/root/.ssh -v /dev/:/dev --privileged -v $(pwd):/work -v --workfdir=/work -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6 && ./contrib/scripts/install.bash'
+docker run --rm -ti -v $HOME/.ssh:/root/.ssh -v /dev/:/dev --privileged -v $(pwd):/work -v --workfdir=/work -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6 && ./contrib/scripts/install.bash -f'
 ```
 
 
