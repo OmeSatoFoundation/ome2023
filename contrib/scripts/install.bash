@@ -112,6 +112,7 @@ make DESTDIR=$(realpath $MOUNT_POINT) install
 # Place .config/user-dirs.locale with ja_JP in /etc/skel to supress locale-inconsistent dialogue.
 ## piwiz creates a new user by moving the default user pi: `usermod -m -d "/home/$NEWNAME" "$NEWNAME"`.
 ## as in userconf-pi/userconf.
+chroot $MOUNT_POINT su pi -c 'LANG=C xdg-user-dirs-update'
 mkdir -p /home/pi/.config
 echo "ja_JP" > /home/pi/.config/user-dirs.locale
 
