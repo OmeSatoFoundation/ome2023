@@ -116,6 +116,9 @@ chroot $MOUNT_POINT su pi -c 'LANG=C xdg-user-dirs-update'
 mkdir -p /home/pi/.config
 echo "ja_JP" > /home/pi/.config/user-dirs.locale
 
+#Set the default color of the UI to the blue same as the previous environment(Raspios-bullseye's default is gray)
+chroot $MOUNT_POINT sed -i 's/@define-color theme_selected_bg_color #....../@define-color theme_selected_bg_color #1C71D8/g' /usr/share/themes/PiXflat/gtk-3.0/gtk-contained.css
+
 # release resources
 umount_sysfds
 umount $MOUNT_POINT/boot
