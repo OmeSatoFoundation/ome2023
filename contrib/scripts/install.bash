@@ -84,7 +84,7 @@ MOUNT_SYSFD_SRCS=("proc" "sysfs" "devtmpfs" "tmpfs" "devpts")
 
 umount_sysfds () {
     for (( i=0; i<${#MOUNT_SYSFD_TARGETS[@]}; i++ )); do
-        umount ${MOUNT_SYSFD_TARGETS[$i]} || /bin/true
+        umount -f -l ${MOUNT_SYSFD_TARGETS[$i]} || /bin/true
     done
 }
 
@@ -127,9 +127,9 @@ chroot $MOUNT_POINT raspi-config nonint do_i2c 0
 
 # release resources
 umount_sysfds
-umount $MOUNT_POINT/boot
-umount $MOUNT_POINT/etc/resolv.conf
-umount $MOUNT_POINT
+umount -f -l $MOUNT_POINT/boot
+umount -f -l $MOUNT_POINT/etc/resolv.conf
+umount -f -l $MOUNT_POINT
 
 # Truncate filesystem and partition
 if [ $RESIZE2FS_FORCE ]; then
