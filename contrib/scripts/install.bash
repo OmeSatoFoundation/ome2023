@@ -79,22 +79,18 @@ mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
 
 sed $MOUNT_POINT/boot/config.txt -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
 
-MOUNT_SYSFD_TARGETS="$MOUNT_POINT/proc $MOUNT_POINT/sys $MOUNT_POINT/dev $MOUNT_POINT/dev/shm $MOUNT_POINT/dev/pts"
-MOUNT_SYSFD_SRCS="proc sysfs devtmpfs tmpfs devpts"
+MOUNT_SYSFD_TARGETS=("$MOUNT_POINT/proc" "$MOUNT_POINT/sys" "$MOUNT_POINT/dev" "$MOUNT_POINT/dev/shm" "$MOUNT_POINT/dev/pts")
+MOUNT_SYSFD_SRCS=("proc" "sysfs" "devtmpfs" "tmpfs" "devpts")
 
 umount_sysfds () {
-    for i in $(echo $MOUNT_SYSFD_SRCS | wc -w); do
-        SRC=$(echo $MOUNT_SYSFD_SRCS | cut -d " " -f $i)
-        TARGET=$(echo $MOUNT_SYSFD_TARGETS | cut -d " " -f $i)
-        umount $TARGET || /bin/true
+    for (( i=0; i<${#MOUNT_SYSFD_TARGETS[@]}; i++ )); do
+        umount ${MOUNT_SYSFD_TARGETS[$i]} || /bin/true
     done
 }
 
 ## mount sysfd
-for i in $(echo $MOUNT_SYSFD_SRCS | wc -w); do
-    SRC=$(echo $MOUNT_SYSFD_SRCS | cut -d " " -f $i)
-    TARGET=$(echo $MOUNT_SYSFD_TARGETS | cut -d " " -f $i)
-    mount -t $SRC $SRC $TARGET
+for (( i=0; i<${#MOUNT_SYSFD_TARGETS[@]}; i++ )); do
+    mount -t ${MOUNT_SYSFD_SRCS[$i]} ${MOUNT_SYSFD_SRCS[$i]} ${MOUNT_SYSFD_TARGETS[$i]}
 done
 
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/bin
