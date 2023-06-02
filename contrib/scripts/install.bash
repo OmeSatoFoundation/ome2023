@@ -116,6 +116,19 @@ chroot $MOUNT_POINT su pi -c 'LANG=C xdg-user-dirs-update'
 mkdir -p /home/pi/.config
 echo "ja_JP" > /home/pi/.config/user-dirs.locale
 
+# Enable I2C and SPI before the initial boot.
+## How to find raspi-config usage:
+## Get its latest source code at https://github.com/RPi-Distro/raspi-config/blob/master/raspi-config
+## or reproductive one at https://github.com/RPi-Distro/raspi-config/blob/408bde537671de6df2d9b91564e67132f98ffa71/raspi-config
+## Then find the command-line entrypoint. It's 2913rd line at the permalink.
+## The positional parameter `nonint` takes following parameter and `raspi-config` the rest by running `"$@"`.
+## You can run arbitrary shell commands here; Typically, you want tu run functions defined in `raspi-config`
+## e.g. do_spi. The shell function `do_spi` takes another parameter 0 or 1 that indicates if the script enables or
+## disables SPI functionality. As well as ordinary shell script, you can pass the argument after a space character following
+## `do_spi`.
+chroot $MOUNT_POINT raspi-config nonint do_spi 0
+chroot $MOUNT_POINT raspi-config nonint do_i2c 0
+
 # release resources
 umount_sysfds
 umount $MOUNT_POINT/boot
