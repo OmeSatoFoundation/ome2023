@@ -122,6 +122,13 @@ echo "ja_JP" > /home/pi/.config/user-dirs.locale
 ## e.g. do_spi. The shell function `do_spi` takes another parameter 0 or 1 that indicates if the script enables or
 ## disables SPI functionality. As well as ordinary shell script, you can pass the argument after a space character following
 ## `do_spi`.
+##
+## `dtparam` command and `modprobe` command in `raspi-config` raise errors but you can ignore them
+## because they just cannot access the device tree, etc. These hardware-affecting commands will (might) run
+## at later launch on an atcual hardware.
+## TODO:
+## >  wrote all the steps normally done through raspi-config
+## https://github.com/RPi-Distro/raspi-config/issues/120#issuecomment-1445825945
 chroot $MOUNT_POINT raspi-config nonint do_spi 0
 chroot $MOUNT_POINT raspi-config nonint do_i2c 0
 
