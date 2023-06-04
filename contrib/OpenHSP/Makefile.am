@@ -28,8 +28,8 @@ install-openhsp-helpmes: $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX) $(addprefix $(OPE
 	echo $(INSTALL) -D -t "$(DESTDIR)$(bindir)" $(OPENHSPHELPMES_AX) ; $(INSTALL) -D -t "$(DESTDIR)$(bindir)" $(OPENHSPHELPMES_AX)
 	@cd $(OPENHSPSRCDIR) ;\
 	list=$$(find $(OPENHSPHELPMESDATA) -type f) ;\
-	for file in $$list; do echo $(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)" ;\
-	$(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)"; done
+	for file in $$list; do echo $(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)/$$file";\
+	$(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)/$$file"; done
 
 
 install-openhsp-manual: $(shell find $(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPMANUALTARGETS)) -type f)
