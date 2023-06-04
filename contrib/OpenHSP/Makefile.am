@@ -27,7 +27,6 @@ install-openhsp-helpmes: $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX)
 	$(INSTALL) -D -t "$(DESTDIR)$(bindir)" $(OPENHSPHELPMES_AX)
 
 install-openhsp-manual: $(addprefix $(OPENHSPSRCDIR)/, $(shell find $(OPENHSPMANUALTARGETS) -type f))
-	$(INSTALL_DATA) -d "$(DESTDIR)$(openhspdatadir)"
 	cd $(OPENHSPSRCDIR); \
 	find $(OPENHSPMANUALTARGETS) -type f -exec $(INSTALL_DATA) -D "{}" "$(DESTDIR)$(openhspdatadir)/{}" \;
 
