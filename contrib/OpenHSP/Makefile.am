@@ -8,6 +8,7 @@ OPENHSPTARGETS = hsp3dish hsp3cl hspcmp hsed ipaexg.ttf
 OPENHSPMANUALTARGETS = doclib hsptv sample index.htm index_en.htm main.css single.css
 OPENHSPHELPMES_SRC = hspsdk/hsphelp/helpmes.hsp
 OPENHSPHELPMES_AX = $(OPENHSPHELPMES_SRC:.hsp=.ax)
+OPENHSPHELPMESDATA = hsphelp hsphelp_en hsp3gp
 
 # Build helpmes.hsp to enable `hsed` to run helpmes.ax.
 # CAUTION: when cross-compiled, the binary format of `hspcmp` is that of the target.
@@ -21,13 +22,17 @@ $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX): $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_SRC) $(
 $(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPTARGETS)):
 	cd $(OPENHSPSRCDIR) && $(MAKE) PKG_CONFIG=$(PKG_CONFIG) CC=$(CC) CXX=$(CXX) $(AM_MAKEFLAGS) all
 
-install-openhsp-helpmes: $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX)
+install-openhsp-helpmes: $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX) $(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPHELPMESDATA))
 	$(INSTALL) -d "$(DESTDIR)$(bindir)"
-	cd $(OPENHSPSRCDIR) ;\
-	$(INSTALL) -D -t "$(DESTDIR)$(bindir)" $(OPENHSPHELPMES_AX)
+	@cd $(OPENHSPSRCDIR) ;\
+	echo $(INSTALL) -D -t "$(DESTDIR)$(bindir)" $(OPENHSPHELPMES_AX) ; $(INSTALL) -D -t "$(DESTDIR)$(bindir)" $(OPENHSPHELPMES_AX)
+	@cd $(OPENHSPSRCDIR) ;\
+	list=$$(find $(OPENHSPHELPMESDATA) -type f) ;\
+	for file in $$list; do echo $(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)" ;\
+	$(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)"; done
+
 
 install-openhsp-manual: $(shell find $(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPMANUALTARGETS)) -type f)
-	$(INSTALL_DATA) -d "$(DESTDIR)$(openhspdatadir)"
 	cd $(OPENHSPSRCDIR); \
 	find $(OPENHSPMANUALTARGETS) -type f -exec $(INSTALL_DATA) -D "{}" "$(DESTDIR)$(openhspdatadir)/{}" \;
 
