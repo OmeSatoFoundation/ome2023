@@ -7,6 +7,9 @@ OPENHSPSRCDIR = OpenHSP
 OPENHSPTARGETS = hsp3dish hsp3cl hspcmp hsed ipaexg.ttf
 OPENHSPMANUALTARGETS = doclib hsptv sample index.htm index_en.htm main.css single.css
 OPENHSPHELPMES_SRC = hspsdk/hsphelp/helpmes.hsp
+
+# TODO: use a primary of _SCRIPTS to build helpmes.hsp and use that of _DATA
+# to install $(OPENHSPHELPMESDATA).
 OPENHSPHELPMES_AX = $(OPENHSPHELPMES_SRC:.hsp=.ax)
 OPENHSPHELPMESDATA = hsphelp hsphelp_en hsp3gp
 
