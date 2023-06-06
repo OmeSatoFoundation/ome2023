@@ -79,22 +79,18 @@ mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
 
 sed $MOUNT_POINT/boot/config.txt -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
 
-MOUNT_SYSFD_TARGETS="$MOUNT_POINT/proc $MOUNT_POINT/sys $MOUNT_POINT/dev $MOUNT_POINT/dev/shm $MOUNT_POINT/dev/pts"
-MOUNT_SYSFD_SRCS="proc sysfs devtmpfs tmpfs devpts"
+MOUNT_SYSFD_TARGETS=("$MOUNT_POINT/proc" "$MOUNT_POINT/sys" "$MOUNT_POINT/dev" "$MOUNT_POINT/dev/shm" "$MOUNT_POINT/dev/pts")
+MOUNT_SYSFD_SRCS=("proc" "sysfs" "devtmpfs" "tmpfs" "devpts")
 
 umount_sysfds () {
-    for i in $(echo $MOUNT_SYSFD_SRCS | wc -w); do
-        SRC=$(echo $MOUNT_SYSFD_SRCS | cut -d " " -f $i)
-        TARGET=$(echo $MOUNT_SYSFD_TARGETS | cut -d " " -f $i)
-        umount $TARGET || /bin/true
+    for (( i=0; i<${#MOUNT_SYSFD_TARGETS[@]}; i++ )); do
+        umount -f -l ${MOUNT_SYSFD_TARGETS[$i]} || /bin/true
     done
 }
 
 ## mount sysfd
-for i in $(echo $MOUNT_SYSFD_SRCS | wc -w); do
-    SRC=$(echo $MOUNT_SYSFD_SRCS | cut -d " " -f $i)
-    TARGET=$(echo $MOUNT_SYSFD_TARGETS | cut -d " " -f $i)
-    mount -t $SRC $SRC $TARGET
+for (( i=0; i<${#MOUNT_SYSFD_TARGETS[@]}; i++ )); do
+    mount -t ${MOUNT_SYSFD_SRCS[$i]} ${MOUNT_SYSFD_SRCS[$i]} ${MOUNT_SYSFD_TARGETS[$i]}
 done
 
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/bin
@@ -116,11 +112,31 @@ chroot $MOUNT_POINT su pi -c 'LANG=C xdg-user-dirs-update'
 mkdir -p /home/pi/.config
 echo "ja_JP" > /home/pi/.config/user-dirs.locale
 
+# Enable I2C and SPI before the initial boot.
+## How to find raspi-config usage:
+## Get its latest source code at https://github.com/RPi-Distro/raspi-config/blob/master/raspi-config
+## or reproductive one at https://github.com/RPi-Distro/raspi-config/blob/408bde537671de6df2d9b91564e67132f98ffa71/raspi-config
+## Then find the command-line entrypoint. It's 2913rd line at the permalink.
+## The positional parameter `nonint` takes following parameter and `raspi-config` the rest by running `"$@"`.
+## You can run arbitrary shell commands here; Typically, you want tu run functions defined in `raspi-config`
+## e.g. do_spi. The shell function `do_spi` takes another parameter 0 or 1 that indicates if the script enables or
+## disables SPI functionality. As well as ordinary shell script, you can pass the argument after a space character following
+## `do_spi`.
+##
+## `dtparam` command and `modprobe` command in `raspi-config` raise errors but you can ignore them
+## because they just cannot access the device tree, etc. These hardware-affecting commands will (might) run
+## at later launch on an atcual hardware.
+## TODO:
+## >  wrote all the steps normally done through raspi-config
+## https://github.com/RPi-Distro/raspi-config/issues/120#issuecomment-1445825945
+chroot $MOUNT_POINT raspi-config nonint do_spi 0
+chroot $MOUNT_POINT raspi-config nonint do_i2c 0
+
 # release resources
 umount_sysfds
-umount $MOUNT_POINT/boot
-umount $MOUNT_POINT/etc/resolv.conf
-umount $MOUNT_POINT
+umount -f -l $MOUNT_POINT/boot
+umount -f -l $MOUNT_POINT/etc/resolv.conf
+umount -f -l $MOUNT_POINT
 
 # Truncate filesystem and partition
 if [ $RESIZE2FS_FORCE ]; then
