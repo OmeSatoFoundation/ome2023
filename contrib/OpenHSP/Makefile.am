@@ -71,7 +71,7 @@ install-data-local:
 
 install-data-hook:
 	cd "$(DESTDIR)$(bindir)" && \
-	$(LN_S) "$(DESTDIR)$(openhspdatadir)/hsptv" .
+	$(LN_S) "$(openhspdatadir)/hsptv" .
 
 uninstall-local:
 	@list='$(OPENHSPTARGETS)'; \
