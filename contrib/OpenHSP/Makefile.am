@@ -66,6 +66,10 @@ install-data-local:
 	sed -i "s:/usr/share/pixmaps:$(PIXMAPS):g;s:/home/pi/OpenHSP:$(bindir):g" $(APPLICATIONS_INSTALL)/hsed.desktop
 	sh -c 'cd $(OPENHSPSRCDIR) && find common -type f -exec $(INSTALL_DATA) -D "{}" "$(DESTDIR)$(bindir)/{}" \;'
 
+install-data-hook:
+	cd "$(DESTDIR)$(bindir)" && \
+	$(LN_S) "$(DESTDIR)$(openhspdatadir)/hsptv" .
+
 uninstall-local:
 	@list='$(OPENHSPTARGETS)'; \
 	for file in $$list; do echo "rm -rf $(DESTDIR)$(bindir)/$$file"; rm -rf "$(DESTDIR)$(bindir)/$$file" || /bin/true; done
