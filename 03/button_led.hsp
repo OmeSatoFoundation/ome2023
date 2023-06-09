@@ -10,5 +10,5 @@
 *led
 	btn1 = gpioin(5)
 	if btn1==0 : gpio 18, 1 : else : gpio 18, 0
-	await 10
+	wait 10
 	goto *led
