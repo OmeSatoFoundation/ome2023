@@ -9,7 +9,7 @@
 
 *led
 	gpio 17, 1
-	await 100
+	wait 100
 	goto *led
 
 	gpio 17, 0
