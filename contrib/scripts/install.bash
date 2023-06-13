@@ -132,6 +132,18 @@ echo "ja_JP" > /home/pi/.config/user-dirs.locale
 chroot $MOUNT_POINT raspi-config nonint do_spi 0
 chroot $MOUNT_POINT raspi-config nonint do_i2c 0
 
+# Disable automatic package index refresh by unattended-upgrades.
+## For what it should be to, refer what postrm in unattended-upgrades does
+## https://github.com/mvo5/unattended-upgrades/blob/master/debian/postrm
+## and what apt installs, which are related to the automatic upgrade.
+cat <<EEOF >> $MOUNT_POINT/etc/apt/apt.conf.d/20auto-upgrades
+APT::Periodic::Update-Package-Lists "0";
+APT::Periodic::Unattended-Upgrade "0";
+APT::Periodic::Enable "0";
+EEOF
+rm $MOUNT_POINT/etc/systemd/system/timers.target.wants/apt-daily-upgrade.timer
+rm $MOUNT_POINT/etc/systemd/system/timers.target.wants/apt-daily.timer
+
 # release resources
 umount_sysfds
 umount -f -l $MOUNT_POINT/boot
