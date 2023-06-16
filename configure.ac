@@ -35,7 +35,7 @@ AC_CONFIG_FILES([Makefile
                  contrib/FaBo/Makefile
                  contrib/JuliusMisc/Makefile
                  contrib/IR/Makefile
-                 contrib/OpenJTalk/Makefile]
+                 contrib/OpenJTalk/Makefile
                  contrib/WebServer/Makefile])
 AC_CONFIG_SUBDIRS([contrib/Dictationkit])
 AX_SUBDIRS_CONFIGURE([contrib/Julius],
