@@ -6,7 +6,7 @@ pos 0, 0
 mes "Loading Julius..."
 redraw 1
 
-init_julius "/home/pi/ome/06/kudamono.dic"
+init_julius "kudamono.dic"
 
 sockidx = 0
 domain = "127.0.0.1"
