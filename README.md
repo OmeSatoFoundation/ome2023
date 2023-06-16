@@ -1,5 +1,7 @@
 # IT未来塾講義用 Raspberry Pi OS
 ## Prerequisites
+- qemu-aarch64-static と適当な binfmt 設定
+    - debian 系なら `apt install qemu-user-static`
 - Docker Desktop Server https://docs.docker.com/engine/install/ (Desktop でもおそらく可)
 
 ## Image Build
@@ -24,19 +26,12 @@ git submodule update --init
 rm -f 2022-09-22-raspios-bullseye-arm64.img
 ```
 
-次のコマンドを実行することで、コンテナ上で作成されたRaspberry Pi OSのイメージがローカルに置かれる。
-
-```bash 
-docker build . -t ome2023
-docker run --rm -ti -v $HOME/.ssh:/root/.ssh -v /dev/:/dev --privileged -v $(pwd):/work --workdir=/work ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6 && ./contrib/scripts/install.bash -f'
-```
-
-ssh 鍵にパスワードを設定している場合は，ssh-agent を起動してソケットをマウントする．
+ssh 鍵の登録をし，コンテナでスクリプトを実行することで Raspberry Pi OS のイメージが現在時刻付きのファイル名とともにホストのカレントディレクトリに生成される．
 
 ```bash
 eval $(ssh-agent -s)
-ssh-add ~/.ssh/id_rsa
-docker run --rm -ti -v $HOME/.ssh:/root/.ssh -v /dev/:/dev --privileged -v $(pwd):/work -v --workfdir=/work -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j6 && ./contrib/scripts/install.bash -f'
+ssh-add ~/.ssh/id_rsa  # or any key you registers in github.com.
+docker run --rm -ti -v /dev/:/dev --privileged -v $(pwd):/work -v --workfdir=/work -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j$(nproc) && ./contrib/scripts/install.bash -f'
 ```
 
 
