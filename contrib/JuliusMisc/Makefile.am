@@ -1,7 +1,7 @@
 bin_SCRIPTS = convert_yomi.sh julius.sh julius_daemon.sh stopjulius.sh
 
 bindatadir = $(bindir)
-bindata_DATA = \
+nobase_bindata_DATA = \
 	julius_conf/default.jconf \
 	julius_conf/model/lang_m/bccwj.60k.htkdic \
    	julius_conf/model/phone_m/jnas-tri-3k16-gid.binhmm \
