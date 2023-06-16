@@ -477,9 +477,9 @@
 ; arguments, and return value are the same with gpio, gpioin
 #deffunc cgpio int _p1, int _p2
     if (_p2 = 0){
-        exec "raspi-gpio set " + _p1 + " op pn dh"
-    }else{
         exec "raspi-gpio set " + _p1 + " op pn dl"
+    }else{
+        exec "raspi-gpio set " + _p1 + " op pn dh"
     }
     return
 #defcfunc cgpioin int _p1
