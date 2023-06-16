@@ -476,12 +476,15 @@
 ; to retain value in gpio ports, these two functions are useful
 ; arguments, and return value are the same with gpio, gpioin
 #deffunc cgpio int _p1, int _p2
-    exec "gpio -g mode " + _p1 + " out"
-    exec "gpio -g write " + _p1 + " " + _p2
-    return 
+    if (_p2 = 0){
+        exec "raspi-gpio set " + _p1 + " op pn dh"
+    }else{
+        exec "raspi-gpio set " + _p1 + " op pn dl"
+    }
+    return
 #defcfunc cgpioin int _p1
-    exec "gpio -g mode " + _p1 + " out"
-    cmdexec "gpio -g read " + _p1, s
+    exec "raspi-gpio set " + _p1 + "pu"
+    cmdexec "raspi-gpio get " + _p1 + " | grep -o 'level=[01]' | sed 's/level=//g'", s
     return int(s)
 
 #global
