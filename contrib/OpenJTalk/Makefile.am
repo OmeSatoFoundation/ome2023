@@ -10,6 +10,6 @@ voices/htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice
 
 
 hspcommondir = $(bindir)/common
-hspcommon_DATA = jtalk.as ../cmdexec.as
+hspcommon_DATA = jtalk.as
 
 #TODO: hspcommondir should be at /usr/share/hsp but edit on hsed required to do so.
