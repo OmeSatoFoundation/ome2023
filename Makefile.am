@@ -264,5 +264,4 @@ nobase_dist_omedata_DATA = \
 08/www/cgi-bin/ascii_table.hsp \
 08/www/index.html \
 08/www/webserver.py \
-08/zipcode.hsp \
-08/template.html
+08/zipcode.hsp
