@@ -1,0 +1,15 @@
+-v ./model/lang_m/bccwj.60k.htkdic
+-h ./model/phone_m/jnas-tri-3k16-gid.binhmm
+-hlist ./model/phone_m/logicalTri
+-lmp 8.0 -2.0
+-lmp2 8.0 -2.0
+-b 1500
+-b2 100
+-s 500
+-m 10000
+-n 30
+-output 1
+-input mic
+-zmeanframe
+-rejectshort 200
+-charconv EUC-JP UTF-8

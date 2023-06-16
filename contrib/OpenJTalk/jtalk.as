@@ -14,7 +14,7 @@
     return
 
   #deffunc setvoice str _voice_name
-    voice_name = "/home/pi/ome/bin/openjtalk/voices/" + _voice_name
+    voice_name = _voice_name
     return
   #deffunc jtsave str sentence, var file
     creattmp output_path

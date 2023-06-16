@@ -30,6 +30,7 @@ PKG_PROG_PKG_CONFIG
 AC_CONFIG_FILES([Makefile
                  contrib/Makefile
                  contrib/OpenHSP/Makefile
+                 contrib/OpenHSPUtil/Makefile
                  contrib/FaBo/Makefile
                  contrib/JuliusMisc/Makefile
                  contrib/IR/Makefile
