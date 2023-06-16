@@ -1,5 +1,5 @@
 JULIUS_DIR = Julius
-SUBDIRS = Dictationkit OpenHSP OpenHSPUtil FaBo JuliusMisc IR OpenJTalk
+SUBDIRS = Dictationkit HTMLParse OpenHSP OpenHSPUtil FaBo JuliusMisc IR OpenJTalk WebServer
 
 all-local:
 	cd $(JULIUS_DIR) && $(MAKE) prefix=$(DESTDIR)$(prefix) $(AM_MAKEFLAGS) all
