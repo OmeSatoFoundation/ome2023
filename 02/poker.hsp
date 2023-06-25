@@ -7,7 +7,6 @@
 	celdiv ui,90,24
 	celload "trump.png",3
 	csx=96:csy=128
-	screen 0,640,480
 	gosub *creset
 	sdim ylist,1024
 	dim ybai,16

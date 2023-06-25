@@ -67,16 +67,16 @@ class EROLED096:
 
     # Show Bitmap
     def showBitmap(self):
-        for i in xrange(8): # row/height/page
+        for i in range(8): # row/height/page
             self.setAddress(i,0,127)
-            for j in xrange(128): # column
+            for j in range(128): # column
                 self.writeData(BMP[(i*128)+j])
 
     ## Clear Screen
     def clear(self):
-        for i in xrange(8): # row/height/page
+        for i in range(8): # row/height/page
             self.setAddress(i,0,127)
-            for j in xrange(128): # column
+            for j in range(128): # column
                 self.writeData(0x00)  # clear
         self.home()
 
@@ -121,14 +121,14 @@ class EROLED096:
     ## Write String Data
     #  @param [in] data string ,number, list Output data
     def write(self, data):
-        if isinstance(data, (int, long, float)):
+        if isinstance(data, ((int, float))):
             out_str = str(data)
         else:
             out_str = data
 
         for chr in out_str:
 
-            if isinstance(chr, (int, long, float)):
+            if isinstance(chr, ((int, float))):
                 out_chr = str(chr)
             else:
                 out_chr = chr
@@ -144,7 +144,7 @@ class EROLED096:
                 self.setAddress(self.cur_y, self.cur_x+8, self.cur_x+8+8-1)
                 self.writeData(0x00)
                 self.writeData(0x00)
-                for i in xrange(5):
+                for i in range(5):
                     self.writeData( FONT[(value*5)+i])
                 self.writeData( 0x00 )
             else:

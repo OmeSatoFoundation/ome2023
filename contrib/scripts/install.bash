@@ -30,6 +30,10 @@ do
     esac
 done
 
+# add github fingerprint
+mkdir -p /root/.ssh/ || /bin/true
+echo "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl" >> /root/.ssh/known_hosts
+
 # Check if git-lfs installed
 set +e
 git lfs install
@@ -137,6 +141,9 @@ sed -i -e "s/#dtoverlay=gpio-ir,gpio_pin=17/dtoverlay=gpio-ir,gpio_pin=4/g" $MOU
 sed -i -e "s/#dtoverlay=gpio-ir-tx,gpio_pin=18/dtoverlay=gpio-ir-tx,gpio_pin=13/g" $MOUNT_POINT/boot/config.txt
 sed -i -e "s/driver *= *devinput/driver = default/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
+
+# A WORKAROUND to put executable on webserver.py
+chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/local/share/ome/08/www/webserver.py
 
 # release resources
 umount_sysfds

@@ -882,7 +882,7 @@ def executable(path):
         return False
     if(path[-4:] == '.hsp'):
         try:
-            subprocess.check_output('hspcmp -i -u --compath=/home/pi/ome/bin/common/ ' + path, shell=True)
+            subprocess.check_output('hspcmp -i -u --compath=/usr/local/bin/common/ ' + path, shell=True)
         except subprocess.CalledProcessError as e:
             print(e.cmd)
             print(e.output)
@@ -1100,9 +1100,9 @@ class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
                 os.dup2(self.rfile.fileno(), 0)
                 os.dup2(self.wfile.fileno(), 1)
                 if(scriptfile[-3:] == '.ax'):
-                    os.execve('/home/pi/ome/bin/hsp3cl', ['hsp3cl', scriptfile], env)
+                    os.execve('/usr/local/bin/hsp3cl', ['hsp3cl', scriptfile], env)
                 elif(scriptfile[-4:] == '.hsp'):
-                    os.execve('/home/pi/ome/bin/hsp3cl', ['hsp3cl', scriptfile[:-4] + '.ax'], env)
+                    os.execve('/usr/local/bin/hsp3cl', ['hsp3cl', scriptfile[:-4] + '.ax'], env)
                 else:
                     os.execve(scriptfile, args, env)
             except:
