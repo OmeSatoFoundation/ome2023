@@ -26,6 +26,6 @@
     }
     ; ../tmp/tmp.??????
     ; CGI用
-    file = "../" + output_path
+    file = output_path
     return 
 #global
