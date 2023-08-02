@@ -1,25 +1,30 @@
 #include "hsp3dish.as"
 #include "rpz-gpio.as"
 
-	redraw 0
-	font "",30
-	pos 20,20
-	mes "赤いボタンを押して、LEDをつけたり消したりできるよ"
-	redraw 1
+gpio 17, 0
+gpio 18, 0
+gpio 22, 0
+gpio 27, 0
 
-	ima_btn = 1
-	mae_btn = 1
-	led = 1
+redraw 0
+font "",30
+pos 20,20
+mes "赤いボタンを押して、LEDをつけたり消したりできるよ"
+redraw 1
+
+ima_btn = 1
+mae_btn = 1
+led = 1
 
 *hata
 	ima_btn = gpioin(5)
-	if ima_btn=0{
-	    if mae_btn = 1 {
-	        gpio 22, led
-	    	led = 1 - led
-	    }
+	if ima_btn = 0 {
+		if mae_btn = 1 {
+		led = 1 - led
+		}
 	}
+	gpio 22, led
 	mae_btn = ima_btn
 
-	wait 10
+	await 10
 	goto *hata
