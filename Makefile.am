@@ -251,6 +251,7 @@ nobase_dist_omedata_DATA = \
 07/www/webserver.py \
 08/amedas.hsp \
 08/amedas_led.hsp \
+08/ascii_table.html \
 08/eki.hsp \
 08/friend.hsp \
 08/.gitignore \
@@ -260,7 +261,6 @@ nobase_dist_omedata_DATA = \
 08/tv.hsp \
 08/weblio.hsp \
 08/wikipedia.hsp \
-08/www/ascii_table.html \
 08/www/cgi-bin/ascii_table.hsp \
 08/www/index.html \
 08/www/webserver.py \
