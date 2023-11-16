@@ -10,11 +10,11 @@
 	goto *digital_off
         
 *digital_on
-	gpio 17, 1
+	gpio 23, 1
 	wait 10
 	goto *main
 
 *digital_off
-	gpio 17, 0
+	gpio 23, 0
 	wait 10
 	goto *main 
