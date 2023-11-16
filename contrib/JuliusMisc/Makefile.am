@@ -1,3 +1,4 @@
+# yomi2voca.pl will be installed from the original Julius repository.
 bin_SCRIPTS = convert_yomi.sh julius.sh julius_daemon.sh stopjulius.sh
 
 bindatadir = $(bindir)

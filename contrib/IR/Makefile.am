@@ -1,1 +1,1 @@
-bin_SCRIPTS = convert_pattern yomi2voca.pl
+bin_SCRIPTS = convert_pattern
