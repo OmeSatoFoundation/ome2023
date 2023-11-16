@@ -1,0 +1,2 @@
+#! /bin/sh
+julius -C {{DICTDATADIR}}/julius_conf/main.jconf -C {{DICTDATADIR}}/julius_conf/am-gmm.jconf -demo $*

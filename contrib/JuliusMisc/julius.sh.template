@@ -1,6 +1,4 @@
 #! /bin/sh
-SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
-
 usage_exit() {
 echo "Usage: $0 <dictionary file name>"
 exit 1
@@ -12,4 +10,5 @@ fi
 
 DIC_FILE=$1
 
-julius -w $DIC_FILE -quiet -C $SCRIPT_DIR/julius_conf/default.jconf
+# {{DICTDATADIR}} is replaced by Makefile.am.
+julius -w $DIC_FILE -quiet -C {{DICTDATADIR}}/default.jconf
