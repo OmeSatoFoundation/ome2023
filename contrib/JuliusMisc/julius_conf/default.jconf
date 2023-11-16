@@ -12,4 +12,3 @@
 -input mic
 -zmeanframe
 -rejectshort 200
--charconv EUC-JP UTF-8
