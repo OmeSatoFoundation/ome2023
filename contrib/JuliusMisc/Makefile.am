@@ -15,6 +15,7 @@ dictdir = $(datadir)/dict
 
 bin_SCRIPTS = convert_yomi.sh julius.sh julius_daemon.sh stopjulius.sh
 dict_DATA = julius_conf/default.jconf
+CLEANFILES = $(bin_SCRIPTS) $(dict_DATA)
 %: %.template
 	sed 's;{{DICTDATADIR}};$(dictdir);g' $< > $@
 

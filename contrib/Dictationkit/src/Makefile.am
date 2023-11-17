@@ -26,7 +26,7 @@ phonemdata_DATA = \
 	dictation-kit/model/phone_m/logicalTri-3k16-gid.bin \
 	dictation-kit/model/phone_m/logicalTri
 
-CLEANFILES = 
+CLEANFILES = $(bin_SCRIPTS) $(JCONF)
 
 ############################################################
 # Custom rules
