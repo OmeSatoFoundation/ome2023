@@ -1,0 +1,16 @@
+##
+## dictation-kit GMM-HMM configuration
+##
+
+# GMM-HMM
+-h {{DICTDATADIR}}/model/phone_m/jnas-tri-3k16-gid.binhmm
+-hlist {{DICTDATADIR}}/model/phone_m/logicalTri-3k16-gid.bin
+
+# language model weights and word insertion penalties
+-lmp  10 0
+-lmp2 10 0
+
+# choose microphone input
+-input mic
+
+## EOF
