@@ -20,7 +20,7 @@ phonemdatadir=$(dictdir)/model/phone_m
 # Migration requires fix of hardcodings in JuliusMisc.
 langmdata_DATA = \
 	dictation-kit/model/lang_m/bccwj.60k.htkdic \
-	dictation-kit/model/lang_m/bccwj.60k.bingram \
+	dictation-kit/model/lang_m/bccwj.60k.bingram
 phonemdata_DATA = \
 	dictation-kit/model/phone_m/jnas-tri-3k16-gid.binhmm \
 	dictation-kit/model/phone_m/logicalTri-3k16-gid.bin \

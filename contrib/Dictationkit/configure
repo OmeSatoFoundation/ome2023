@@ -584,7 +584,7 @@ PACKAGE_STRING='dictationkit 4.5'
 PACKAGE_BUGREPORT='d8221101@u-aizu.ac.jp'
 PACKAGE_URL=''
 
-ac_unique_file="src/am-gmm_template.jconf"
+ac_unique_file="src/am-gmm.jconf.template"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 have_git_lfs
