@@ -145,6 +145,9 @@ sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc
 # A WORKAROUND to put executable on webserver.py
 chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/local/share/ome/08/www/webserver.py
 
+# remove APT cache
+rm -rf $MOUNT_POINT/var/lib/apt/lists/*
+
 # release resources
 umount_sysfds
 umount -f -l $MOUNT_POINT/boot
