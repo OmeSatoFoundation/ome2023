@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([dictationkit], [4.5], [d8221101@u-aizu.ac.jp])
-AC_CONFIG_SRCDIR([src/am-gmm_template.jconf])
+AC_CONFIG_SRCDIR([src/am-gmm.jconf.template])
 AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE
 
