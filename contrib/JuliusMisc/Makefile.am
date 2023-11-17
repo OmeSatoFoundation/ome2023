@@ -13,9 +13,10 @@ hspcommon_DATA = julius.as julius_simple.as
 ############################################################
 dictdir = $(datadir)/dict
 
-bin_SCRIPTS = convert_yomi.sh julius.sh julius_daemon.sh stopjulius.sh
+built_scripts = julius.sh julius_daemon.sh
+bin_SCRIPTS = convert_yomi.sh stopjulius.sh $(built_scripts)
 dict_DATA = julius_conf/default.jconf
-CLEANFILES = $(bin_SCRIPTS) $(dict_DATA)
+CLEANFILES = $(built_scripts) $(dict_DATA)
 %: %.template
 	sed 's;{{DICTDATADIR}};$(dictdir);g' $< > $@
 
