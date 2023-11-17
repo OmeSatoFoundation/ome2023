@@ -12,7 +12,7 @@ hspcommon_DATA = julius.as julius_simple.as
 dictdir = $(datadir)/dict		# TODO: parent makefile should succeed `dictdir` to this makefile.
 
 bin_SCRIPTS = convert_yomi.sh julius.sh julius_daemon.sh stopjulius.sh
-dictdir_DATA = julius_conf/default.jconf
+dict_DATA = julius_conf/default.jconf
 %: %.template
 	sed 's;{{DICTDATADIR}};$(dictdir);g' $< > $@
 
