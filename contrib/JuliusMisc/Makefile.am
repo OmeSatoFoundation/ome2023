@@ -8,8 +8,10 @@ hspcommon_DATA = julius.as julius_simple.as
 # Install default configuration, default startup scripts and
 # tools for lecture students to use Julius in the simpler
 # manner.
+# TODO: parent makefile should succeed `dictdir` to this
+# makefile.
 ############################################################
-dictdir = $(datadir)/dict		# TODO: parent makefile should succeed `dictdir` to this makefile.
+dictdir = $(datadir)/dict
 
 bin_SCRIPTS = convert_yomi.sh julius.sh julius_daemon.sh stopjulius.sh
 dict_DATA = julius_conf/default.jconf
