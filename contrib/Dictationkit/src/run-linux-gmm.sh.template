@@ -1,2 +1,2 @@
 #! /bin/sh
-julius -C {{DICTDATADIR}}/julius_conf/main.jconf -C {{DICTDATADIR}}/julius_conf/am-gmm.jconf -demo $*
+julius -C {{DICTDATADIR}}/main.jconf -C {{DICTDATADIR}}/am-gmm.jconf -demo $*

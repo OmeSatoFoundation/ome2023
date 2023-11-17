@@ -14,8 +14,8 @@ dict_DATA = $(JCONF)
 ############################################################
 # Install phonetic models
 ############################################################
-langmdatadir=$(bindir)/julius_conf/model/lang_m
-phonemdatadir=$(bindir)/julius_conf/model/phone_m
+langmdatadir=$(dictdir)/model/lang_m
+phonemdatadir=$(dictdir)/model/phone_m
 # TODO: these file should be under $(datadir).
 # Migration requires fix of hardcodings in JuliusMisc.
 langmdata_DATA = \
@@ -42,4 +42,4 @@ $(PHONEMODELS): $(DKITPATH)
 
 .PHONY: clean-local
 clean-local:
-	-rm -rf $(OBJDIR) $(JCONF) $(DKITPATH)
+	-rm -rf $(OBJDIR) $(JCONF) $(DKITPATH) $(bin_SCRIPTS)

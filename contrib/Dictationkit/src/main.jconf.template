@@ -3,8 +3,8 @@
 -tailmargin 300
 -rejectshort 800
 -fvad 3
--d {{DICTDATADIR}}/bccwj.60k.bingram
--v {{DICTDATADIR}}/bccwj.60k.htkdic
+-d {{DICTDATADIR}}/model/lang_m/bccwj.60k.bingram
+-v {{DICTDATADIR}}/model/lang_m/bccwj.60k.htkdic
 -zmeanframe
 -b 1500
 -b2 100
