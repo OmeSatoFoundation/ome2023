@@ -49,10 +49,10 @@ git lfs pull
 OBJDIR=./obj # Destination where binaries, executables and the other files are cross-compiled. Supposed this script to be ran at project root ome2023/.
 PREFIX_EMU=/usr/local
 
-IMG_NAME=2022-09-22-raspios-bullseye-arm64.img
+IMG_NAME=2024-03-12-raspios-bookworm-arm64.img
 if [ ! -e $IMG_NAME ]; then
     if [ ! -e ${IMG_NAME}.xz ]; then
-        wget https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2022-09-26/2022-09-22-raspios-bullseye-arm64.img.xz
+        wget https://downloads.raspberrypi.com/raspios_arm64/images/raspios_arm64-2024-03-13/${IMG_NAME}.xz
     fi
     xz -dkv ${IMG_NAME}.xz
 fi
