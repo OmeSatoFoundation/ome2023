@@ -3,10 +3,7 @@ bin_SCRIPTS = convert_yomi.sh julius.sh julius_daemon.sh stopjulius.sh
 
 bindatadir = $(bindir)
 nobase_bindata_DATA = \
-	julius_conf/default.jconf \
-	julius_conf/model/lang_m/bccwj.60k.htkdic \
-   	julius_conf/model/phone_m/jnas-tri-3k16-gid.binhmm \
-   	julius_conf/model/phone_m/logicalTri
+	julius_conf/default.jconf
 
 ############################################################
 # Install HSP header files to use Julius from HSP.
