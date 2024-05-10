@@ -1,7 +1,7 @@
 GIT = @have_git@
 dictdir = $(datadir)/dict
 bindatadir=$(bindir)
-OBJDIR = obj
+DKITPATH = dictation-kit
 
 bin_SCRIPTS = run-linux-gmm.sh
 
@@ -35,11 +35,11 @@ $(DKITPATH):
 	$(GIT) clone -n https://github.com/julius-speech/dictation-kit.git $(srcdir)/$(DKITPATH)
 	cd $(srcdir)/$(DKITPATH) && git checkout 1ceb4dec245ef482918ca33c55c71d383dce145e
 
-$(PHONEMODELS): $(DKITPATH)
+$(langmdata_DATA) $(phonemdata_DATA): $(DKITPATH)
 
 %: %.template
 	sed 's;{{DICTDATADIR}};$(dictdir);g' $< > $@
 
 .PHONY: clean-local
 clean-local:
-	-rm -rf $(OBJDIR) $(JCONF) $(DKITPATH) $(bin_SCRIPTS)
+	-rm -rf $(JCONF) $(DKITPATH) $(bin_SCRIPTS)
