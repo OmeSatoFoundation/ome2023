@@ -1,0 +1,49 @@
+<h1 id="build-the-distribution-iso-in-oracle-virtualbox">Build the
+Distribution ISO in Oracle VirtualBox</h1>
+<p>This project originally supposes a filesystem of a native Linux to
+make an ISO file. Windows users, on the other hands, are able to make
+the ISO file using their virtualization technologies. Followings
+describes instructions on virtual machines or WSL over a Windows
+system.</p>
+<h2 id="oracle-vm-virtualbox">Oracle VM VirtualBox</h2>
+<h3 id="general-procedure">General Procedure</h3>
+<ul>
+<li>Install Oracle VM VirtualBox</li>
+<li>Install Ubuntu</li>
+<li>Install Docker on the Ubuntu</li>
+<li>Run a build script on the container</li>
+</ul>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>We confirmed the build operation with the below composition.</p>
+<ul>
+<li>Windows 11 23H2 with Hyper-V enabled</li>
+<li>Oracle VM VirtualBox 7.0.18</li>
+</ul>
+<h3 id="preparation-of-vm-instance">Preparation of VM instance</h3>
+<p>Download ubuntu server from <a
+href="https://ubuntu.com/server">https://ubuntu.com/server</a></p>
+<p><img src="download_ubuntuserver.jpg" title="download ubuntu server"
+alt="Download ubuntu server" /></p>
+<p>Open VirtualBox and Press "New".</p>
+<p><img src="open_vb.jpg" title="Open virtualbox"
+alt="Open virtualbox" /></p>
+<p>Put an appropriate name and a destination folder. Fill the "ISO
+Image" field by the path of what you downloaded now.</p>
+<p>You will see a window asking a language in "Preview" section after a
+while. Press "Show" and follow instructions. Select "Ubuntu Server
+(minimized)" for "Choose the type of installation."</p>
+<p><img src="choose_type.jpg" title="Select Ubuntu Server minimized"
+alt="Select &quot;Ubuntu Server (minimized)&quot;" /></p>
+<p>Put a check on docker at "Featured server snaps" section.</p>
+<p><img src="./install_docker.jpg" title="install docker"
+alt="install docker" /></p>
+<p>After the installer prompts you to reboot, log in to the Ubuntu.</p>
+<p><img src="./login.jpg" title="login" alt="login" /></p>
+<p>Install vm guest tools to share files betweeen the host and the
+guest. Press "Devices" --&gt; "Insert Guest Additions CD image...".</p>
+<p><img src="insert_guesttool.jpg"
+title="Insert guest additions CD image"
+alt="Insert guest additions CD image" /></p>
+<h2 id="wsl">WSL</h2>
+<p>TBD. See <a
+href="https://github.com/OmeSatoFoundation/ome2023/issues/97">https://github.com/OmeSatoFoundation/ome2023/issues/97</a></p>
