@@ -19,6 +19,19 @@ AC_PROG_CXX
 AC_PROG_LN_S
 PKG_PROG_PKG_CONFIG
 
+## Check for git
+AC_CHECK_PROG(have_git, git, git, [])
+if test x"${have_git}" = x; then
+    AC_MSG_ERROR([please install 'git'])
+fi
+## Check for git-lfs
+AC_CHECK_PROG(have_git_lfs, git-lfs, yes)
+if test x"${have_git_lfs}" != x"yes"; then
+    AC_MSG_ERROR([please install 'git-lfs'. Do not forget to run `git lfs install`. https://github.com/git-lfs/git-lfs])
+fi
+
+AC_SUBST(have_git)
+
 # Checks for libraries.
 
 # Checks for header files.
@@ -36,8 +49,9 @@ AC_CONFIG_FILES([Makefile
                  contrib/JuliusMisc/Makefile
                  contrib/IR/Makefile
                  contrib/OpenJTalk/Makefile
-                 contrib/WebServer/Makefile])
-AC_CONFIG_SUBDIRS([contrib/Dictationkit])
+                 contrib/WebServer/Makefile
+                 contrib/Dictationkit/Makefile
+                 contrib/Dictationkit/src/Makefile])
 AX_SUBDIRS_CONFIGURE([contrib/Julius],
                      [[--with-mictype=alsa]],
                      [], [], [])
