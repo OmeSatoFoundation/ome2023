@@ -1,0 +1,7 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/debian-11"
+  config.vbguest.auto_update = false
+  config.vbguest.no_remote = true
+  config.vm.synced_folder "shared/", "/mnt/shared", create: true
+  config.vm.provision :shell, path: "bootstrap.bash"
+end
