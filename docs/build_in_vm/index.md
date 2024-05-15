@@ -74,6 +74,7 @@ Briefly, run below.
 eval $(ssh-agent -s)
 ssh-add
 git clone git@github.com:OmeSatoFoundation/ome2023.git --recurse
+cd ome2023 && \
 aclocal -I m4 && \
 automake -a -c && \
 autoconf && \
