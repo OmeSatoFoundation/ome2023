@@ -182,7 +182,6 @@ nobase_dist_omedata_DATA = \
 07/www/cgi-bin/sensors_table.hsp \
 07/www/ir.html \
 07/www/jtalk.html \
-07/www/tmp \
 07/www/webserver.py \
 08/amedas.hsp \
 08/amedas_led.hsp \
@@ -199,6 +198,5 @@ nobase_dist_omedata_DATA = \
 08/www/cgi-bin/ascii_table.hsp \
 08/www/index.html \
 08/www/links.html \
-08/www/tmp \
 08/www/webserver.py \
 08/zipcode.hsp
