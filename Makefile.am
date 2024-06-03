@@ -197,6 +197,5 @@ nobase_dist_omedata_DATA = \
 08/wikipedia.hsp \
 08/www/cgi-bin/ascii_table.hsp \
 08/www/index.html \
-08/www/links.html \
 08/www/webserver.py \
 08/zipcode.hsp
