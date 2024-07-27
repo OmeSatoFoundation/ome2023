@@ -103,10 +103,16 @@ e2fsck -fy ${DEVICE_PATH}p2 && resize2fs ${DEVICE_PATH}p2
 
 # preparation of emulation
 MOUNT_POINT=mount_point
+mkdir -p $MOUNT_POINT/boot
+mount ${DEVICE_PATH}p2 $MOUNT_POINT
+mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot
+## mount object files which are to be stored in /usr/local.
+mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
+
 # Find where config.txt exists at https://www.raspberrypi.com/documentation/computers/config_txt.html
 # Prior to Raspberry Pi OS Bookworm, /boot/config.txt.
 # From Bookworm, /boot/firmware/config.txt.
-PRIOR_TO_BOOKWORM=$(bash -c '\
+PRIOR_TO_BOOKWORM=$(chroot $MOUNT_POINT bash -c '\
     source /etc/os-release ;\
     [ "$VERSION_ID" -lt "12" ] ; echo $?')
 if [ "$PRIOR_TO_BOOKWORM" -eq 0 ]; then
@@ -116,11 +122,6 @@ else
     CONFIG_TXT=boot/firmware/config.txt
     echo "Detected this is subsequent or equal to Bookworm."
 fi
-mkdir -p $MOUNT_POINT/boot
-mount ${DEVICE_PATH}p2 $MOUNT_POINT
-mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot
-## mount object files which are to be stored in /usr/local.
-mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
 
 sed $MOUNT_POINT/$CONFIG_TXT -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
 
