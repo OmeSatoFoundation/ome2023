@@ -1,0 +1,14 @@
+-v {{DICTDATADIR}}/model/lang_m/bccwj.60k.htkdic
+-h {{DICTDATADIR}}/model/phone_m/jnas-tri-3k16-gid.binhmm
+-hlist {{DICTDATADIR}}/model/phone_m/logicalTri
+-lmp 8.0 -2.0
+-lmp2 8.0 -2.0
+-b 1500
+-b2 100
+-s 500
+-m 10000
+-n 30
+-output 1
+-input mic
+-zmeanframe
+-rejectshort 200

@@ -1,7 +1,8 @@
 #!/bin/bash
-set -eux
+set -eu
 
 usage_exit() {
+    set +x
     echo "Usage: $0 [-hf]" 1>&2
     echo ""
     echo "Description"
@@ -12,23 +13,50 @@ usage_exit() {
     echo "  -f"
     echo "        forces resize2fs to proceed with the filesystem resize operation,"
     echo "        overriding some safety checks which resize2fs normally enforces."
+    echo
+    echo "  -o <path>"
+    echo "        Save img file into the specified path."
+    echo "        If not set, the filename will be `itschool-raspbian-\$(date "+%Y-%m-%dT%H.%M.%S").img`."
+    echo
     echo "  -h"
     echo "        display this help and exit"
     exit 1
 }
 
 RESIZE2FS_FORCE=
-while getopts h:f OPT
-do
-    case $OPT in
-        f) RESIZE2FS_FORCE=-f
+DESTINATION_PATH=
+while test $# -gt 0 ; do
+    case $1 in
+        -f )
+            RESIZE2FS_FORCE=-f
+            shift
             ;;
-        h) usage_exit
+        -o )
+            shift
+            DESTINATION_PATH=$1
+            shift
             ;;
-        \?) usage_exit
+        -h )
+            usage_exit
             ;;
+        \? )
+            usage_exit
+            ;;
+        -* )
+            echo "Invalid option $1" >&2
+            exit 1
+            ;;
+        * )
+            break;;
     esac
 done
+
+if test $# != 0 ; then
+    echo "Too many arguments." >&2
+    exit 1
+fi
+
+set -x
 
 # add github fingerprint
 mkdir -p /root/.ssh/ || /bin/true
@@ -145,6 +173,9 @@ sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc
 # A WORKAROUND to put executable on webserver.py
 chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/local/share/ome/08/www/webserver.py
 
+# remove APT cache
+rm -rf $MOUNT_POINT/var/lib/apt/lists/*
+
 # release resources
 umount_sysfds
 umount -f -l $MOUNT_POINT/boot
@@ -177,7 +208,11 @@ $((P2_START_SECTOR + (P2_BLOCK_COUNT*P2_BLOCK_SIZE/512)))
 w
 EEOF
 
-TARGET_FILENAME=itschool-raspbian-$(date "+%Y-%m-%dT%H.%M.%S").img
+if [ -z $DESTINATION_PATH ]; then
+    TARGET_FILENAME=itschool-raspbian-$(date "+%Y-%m-%dT%H.%M.%S").img
+else
+    TARGET_FILENAME=$DESTINATION_PATH
+fi
 # truncate -s ${FINAL_SIZE} $TARGET_FILENAME
 #COUNT=$(LANG=C fdisk -l ${DEVICE_PATH} | grep -i 'Disk /dev' | sed 's/^.* \([0-9]\+\) sectors$/\1/g')
 COUNT=$(($(fdisk -l ${DEVICE_PATH} | grep ${DEVICE_PATH}p2 | gawk '{print $3}')+1))

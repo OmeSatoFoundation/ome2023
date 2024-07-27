@@ -13,7 +13,4 @@ fi
 
 SOURCE_FILE=$1
 
-cat $SOURCE_FILE | ruby -0777 -ne 'print $_.chomp("")' > dic_tmp
-
-iconv -f utf-8 -t eucjp dic_tmp | yomi2voca.pl
-rm dic_tmp
+cat $SOURCE_FILE | ruby -0777 -ne 'print $_.chomp("")' | yomi2voca.pl

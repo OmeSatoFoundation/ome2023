@@ -1,10 +1,14 @@
 # IT未来塾講義用 Raspberry Pi OS
-## Prerequisites
+## Build for Windows Users
+Check [docs/build_in_vm/index.md](docs/build_in_vm/index.md).
+
+## Build for Linux Users
+### Prerequisites
 - qemu-aarch64-static と適当な binfmt 設定
     - debian 系なら `apt install qemu-user-static`
 - Docker Desktop Server https://docs.docker.com/engine/install/ (Desktop でもおそらく可)
 
-## Image Build
+### Detailed Procedure
 リポジトリをクローンする
 
 ```bash
@@ -19,8 +23,14 @@ git submodule update --init
 
 を実行する。
 
-### Docker
-ビルドを始める前に，前回の作業用 `.img` ファイルが残っていないか確認する．
+初回のみ、講座用Raspberry Pi OS作成に使うコンテナイメージををビルドする。
+
+```bash
+docker build . -t ome2023
+```
+
+
+ビルドを始める前に毎回，前回の作業用 `.img` ファイルが残っていないか確認する．
 
 ```bash
 rm -f 2022-09-22-raspios-bullseye-arm64.img
