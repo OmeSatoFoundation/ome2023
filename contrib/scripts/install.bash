@@ -103,21 +103,6 @@ e2fsck -fy ${DEVICE_PATH}p2 && resize2fs ${DEVICE_PATH}p2
 
 # preparation of emulation
 MOUNT_POINT=mount_point
-# Find where config.txt exists at https://www.raspberrypi.com/documentation/computers/config_txt.html
-# Prior to Raspberry Pi OS Bookworm, /boot/config.txt.
-# From Bookworm, /boot/firmware/config.txt.
-PRIOR_TO_BOOKWORM=$(bash -c '\
-    source /etc/os-release ;\
-    [ "$VERSION_ID" -lt "12" ] ; echo $?')
-if [ "$PRIOR_TO_BOOKWORM" -ne 0 ]; then
-    # Check if this is subsequent first of all because
-    # OSes subsequent to Bookworm keeps /boot/config.txt.
-    CONFIG_TXT=boot/firmware/config.txt
-    echo "Detected this is subsequent or equal to Bookworm."
-else
-    CONFIG_TXT=boot/config.txt
-    echo "Detected this is prior to Bookworm."
-fi
 
 # TODO: Read $MOUNT_POINT/etc/fstab to mount /firmware/boot.
 # Where the 1st partition of raspberry pi os image is mounted
@@ -125,11 +110,28 @@ fi
 # https://www.raspberrypi.com/documentation/computers/config_txt.html
 mkdir -p $MOUNT_POINT/boot/firmware
 mount ${DEVICE_PATH}p2 $MOUNT_POINT
-mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot/firmware
+
+# Find where config.txt exists at https://www.raspberrypi.com/documentation/computers/config_txt.html
+# Prior to Raspberry Pi OS Bookworm, /boot/config.txt.
+# From Bookworm, /boot/firmware/config.txt.
+DEBIAN_VERSION_ID=$(bash -c "source etc/os-release ; echo \"\$VERSION_ID\"")
+if [ "12" -le "$DEBIAN_VERSION_ID" ]; then
+    # Check if this is subsequent first of all because
+    # OSes subsequent to Bookworm keeps /boot/config.txt.
+    P1_MOUNT=boot/firmware
+    echo "Detected this is subsequent or equal to Bookworm."
+else
+    P1_MOUNT=boot
+    echo "Detected this is prior to Bookworm."
+fi
+
+CONFIG_TXT=$P1_MOUNT/config.txt
+
+mount ${DEVICE_PATH}p1 $MOUNT_POINT/$P1_MOUNT
 ## mount object files which are to be stored in /usr/local.
 mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
 
-sed $MOUNT_POINT/$CONFIG_TXT -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
+echo "hdmi_force_hotplug=1" >> $MOUNT_POINT/$CONFIG_TXT
 
 MOUNT_SYSFD_TARGETS=("$MOUNT_POINT/proc" "$MOUNT_POINT/sys" "$MOUNT_POINT/dev" "$MOUNT_POINT/dev/shm" "$MOUNT_POINT/dev/pts")
 MOUNT_SYSFD_SRCS=("proc" "sysfs" "devtmpfs" "tmpfs" "devpts")
@@ -198,7 +200,7 @@ rm -rf $MOUNT_POINT/var/lib/apt/lists/*
 
 # release resources
 umount_sysfds
-umount -f -l $MOUNT_POINT/boot/firmware
+umount -f -l $MOUNT_POINT/$P1_MOUNT
 umount -f -l $MOUNT_POINT/etc/resolv.conf
 umount -f -l $MOUNT_POINT
 
