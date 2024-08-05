@@ -109,16 +109,23 @@ MOUNT_POINT=mount_point
 PRIOR_TO_BOOKWORM=$(bash -c '\
     source /etc/os-release ;\
     [ "$VERSION_ID" -lt "12" ] ; echo $?')
-if [ "$PRIOR_TO_BOOKWORM" -eq 0 ]; then
-    CONFIG_TXT=boot/config.txt
-    echo "Detected this is prior to Bookworm."
-else
+if [ "$PRIOR_TO_BOOKWORM" -ne 0 ]; then
+    # Check if this is subsequent first of all because
+    # OSes subsequent to Bookworm keeps /boot/config.txt.
     CONFIG_TXT=boot/firmware/config.txt
     echo "Detected this is subsequent or equal to Bookworm."
+else
+    CONFIG_TXT=boot/config.txt
+    echo "Detected this is prior to Bookworm."
 fi
-mkdir -p $MOUNT_POINT/boot
+
+# TODO: Read $MOUNT_POINT/etc/fstab to mount /firmware/boot.
+# Where the 1st partition of raspberry pi os image is mounted
+# sometimes changes. See
+# https://www.raspberrypi.com/documentation/computers/config_txt.html
+mkdir -p $MOUNT_POINT/boot/firmware
 mount ${DEVICE_PATH}p2 $MOUNT_POINT
-mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot
+mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot/firmware
 ## mount object files which are to be stored in /usr/local.
 mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
 
