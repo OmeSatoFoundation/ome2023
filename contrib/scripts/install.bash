@@ -185,8 +185,8 @@ chroot $MOUNT_POINT raspi-config nonint do_spi 0
 chroot $MOUNT_POINT raspi-config nonint do_i2c 0
 
 # Enable IR device
-sed -i -e "s/#dtoverlay=gpio-ir,gpio_pin=17/dtoverlay=gpio-ir,gpio_pin=4/g" $MOUNT_POINT/$CONFIG_TXT
-sed -i -e "s/#dtoverlay=gpio-ir-tx,gpio_pin=18/dtoverlay=gpio-ir-tx,gpio_pin=13/g" $MOUNT_POINT/$CONFIG_TXT
+echo 'dtoverlay=gpio-ir,gpio_pin=4' >> $MOUNT_POINT/$CONFIG_TXT
+echo 'dtoverlay=gpio-ir-tx,gpio_pin=13' >> $MOUNT_POINT/$CONFIG_TXT
 sed -i -e "s/driver *= *devinput/driver = default/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 
@@ -198,7 +198,7 @@ rm -rf $MOUNT_POINT/var/lib/apt/lists/*
 
 # release resources
 umount_sysfds
-umount -f -l $MOUNT_POINT/boot
+umount -f -l $MOUNT_POINT/boot/firmware
 umount -f -l $MOUNT_POINT/etc/resolv.conf
 umount -f -l $MOUNT_POINT
 
