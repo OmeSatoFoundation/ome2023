@@ -198,6 +198,9 @@ chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/l
 # remove APT cache
 rm -rf $MOUNT_POINT/var/lib/apt/lists/*
 
+git rev-parse HEAD > $MOUNT_POINT/etc/itschool_distro_version_info
+git status -s >> $MOUNT_POINT/etc/itschool_distro_version_info
+
 # release resources
 umount_sysfds
 umount -f -l $MOUNT_POINT/$P1_MOUNT
