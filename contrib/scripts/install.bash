@@ -114,7 +114,7 @@ mount ${DEVICE_PATH}p2 $MOUNT_POINT
 # Find where config.txt exists at https://www.raspberrypi.com/documentation/computers/config_txt.html
 # Prior to Raspberry Pi OS Bookworm, /boot/config.txt.
 # From Bookworm, /boot/firmware/config.txt.
-DEBIAN_VERSION_ID=$(bash -c "source etc/os-release ; echo \"\$VERSION_ID\"")
+DEBIAN_VERSION_ID=$(bash -c "source $MOUNT_POINT/etc/os-release ; echo \"\$VERSION_ID\"")
 if [ "12" -le "$DEBIAN_VERSION_ID" ]; then
     # Check if this is subsequent first of all because
     # OSes subsequent to Bookworm keeps /boot/config.txt.
