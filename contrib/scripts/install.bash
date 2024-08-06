@@ -77,10 +77,10 @@ git lfs pull
 OBJDIR=./obj # Destination where binaries, executables and the other files are cross-compiled. Supposed this script to be ran at project root ome2023/.
 PREFIX_EMU=/usr/local
 
-IMG_NAME=2022-09-22-raspios-bullseye-arm64.img
+IMG_NAME=2024-03-12-raspios-bookworm-arm64.img
 if [ ! -e $IMG_NAME ]; then
     if [ ! -e ${IMG_NAME}.xz ]; then
-        wget https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2022-09-26/2022-09-22-raspios-bullseye-arm64.img.xz
+        wget https://downloads.raspberrypi.com/raspios_arm64/images/raspios_arm64-2024-03-13/${IMG_NAME}.xz
     fi
     xz -dkv ${IMG_NAME}.xz
 fi
@@ -109,7 +109,21 @@ mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot
 ## mount object files which are to be stored in /usr/local.
 mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
 
-sed $MOUNT_POINT/boot/config.txt -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
+# Find where config.txt exists at https://www.raspberrypi.com/documentation/computers/config_txt.html
+# Prior to Raspberry Pi OS Bookworm, /boot/config.txt.
+# From Bookworm, /boot/firmware/config.txt.
+PRIOR_TO_BOOKWORM=$(chroot $MOUNT_POINT bash -c '\
+    source /etc/os-release ;\
+    [ "$VERSION_ID" -lt "12" ] ; echo $?')
+if [ "$PRIOR_TO_BOOKWORM" -eq 0 ]; then
+    CONFIG_TXT=boot/config.txt
+    echo "Detected this is prior to Bookworm."
+else
+    CONFIG_TXT=boot/firmware/config.txt
+    echo "Detected this is subsequent or equal to Bookworm."
+fi
+
+sed $MOUNT_POINT/$CONFIG_TXT -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
 
 MOUNT_SYSFD_TARGETS=("$MOUNT_POINT/proc" "$MOUNT_POINT/sys" "$MOUNT_POINT/dev" "$MOUNT_POINT/dev/shm" "$MOUNT_POINT/dev/pts")
 MOUNT_SYSFD_SRCS=("proc" "sysfs" "devtmpfs" "tmpfs" "devpts")
@@ -165,8 +179,8 @@ chroot $MOUNT_POINT raspi-config nonint do_spi 0
 chroot $MOUNT_POINT raspi-config nonint do_i2c 0
 
 # Enable IR device
-sed -i -e "s/#dtoverlay=gpio-ir,gpio_pin=17/dtoverlay=gpio-ir,gpio_pin=4/g" $MOUNT_POINT/boot/config.txt
-sed -i -e "s/#dtoverlay=gpio-ir-tx,gpio_pin=18/dtoverlay=gpio-ir-tx,gpio_pin=13/g" $MOUNT_POINT/boot/config.txt
+sed -i -e "s/#dtoverlay=gpio-ir,gpio_pin=17/dtoverlay=gpio-ir,gpio_pin=4/g" $MOUNT_POINT/$CONFIG_TXT
+sed -i -e "s/#dtoverlay=gpio-ir-tx,gpio_pin=18/dtoverlay=gpio-ir-tx,gpio_pin=13/g" $MOUNT_POINT/$CONFIG_TXT
 sed -i -e "s/driver *= *devinput/driver = default/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 
