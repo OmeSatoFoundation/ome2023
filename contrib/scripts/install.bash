@@ -103,27 +103,35 @@ e2fsck -fy ${DEVICE_PATH}p2 && resize2fs ${DEVICE_PATH}p2
 
 # preparation of emulation
 MOUNT_POINT=mount_point
-mkdir -p $MOUNT_POINT/boot
+
+# TODO: Read $MOUNT_POINT/etc/fstab to mount /firmware/boot.
+# Where the 1st partition of raspberry pi os image is mounted
+# sometimes changes. See
+# https://www.raspberrypi.com/documentation/computers/config_txt.html
+mkdir -p $MOUNT_POINT/boot/firmware
 mount ${DEVICE_PATH}p2 $MOUNT_POINT
-mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot
-## mount object files which are to be stored in /usr/local.
-mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
 
 # Find where config.txt exists at https://www.raspberrypi.com/documentation/computers/config_txt.html
 # Prior to Raspberry Pi OS Bookworm, /boot/config.txt.
 # From Bookworm, /boot/firmware/config.txt.
-PRIOR_TO_BOOKWORM=$(chroot $MOUNT_POINT bash -c '\
-    source /etc/os-release ;\
-    [ "$VERSION_ID" -lt "12" ] ; echo $?')
-if [ "$PRIOR_TO_BOOKWORM" -eq 0 ]; then
-    CONFIG_TXT=boot/config.txt
-    echo "Detected this is prior to Bookworm."
-else
-    CONFIG_TXT=boot/firmware/config.txt
+DEBIAN_VERSION_ID=$(bash -c "source $MOUNT_POINT/etc/os-release ; echo \"\$VERSION_ID\"")
+if [ "12" -le "$DEBIAN_VERSION_ID" ]; then
+    # Check if this is subsequent first of all because
+    # OSes subsequent to Bookworm keeps /boot/config.txt.
+    P1_MOUNT=boot/firmware
     echo "Detected this is subsequent or equal to Bookworm."
+else
+    P1_MOUNT=boot
+    echo "Detected this is prior to Bookworm."
 fi
 
-sed $MOUNT_POINT/$CONFIG_TXT -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
+CONFIG_TXT=$P1_MOUNT/config.txt
+
+mount ${DEVICE_PATH}p1 $MOUNT_POINT/$P1_MOUNT
+## mount object files which are to be stored in /usr/local.
+mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
+
+echo "hdmi_force_hotplug=1" >> $MOUNT_POINT/$CONFIG_TXT
 
 MOUNT_SYSFD_TARGETS=("$MOUNT_POINT/proc" "$MOUNT_POINT/sys" "$MOUNT_POINT/dev" "$MOUNT_POINT/dev/shm" "$MOUNT_POINT/dev/pts")
 MOUNT_SYSFD_SRCS=("proc" "sysfs" "devtmpfs" "tmpfs" "devpts")
@@ -179,8 +187,8 @@ chroot $MOUNT_POINT raspi-config nonint do_spi 0
 chroot $MOUNT_POINT raspi-config nonint do_i2c 0
 
 # Enable IR device
-sed -i -e "s/#dtoverlay=gpio-ir,gpio_pin=17/dtoverlay=gpio-ir,gpio_pin=4/g" $MOUNT_POINT/$CONFIG_TXT
-sed -i -e "s/#dtoverlay=gpio-ir-tx,gpio_pin=18/dtoverlay=gpio-ir-tx,gpio_pin=13/g" $MOUNT_POINT/$CONFIG_TXT
+echo 'dtoverlay=gpio-ir,gpio_pin=4' >> $MOUNT_POINT/$CONFIG_TXT
+echo 'dtoverlay=gpio-ir-tx,gpio_pin=13' >> $MOUNT_POINT/$CONFIG_TXT
 sed -i -e "s/driver *= *devinput/driver = default/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 
@@ -190,9 +198,12 @@ chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/l
 # remove APT cache
 rm -rf $MOUNT_POINT/var/lib/apt/lists/*
 
+git rev-parse HEAD > $MOUNT_POINT/etc/itschool_distro_version_info
+git status -s >> $MOUNT_POINT/etc/itschool_distro_version_info
+
 # release resources
 umount_sysfds
-umount -f -l $MOUNT_POINT/boot
+umount -f -l $MOUNT_POINT/$P1_MOUNT
 umount -f -l $MOUNT_POINT/etc/resolv.conf
 umount -f -l $MOUNT_POINT
 
