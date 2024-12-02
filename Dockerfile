@@ -38,9 +38,11 @@ RUN dpkg --add-architecture arm64 \
     g++-aarch64-linux-gnu \
     libasound2-dev:arm64 \
     libcurl4-openssl-dev:arm64 \
+    libcurl4-openssl-dev:arm64 \
     libegl1-mesa-dev:arm64 \
     libgles2-mesa-dev:arm64 \
     libglew-dev:arm64 \
+    libgpiod-dev:arm64 \
     libgtk2.0-dev:arm64 \
     libsdl2-dev:arm64 \
     libsdl2-dev:arm64 \
