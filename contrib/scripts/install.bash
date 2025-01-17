@@ -234,7 +234,7 @@ sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc
 chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/local/share/ome/08/www/webserver.py
 
 # A WORKAROUND against the wayland environment that bothers chromium about getting along with IMs.
-sed 's/chromium-browser/chromium-browser {{APPROPRIATE ARGUMENTS}}/g'  $MOUNT_POINT/usr/share/applications/chromium-browser.desktop 
+sed 's/chromium-browser/chromium-browser --ozone-platform=x11/g'  $MOUNT_POINT/usr/share/applications/chromium-browser.desktop
 
 # Restore the desktop background image into one used in bullseye.
 # Found by `grep -r "fisherman.jpg" $MOUNT_POINT 2>/dev/null`
