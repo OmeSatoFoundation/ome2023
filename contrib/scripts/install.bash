@@ -161,10 +161,13 @@ chroot $MOUNT_POINT apt install -y \
 build-essential \
 dnsutils \
 fcitx-mozc \
+fcitx-mozc \
+fcitx5 \
 fswebcam \
 gimp \
 hts-voice-nitech-jp-atr503-m001 \
 i2c-tools \
+im-config \
 libasound2-dev \
 libcurl4-openssl-dev \
 libegl1-mesa-dev \
@@ -229,6 +232,13 @@ sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc
 
 # A WORKAROUND to put executable on webserver.py
 chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/local/share/ome/08/www/webserver.py
+
+# A WORKAROUND against the wayland environment that bothers chromium about getting along with IMs.
+sed 's/chromium-browser/chromium-browser --ozone-platform=x11/g'  $MOUNT_POINT/usr/share/applications/chromium-browser.desktop
+
+# Restore the desktop background image into one used in bullseye.
+# Found by `grep -r "fisherman.jpg" $MOUNT_POINT 2>/dev/null`
+sed 's;wallpaper=.*;wallpaper=/usr/share/rpd-wallpaper/clouds.jpg;g' $MOUNT_POINT/etc/xdg/pcmanfm/LXDE-pi/desktop-items-0.conf $MOUNT_POINT/etc/xdg/pcmanfm/LXDE-pi/desktop-items-1.conf
 
 # remove APT cache
 rm -rf $MOUNT_POINT/var/lib/apt/lists/*
