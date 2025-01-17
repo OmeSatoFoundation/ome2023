@@ -160,8 +160,6 @@ chroot $MOUNT_POINT sh -c "apt update"
 chroot $MOUNT_POINT apt install -y \
 build-essential \
 dnsutils \
-fcitx-mozc \
-fcitx-mozc \
 fcitx5 \
 fswebcam \
 gimp \
