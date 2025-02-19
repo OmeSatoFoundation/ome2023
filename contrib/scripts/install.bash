@@ -77,10 +77,10 @@ git lfs pull
 OBJDIR=./obj # Destination where binaries, executables and the other files are cross-compiled. Supposed this script to be ran at project root ome2023/.
 PREFIX_EMU=/usr/local
 
-IMG_NAME=2022-09-22-raspios-bullseye-arm64.img
+IMG_NAME=2024-03-12-raspios-bookworm-arm64.img
 if [ ! -e $IMG_NAME ]; then
     if [ ! -e ${IMG_NAME}.xz ]; then
-        wget https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2022-09-26/2022-09-22-raspios-bullseye-arm64.img.xz
+        wget https://downloads.raspberrypi.com/raspios_arm64/images/raspios_arm64-2024-03-13/${IMG_NAME}.xz
     fi
     xz -dkv ${IMG_NAME}.xz
 fi
@@ -103,13 +103,35 @@ e2fsck -fy ${DEVICE_PATH}p2 && resize2fs ${DEVICE_PATH}p2
 
 # preparation of emulation
 MOUNT_POINT=mount_point
-mkdir -p $MOUNT_POINT/boot
+
+# TODO: Read $MOUNT_POINT/etc/fstab to mount /firmware/boot.
+# Where the 1st partition of raspberry pi os image is mounted
+# sometimes changes. See
+# https://www.raspberrypi.com/documentation/computers/config_txt.html
+mkdir -p $MOUNT_POINT/boot/firmware
 mount ${DEVICE_PATH}p2 $MOUNT_POINT
-mount ${DEVICE_PATH}p1 $MOUNT_POINT/boot
+
+# Find where config.txt exists at https://www.raspberrypi.com/documentation/computers/config_txt.html
+# Prior to Raspberry Pi OS Bookworm, /boot/config.txt.
+# From Bookworm, /boot/firmware/config.txt.
+DEBIAN_VERSION_ID=$(bash -c "source $MOUNT_POINT/etc/os-release ; echo \"\$VERSION_ID\"")
+if [ "12" -le "$DEBIAN_VERSION_ID" ]; then
+    # Check if this is subsequent first of all because
+    # OSes subsequent to Bookworm keeps /boot/config.txt.
+    P1_MOUNT=boot/firmware
+    echo "Detected this is subsequent or equal to Bookworm."
+else
+    P1_MOUNT=boot
+    echo "Detected this is prior to Bookworm."
+fi
+
+CONFIG_TXT=$P1_MOUNT/config.txt
+
+mount ${DEVICE_PATH}p1 $MOUNT_POINT/$P1_MOUNT
 ## mount object files which are to be stored in /usr/local.
 mount --bind /etc/resolv.conf $MOUNT_POINT/etc/resolv.conf
 
-sed $MOUNT_POINT/boot/config.txt -i -e 's/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/g'
+echo "hdmi_force_hotplug=1" >> $MOUNT_POINT/$CONFIG_TXT
 
 MOUNT_SYSFD_TARGETS=("$MOUNT_POINT/proc" "$MOUNT_POINT/sys" "$MOUNT_POINT/dev" "$MOUNT_POINT/dev/shm" "$MOUNT_POINT/dev/pts")
 MOUNT_SYSFD_SRCS=("proc" "sysfs" "devtmpfs" "tmpfs" "devpts")
@@ -133,8 +155,44 @@ chroot $MOUNT_POINT sh -c "apt update"
 
 ## Install depending packages
 ## TODO: summarize dependencies into "control" in a deb package with contesnts of obj (${OBJDIR})and here apt should call that package.
+## TODO: some *-dev packages are unnecessary.
+## Sort ME befor commit.
 chroot $MOUNT_POINT apt install -y \
-fcitx-mozc i2c-tools open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001 build-essential zlib1g-dev libsdl2-dev libasound2-dev dnsutils nmap telnet nkf lirc fswebcam gimp vlc tuxtype ruby libgtk2.0-dev libglew-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libgles2-mesa-dev libegl1-mesa-dev open-jtalk open-jtalk-mecab-naist-jdic
+build-essential \
+dnsutils \
+fcitx5 \
+fswebcam \
+gimp \
+hts-voice-nitech-jp-atr503-m001 \
+i2c-tools \
+im-config \
+libasound2-dev \
+libcurl4-openssl-dev \
+libegl1-mesa-dev \
+libgles2-mesa-dev \
+libglew-dev \
+libgpiod-dev \
+libgpiod2 \
+libgtk2.0-dev \
+libsdl2-dev \
+libsdl2-dev \
+libsdl2-image-dev \
+libsdl2-mixer-dev \
+libsdl2-ttf-dev \
+lirc \
+nkf \
+nmap \
+open-jtalk \
+open-jtalk \
+open-jtalk-mecab-naist-jdic \
+open-jtalk-mecab-naist-jdic \
+ruby \
+telnet \
+tuxtype \
+vlc \
+zlib1g-dev \
+;
+
 make DESTDIR=$(realpath $MOUNT_POINT) install
 
 # Place .config/user-dirs.locale with ja_JP in /etc/skel to supress locale-inconsistent dialogue.
@@ -165,13 +223,20 @@ chroot $MOUNT_POINT raspi-config nonint do_spi 0
 chroot $MOUNT_POINT raspi-config nonint do_i2c 0
 
 # Enable IR device
-sed -i -e "s/#dtoverlay=gpio-ir,gpio_pin=17/dtoverlay=gpio-ir,gpio_pin=4/g" $MOUNT_POINT/boot/config.txt
-sed -i -e "s/#dtoverlay=gpio-ir-tx,gpio_pin=18/dtoverlay=gpio-ir-tx,gpio_pin=13/g" $MOUNT_POINT/boot/config.txt
+echo 'dtoverlay=gpio-ir,gpio_pin=4' >> $MOUNT_POINT/$CONFIG_TXT
+echo 'dtoverlay=gpio-ir-tx,gpio_pin=13' >> $MOUNT_POINT/$CONFIG_TXT
 sed -i -e "s/driver *= *devinput/driver = default/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 
 # A WORKAROUND to put executable on webserver.py
 chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/local/share/ome/08/www/webserver.py
+
+# A WORKAROUND against the wayland environment that bothers chromium about getting along with IMs.
+sed 's/chromium-browser/chromium-browser --ozone-platform=x11/g'  $MOUNT_POINT/usr/share/applications/chromium-browser.desktop
+
+# Restore the desktop background image into one used in bullseye.
+# Found by `grep -r "fisherman.jpg" $MOUNT_POINT 2>/dev/null`
+sed 's;wallpaper=.*;wallpaper=/usr/share/rpd-wallpaper/clouds.jpg;g' $MOUNT_POINT/etc/xdg/pcmanfm/LXDE-pi/desktop-items-0.conf $MOUNT_POINT/etc/xdg/pcmanfm/LXDE-pi/desktop-items-1.conf
 
 # remove APT cache
 rm -rf $MOUNT_POINT/var/lib/apt/lists/*
@@ -181,7 +246,7 @@ git status -s >> $MOUNT_POINT/etc/itschool_distro_version_info
 
 # release resources
 umount_sysfds
-umount -f -l $MOUNT_POINT/boot
+umount -f -l $MOUNT_POINT/$P1_MOUNT
 umount -f -l $MOUNT_POINT/etc/resolv.conf
 umount -f -l $MOUNT_POINT
 
