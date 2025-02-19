@@ -238,6 +238,9 @@ sed 's/chromium-browser/chromium-browser --ozone-platform=x11/g'  $MOUNT_POINT/u
 # Found by `grep -r "fisherman.jpg" $MOUNT_POINT 2>/dev/null`
 sed 's;wallpaper=.*;wallpaper=/usr/share/rpd-wallpaper/clouds.jpg;g' $MOUNT_POINT/etc/xdg/pcmanfm/LXDE-pi/desktop-items-0.conf $MOUNT_POINT/etc/xdg/pcmanfm/LXDE-pi/desktop-items-1.conf
 
+# Change color theme into one in bullseye (not sure if this file reclects it).
+sed {{THEME_REPLACEMENT}} $MOUNT_POINT/etc/xdg/openbox/lxde-pi-rc.xml
+
 # remove APT cache
 rm -rf $MOUNT_POINT/var/lib/apt/lists/*
 
