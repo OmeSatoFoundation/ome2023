@@ -48,6 +48,8 @@ RUN dpkg --add-architecture arm64 \
     libsdl2-mixer-dev:arm64 \
     libsdl2-ttf-dev:arm64 \
     zlib1g-dev:arm64 \
+    libgpiod2:arm64 \
+    libgpiod-dev:arm64 \
     && rm -rf /var/lib/apt/lists
 
 # Install qemu to build OpenHSP
