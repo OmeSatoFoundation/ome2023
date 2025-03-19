@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 RUN apt update \
     && apt install -y \
@@ -31,7 +31,6 @@ RUN curl -L -o git-lfs.tar.gz https://github.com/git-lfs/git-lfs/releases/downlo
 # Install crosstools
 ## TODO: use toolchain-ng
 RUN dpkg --add-architecture arm64 \
-    && sed -i 's/^deb/deb [arch=amd64,arm64]/g' /etc/apt/sources.list \
     && apt update \
     && apt install -y \
     dpkg-cross \
