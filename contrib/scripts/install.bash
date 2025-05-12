@@ -134,7 +134,39 @@ chroot $MOUNT_POINT sh -c "apt update && apt-get -s dist-upgrade | grep \"^Inst\
 ## Install depending packages
 ## TODO: summarize dependencies into "control" in a deb package with contesnts of obj (${OBJDIR})and here apt should call that package.
 chroot $MOUNT_POINT apt install -y \
-fcitx-mozc i2c-tools open-jtalk open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001 build-essential zlib1g-dev libsdl2-dev libasound2-dev dnsutils nmap telnet nkf lirc fswebcam gimp vlc tuxtype ruby libgtk2.0-dev libglew-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libgles2-mesa-dev libegl1-mesa-dev open-jtalk open-jtalk-mecab-naist-jdic
+build-essential \
+dnsutils \
+fcitx-mozc \
+fswebcam \
+gimp \
+hts-voice-nitech-jp-atr503-m001 \
+i2c-tools \
+libasound2-dev \
+libcurl4-openssl-dev \
+libegl1-mesa-dev \
+libgles2-mesa-dev \
+libglew-dev \
+libgpiod-dev \
+libgpiod2 \
+libgtk2.0-dev \
+libsdl2-dev \
+libsdl2-dev \
+libsdl2-image-dev \
+libsdl2-mixer-dev \
+libsdl2-ttf-dev \
+lirc \
+nkf \
+nmap \
+open-jtalk \
+open-jtalk \
+open-jtalk-mecab-naist-jdic \
+open-jtalk-mecab-naist-jdic \
+ruby \
+telnet \
+tuxtype \
+vlc \
+zlib1g-dev \
+;
 make DESTDIR=$(realpath $MOUNT_POINT) install
 
 # Place .config/user-dirs.locale with ja_JP in /etc/skel to supress locale-inconsistent dialogue.
