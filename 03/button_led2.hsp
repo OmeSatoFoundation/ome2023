@@ -7,7 +7,7 @@ gpio 22, 0
 gpio 27, 0
 
 redraw 0
-font "",30
+font "",23
 pos 20,20
 mes "赤いボタンを押して、LEDをつけたり消したりできるよ"
 redraw 1
