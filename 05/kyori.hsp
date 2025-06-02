@@ -6,7 +6,7 @@ spiopen 0
 *main
 
 	data = spiget(0,0)
-	kyori = -1*(data*5000/1023)/36+845/9
+	kyori = 3952640 / (875*data + 22272)
 	res = "距離 : "+kyori
 	
 	redraw 0
