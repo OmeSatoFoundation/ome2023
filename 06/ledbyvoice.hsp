@@ -22,7 +22,7 @@ if stat != 0 {
   stop
 }
 
-sdim wrods, 4096, 0
+sdim words, 4096, 0
 ddim cm, 0
 repeat -1
   if is_recieved(sockidx) = 0 {
