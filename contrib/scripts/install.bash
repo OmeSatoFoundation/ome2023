@@ -199,8 +199,8 @@ make DESTDIR=$(realpath $MOUNT_POINT) install
 ## piwiz creates a new user by moving the default user pi: `usermod -m -d "/home/$NEWNAME" "$NEWNAME"`.
 ## as in userconf-pi/userconf.
 chroot $MOUNT_POINT su pi -c 'LANG=C xdg-user-dirs-update'
-mkdir -p /home/pi/.config
-echo "ja_JP" > /home/pi/.config/user-dirs.locale
+mkdir -p $MOUT_POINT/home/pi/.config
+echo "ja_JP" > $MOUNT_POINT/home/pi/.config/user-dirs.locale
 
 # Enable I2C and SPI before the initial boot.
 ## How to find raspi-config usage:
