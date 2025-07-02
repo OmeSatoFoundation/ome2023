@@ -77,15 +77,16 @@ git lfs pull
 OBJDIR=./obj # Destination where binaries, executables and the other files are cross-compiled. Supposed this script to be ran at project root ome2023/.
 PREFIX_EMU=/usr/local
 
-IMG_NAME=2024-03-12-raspios-bookworm-arm64.img
+IMG_NAME=2025-05-13-raspios-bookworm-arm64.img
 if [ ! -e $IMG_NAME ]; then
     if [ ! -e ${IMG_NAME}.xz ]; then
-        wget https://downloads.raspberrypi.com/raspios_arm64/images/raspios_arm64-2024-03-13/${IMG_NAME}.xz
+        wget https://downloads.raspberrypi.com/raspios_arm64/images/raspios_arm64-2025-05-13/${IMG_NAME}.xz
     fi
     xz -dkv ${IMG_NAME}.xz
 fi
 
 # expand img size
+## CHECKME: Is the truncation enough for 2025-05-13?
 truncate -s $((7800000000/512*512)) $IMG_NAME
 DEVICE_PATH=$(losetup -P -f --show ${IMG_NAME})
 
@@ -199,7 +200,7 @@ make DESTDIR=$(realpath $MOUNT_POINT) install
 ## piwiz creates a new user by moving the default user pi: `usermod -m -d "/home/$NEWNAME" "$NEWNAME"`.
 ## as in userconf-pi/userconf.
 chroot $MOUNT_POINT su pi -c 'LANG=C xdg-user-dirs-update'
-mkdir -p $MOUT_POINT/home/pi/.config
+mkdir -p $MOUNT_POINT/home/pi/.config
 echo "ja_JP" > $MOUNT_POINT/home/pi/.config/user-dirs.locale
 
 # Enable I2C and SPI before the initial boot.
@@ -232,7 +233,7 @@ sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc
 chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/local/share/ome/08/www/webserver.py
 
 # A WORKAROUND against the wayland environment that bothers chromium about getting along with IMs.
-sed 's/chromium-browser/chromium-browser --ozone-platform=x11/g'  $MOUNT_POINT/usr/share/applications/chromium-browser.desktop
+sed 's;Exec=/usr/bin/chromium %U;Exec=/usr/bin/chromium --ozone-platform=x11 %U;g' $MOUNT_POINT/usr/share/applications/chromium.desktop
 
 # Restore the desktop background image into one used in bullseye.
 # Found by `grep -r "fisherman.jpg" $MOUNT_POINT 2>/dev/null`
