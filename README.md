@@ -53,3 +53,6 @@ find 01 02 03 04 05 06 07 08 -type f | sort
 ```
 
 を実行し，その結果で `Makefile.am` の `nobase_dist_omedata_DATA` を更新してください．
+
+## Contribution Guildeline & Project Outline
+[CONTRIBUTIONG.md](docs/CONTRIBUTING.md)
