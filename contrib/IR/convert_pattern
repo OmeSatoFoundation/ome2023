@@ -14,7 +14,7 @@ while signals[idx][0] == 'space':
     idx += 1
 
 signals = signals[idx:]
-signals = signals[:255]
+signals = signals[:1023]
 if len(signals) % 2 == 0:
     signals = signals[:-1]
 
