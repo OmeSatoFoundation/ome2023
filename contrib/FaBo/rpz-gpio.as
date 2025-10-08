@@ -484,6 +484,37 @@
 	_value=(_x - _in_min)*(_out_max - _out_min) / (_in_max - _in_min) + _out_min
 	return _value
 
+#defcfunc adcget int _p1, int _p2
+	adc_pin = _p1
+	ch = _p2
+
+	; Configure spidev options
+	devcontrol "spisetmaxspeedhz", 10000, ch
+	if stat: return -2
+	devcontrol "spisetmode", 0, ch
+	if stat: return -3
+	devcontrol "spisetlsbfirst", 0, ch
+	if stat: return -4
+	devcontrol "spisetbitsperword", 8, ch
+	if stat: return -5
+	devcontrol "spiconfigureh", 10000, 0, 8
+	if stat: return -6
+	devcontrol "spiconfigurem", 0, 0, 0
+	if stat: return -7
+	devcontrol "spiconfigurel", 0
+	if stat: return -8
+
+	; Start communication
+	SINGLE_ENDED = 0x80
+	first_byte = 0x00000001
+	second_byte = SINGLE_ENDED | (adc_pin << 4)
+	devcontrol "spitransceive", (second_byte << 8) | first_byte, 3, ch
+	if stat < 0: return -9
+
+	res_second_byte  = (0x00000300 & stat)
+	res_first_byte = (0x00ff0000 & stat) >> 16
+	return res_second_byte | res_first_byte
+
 #global
 
 	i2c_stat=0
