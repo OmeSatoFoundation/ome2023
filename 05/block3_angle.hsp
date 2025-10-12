@@ -46,7 +46,7 @@
 	;gradf 0,0,x2,y2,1,0,128	; 画面クリア
 
 	; バー : マウス座標から位置を決定
-	angle = spiget(0, 0)
+	angle = adcget(0, 0)
 	posx = rasp_map(angle, 0, 1023, 0, 479)
 	barx=posx-barsize/2
 	color 255,255,255

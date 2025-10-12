@@ -5,7 +5,7 @@ spiopen 0
 
 *main
 
-	data = spiget(0,0)
+	data = adcget(0,0)
 	kyori = -1*(data*5000/1023)/36+845/9
 	res = "距離 : "+kyori
 	

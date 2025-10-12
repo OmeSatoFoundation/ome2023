@@ -4,7 +4,7 @@
 spiopen 0
 
 *main
-	data = spiget(0,0)
+	data = adcget(0,0)
 	res = "結果 : "+data+"\n"
 
 	redraw 0

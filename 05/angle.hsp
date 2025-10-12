@@ -7,7 +7,7 @@ p = 50
 spiopen 0
 
 *main
-	data = spiget(0,0)
+	data = adcget(0,0)
 	p = rasp_map(data, 0, 1023, 0, 440)
 
 	redraw 0
