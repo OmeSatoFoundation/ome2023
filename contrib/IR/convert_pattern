@@ -13,8 +13,9 @@ idx = 0
 while signals[idx][0] == 'space':
     idx += 1
 
+max_len = 1023
 signals = signals[idx:]
-signals = signals[:1023]
+signals = signals[:max_len]
 if len(signals) % 2 == 0:
     signals = signals[:-1]
 
