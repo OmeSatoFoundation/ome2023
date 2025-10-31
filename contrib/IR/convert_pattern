@@ -13,6 +13,7 @@ idx = 0
 while signals[idx][0] == 'space':
     idx += 1
 
+# Maximum IR signal buffer length for bookworm, refer https://github.com/OmeSatoFoundation/ome2023/issues/105
 max_len = 1023
 signals = signals[idx:]
 signals = signals[:max_len]
