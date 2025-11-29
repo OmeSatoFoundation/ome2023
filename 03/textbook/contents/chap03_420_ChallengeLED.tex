@@ -1,0 +1,70 @@
+\documentclass[text03.tex]{subfiles}
+\begin{document}
+\newpage
+\section{チャレンジ問題(1):\ruby{闇夜}{やみ|よ}を照らすLED}
+\label{Yamiyo}
+これはチャレンジ問題です。レベルアップしたい人は\ruby{挑戦}{ちょう|せん}してみてください。
+
+暗い時に全てのLEDが光るプログラムを書きましょう。\ref{sec:sensors}で明るさを調べる\ruby{照度}{しょう|ど}センサーを使いました。明るさを調べる命令（教科書\pageref{sec:sensors}ページから）を思い出し、これまでのプログラムを\ruby{参考}{さん|こう}にして、新しいプログラムを書いてみましょう。\\
+\begin{enumerate}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{\theenumi.\theenumii}
+\item HSPスクリプトエディタで\textasciitilde /03/に、light.hspという新しいファイルを作りましょう。
+\textcolor{blue}{\item プログラムの\ruby{設定}{せっ|てい}をきめます。}
+\begin{enumerate}
+\item \#includeを使って”rpz-gpio.as”と”hsp3dish.as”を読み\ruby{込}{こ}みましょう。\\
+\pageref{sensors.hsp}ページの1行目と2行目と同じように書きましょう。
+\item ts12572に使うI2Cチャンネルを1に設定しましょう。\\
+\pageref{sensors.hsp}ページの12行目と同じように書きましょう。
+\end{enumerate}
+\textcolor{blue}{\item ディスプレイに\ruby{表示}{ひょう|じ}するものをきめます。}
+\begin{enumerate}
+\item \ruby{仮想}{か|そう}画面に\ruby{描画}{びょう|が}するためにredrawを書きましょう。\\
+redraw 0と書きましょう。
+\item 文字をディスプレイに表示する命令を書きましょう。「暗いとLEDが光るよ」を表示しましょう。\\
+mes命令を使いましょう。
+\item \ruby{実際}{じっ|さい}の画面に描画するためのredraw命令を書きましょう\\
+redraw 1と書きましょう。
+\item 一度、スクリプトを実行してみましょう。ディスプレイに先ほど命令に書いた文字が表示されればOKです。表示されなかったり、エラーが発生したときは、スクリプトを見直したり、先生に\ruby{質問}{しつ|もん}してみてください。
+スクリプトを書くときは、少しずつ実行してエラーが出ないことを\ruby{確認}{かく|にん}することがとても大事です。
+\end{enumerate}
+\textcolor{blue}{\item 明るさを調べ、暗い時にLEDをすべて光らせます}
+\begin{enumerate}
+\item *mainという”はた”（目印）を使いましょう。\\
+\pageref{sensors.hsp}ページの14行目と同じように書きましょう。
+\item 明るさを調べる命令を書きましょう。\\
+\pageref{sensors.hsp}ページの23行目と24行目と同じように書きましょう。
+\item 暗い時を考えてみましょう。暗いときは、明るさが100より小さくなります。
+明るさが100より小さい時、LED1,LED2,LED3,LED4が光るという命令を書きましょう。\ruby{条件}{じょう|けん}によって実行する命令を変える場合はifを使います。\\
+明るさが100より小さい時という条件は\ 明るさが入っている変数 < 100と書きます。\\
+if lux<100 \{\\
+\ \ gpio 17,1\\
+\ \ gpio 18,1\\
+\ \ gpio 22,1\\
+\ \ gpio 27,1\\
+\}
+\item 次に、部屋が暗くないときを考えてみましょう。条件に当てはまらない時に、実行する命令はelse :\{\}の\{\}の中に命令を書きます。\\
+else : \{\\
+\ \ gpio 17,0\\
+\ \ gpio 18,0\\
+\ \ gpio 22,0\\
+\ \ gpio 27,0\\
+\}
+\item プログラムの一時停止のためのwait命令を書きましょう。\\
+\pageref{sensors.hsp}ページの31行目と同じように書きましょう。
+\item *mainまで\ruby{戻}{もど}る\ruby{繰}{く}り返しのgoto命令を書きましょう。\\
+\pageref{sensors.hsp}ページの32行目と同じように書きましょう。
+\end{enumerate}
+\item  \{\}や”などの記号のつけ\ruby{忘}{わす}れがないか確認しましょう。
+スクリプトを実行してみましょう。ディスプレイに「暗いとLEDが光るよ」と表示されればOKです。表示されなかったり、エラーが発生したときは、スクリプトを見直したり、TAや先生に質問してみてください。
+\end{enumerate}
+
+\begin{tcolorbox}[title=\useOmetoi]
+    %\begin{minipage}{0.94\hsize}
+    \begin{enumerate}
+    \addex{\ref{Yamiyo}を見ながら、プログラムを完成させましょう。}
+    \end{enumerate}
+    %\end{minipage}
+\end{tcolorbox}
+
+\end{document}

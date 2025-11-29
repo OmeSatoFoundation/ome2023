@@ -1,0 +1,33 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+\newpage
+\section{まとめ}
+OpenJTalkとJuliusの使いかたをまとめました。
+
+OpenJtalkの使いかたは、HSPスクリプトエディタで\\
+\code{jtload “<読み上げたい文字列>”, <バッファ番号>}\\
+で音声をロードした後、\\
+\code{mmplay <バッファ番号>}\\
+によって音声を再生します。\\
+
+Juliusはターミナルで使うときは\\
+\code{julius.sh <.dicファイル>}\\
+のように使います。dic形式の辞書は、.yomiファイル (識別子（コンピュータが使うラベル）と読み方のペア) を作って、ターミナルに\\
+\code{convert\_yomi.sh (今作った.yomiファイル) > (出力するファイルの名前(.dicファイル))}
+とします。
+
+HSPから使うときは\code{init\_julius}, \code{is\_received}, \code{get\_word\_list} を使って認識結果を取得します。\\
+\code{init\_julius <dicファイル>}\\
+で辞書ファイルを指定しつつJuliusを初期化します。\\
+\code{is\_received (<ソケットID>)}\\
+でJuliusが単語を受信したかチェックします。\\
+\code{get\_word\_list <単語をあらわす文字列配列> <単語信\ruby{頼}{らい}度をあらわす小数配列>}\\
+で<単語をあらわす文字列配列>に認識した単語、<単語信頼度をあらわす小数配列>に単語信頼度が代入されます。
+
+\subsection{\ruby{発展}{はっ|てん}:文法を設定する}
+例えば数字を認識させたいときはどうすればよいでしょうか？実はこれを単語辞書のみで実現するとなると大変な労力が必要です。例えば123という数をするには、単語辞書のみを使う場合は「ひゃくにじゅうさん」という単語を登録しないといけません。そうしなければ「いちにさん」と読まれてしまいます。同様に、それぞれの数に対して読みを登録しておかないといけません。また、同じ数字でも読み方が違う場合もあります（例えば、7は「なな」や「しち」と読むことがあります）。つまり、1から1000までの数を認識させたいときは、1000個以上の単語を登録しなければなりません。これを解決するために、「文法」を定めることができます。ただ、これは\ruby{難}{むずか}しいので、\ruby{興}{きょう}味があれば以下のページなどを参考に\ruby{挑}{ちょう}戦してみてください。
+\begin{itemize}
+\item \url{https://atmarkit.itmedia.co.jp/fxml/ddd/ddd004/ddd004-bnf.html}
+\item \url{http://julius.osdn.jp/index.php?q=doc/grammar.html}
+\end{itemize}
+\end{document}

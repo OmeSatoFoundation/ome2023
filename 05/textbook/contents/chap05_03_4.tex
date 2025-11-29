@@ -1,0 +1,67 @@
+\documentclass[text05.tex]{subfiles}
+\begin{document}
+\newpage
+\section{アナログ入力\ruby{装置}{そう|ち}を使ってみよう}
+アナログ入力装置をHSPで使ってみましょう。A0にボタン(\#103)をつけてください。HSPスクリプトエディタで\textasciitilde /05/anain.hspを開いて実行してみましょう。\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{../../asset/image/text05-img030.png}
+    \caption{アナログ入力A0}
+\end{figure}
+
+\begin{lstlisting}[caption=anain.hsp,label=anain.hsp]
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+spiopen 0	<#blue#;SPIチャンネルを開く#>
+
+*main
+	data = adcget(0,0)	<#blue#;SPIを使ってデータを受け取る#>
+	res = "結果 : "+data+"\n"
+
+	redraw 0
+	pos 20,20
+	font "",30
+	mes res
+	redraw 1
+
+	wait 10
+	goto *main
+
+spiclose 0	<#blue#;SPIチャンネルを閉じる#>
+\end{lstlisting}
+
+anain.hspはアナログ入力装置用のプログラムです。アナログ入力にはA0,A1,A2,A3のピンを使います。このプログラムは\ruby{感圧}{かん|あつ}センサー、ボリューム、\ruby{距離}{きょ|り}センサー、照度センサーに使うことができます。
+
+ラズベリーパイは一般にデジタル信号しか受け付けることができません。アナログ信号をラズベリーパイが読み取れるようなデジタル信号に変換する必要があります。その\ruby{変換}{へん|かん}のために、FaBo にはアナログ/デジタル\ruby{変換器}{へん|かん|き} (\ADC) の一種である回路が\ruby{搭載}{とう|さい}されています。搭載されている \ADC は受け取ったアナログ信号をデジタル信号に\ruby{変換}{へん|かん}し、SPI (シリアルペリフェラルインターフェース) と呼ばれる\ruby{通信方式}{つう|しん|ほう|しき}を介して出力ます。ラズベリーパイはこのデジタル信号を\ruby{解釈}{かい|しゃく}することでアナログ信号の状態を読み取ることができるようになります。
+
+ラズベリーパイと HSP でアナログ信号を入力するには、まず SPI で通信するための準備をします。
+\code{spiopen} を使います。
+\code{spiopen 0} と書くと、0 番目の SPI 通信経路を準備します。
+次に、\code{\adcget} 命令で \ADC からの信号を読み取ります。 
+\code{\adcget(0,0)} と書くと、A0 端子の信号を、0 番目の SPI 通信経路から読みこみます。入力される値は $0$ から $1023$ までの数値になります。
+\code{spiclose(0)} と書くと、0 番目の SPI 通信経路を解放し、他の SPI 通信に再利用できるようになります。
+ここまでの命令をまとめます。
+
+% TODO: 命令解説環境を作る。
+\begin{itemize}
+\item \code{spiopen(<通信経路番号>)}: <通信経路番号> で指定された SPI 通信経路を準備する。\code{\adcget} 命令を使う前に呼び出す。
+\item \code{\adcget(<ピン番号>, <通信経路番号>)}: <通信経路番号> で指定された SPI 通信経路を介して <ピン番号> に入力するアナログ信号を読み込む。$0$ から $1023$ までの数値が返る。
+\item \code{spiclose(<通信経路番号>)}: <通信経路番号> で指定された SPI 通信経路を解放する。
+\end{itemize}
+
+授業内の演習では \ADC だけが SPI 通信を行うので、<通信経路番号> は常に 0 を設定しておいて構いません。
+課外で他の SPI 通信をする回路を複数同時に使用したい場合は、<通信経路番号> が\ruby{重複}{ちょう|ふく} しないように設定しましょう。
+
+アナログ入力装置には、ボリュームや感圧センサなどいくつか種類があります。それぞれの具体的なな使い方は\pageref{analog_in}ページを見てみましょう。\\
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+\addex{感圧センサー(\#106)をA0につなげて上記のanain.hspを実行してみましょう。感圧センサーにさわる強さによって、画面の数字が変わります。}
+\addex{ボリューム(\#104)をA0につなげてanain.hspを実行してみましょう。ボリュームを動かすと、画面の数字が変わります。}
+\addex{照度センサー(\#109)をA0につなげてanain.hspを実行してみましょう。明るさによって、画面の数字が変わります。}
+\addex{\code{\adcget(0,0)}を\code{\adcget(1,0)}に変えましょう。A1にアナログ入力そうちをつなぎましょう。anain.hspを実行してみましょう。}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}

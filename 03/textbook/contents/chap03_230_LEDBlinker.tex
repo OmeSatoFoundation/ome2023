@@ -1,0 +1,38 @@
+\documentclass[text03.tex]{subfiles}
+\begin{document}
+\newpage
+\section{LED をチカチカさせよう}
+
+LED をチカチカ（\ruby{点滅}{てん|めつ}）させてみましょう。HSP スクリプトエディタで Ltika.hsp を開いて実
+行してください。\textasciitilde /03 のディレクトリにあります。\\
+
+\begin{lstlisting}[caption=\textasciitilde/03/Ltika.hsp,label=Ltika.hsp]
+#include "hsp3dish.as"		<#blue#;スクリプトの設定を読み込む#>
+#include "rpz-gpio.as"		<#blue#;スクリプトの設定を読み込む#>
+	redraw 0		<#blue#;画面更新（仮想画面に描画）#>
+	mes "0.5 秒毎に青色の LED がチカチカするよ"
+	redraw 1		<#blue#;画面更新（実際の画面に描画）#>
+*led
+	gpio 22,0		<#blue#;gpio22 を消灯#>
+	wait 50 		<#blue#;500 ミリ秒待つ#>
+	gpio 22, 1 		<#blue#;gpio22 を点灯#>
+	wait 50 		<#blue#;500 ミリ秒待つ#>
+	goto *led 		<#blue#;*led にジャンプ（繰り返し）#>
+\end{lstlisting}
+
+プログラムを読んでみましょう。点滅させるためには LED の ON と OFF を\ruby{交互}{こう|ご}に繰り返すのでした。
+OFF にする \code{gpio} 命令 (\code{gpio 22, 0}) と ON にする \code{gpio} 命令 (\code{gpio 22, 1}) が \code{wait} 命令と交互に
+\ruby{現}{あらわ}れることを\ruby{確認}{かく|にん}しましょう。wait命令は渡した値$\times 10$ミリ秒待つ命令でした。waitで待つ時間が長くなれば、
+LEDの点滅がゆっくりになります。また、waitで待つ時間が短くなれば、LEDの点滅が速くなります。
+
+\begin{tcolorbox}[title=\useOmetoi]
+	\begin{enumerate}
+		\addquiz{緑色のLED を光らせる命令を書きましょう。ヒント: この節の説明と、図\ref{sensors}を参考にしましょう。}
+		\addquiz{黄色のLED を消す命令を書きましょう。ヒント: この節の説明と、図\ref{sensors}を参考にしましょう。}
+		\addex{ターミナルを使って Ltika.hsp のコピーを、myLtika.hsp という名前で作りましょう。}
+		\addex{ほかの色の LED がチカチカするように myLtika.hsp のプログラムを変えてみましょう。ヒント: この節の説明と、図\ref{sensors}を参考にしましょう。}
+		\addex{チカチカする速さが速くなるように、myLtika.hsp のプログラムを変えてみましょう。ヒント: wait命令の数値をどのように変えると、LEDの\ruby{点滅}{てん|めつ}が速くなるでしょうか。}
+		\addex{チカチカする速さが\ruby{遅}{おそ}くなるように、myLtika.hsp のプログラムを変えてみましょう。ヒント: wait命令の数値をどのように変えると、LEDの\ruby{点滅}{てん|めつ}が\ruby{遅}{おそ}くなるでしょうか。}
+	\end{enumerate}
+\end{tcolorbox}
+\end{document}

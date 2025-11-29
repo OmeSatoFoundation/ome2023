@@ -1,0 +1,34 @@
+%
+% lualatex ver. 
+%
+\documentclass[a4paper,12pt]{ltjsbook} 
+\usepackage{subfiles}
+% \usepackage{okumacro}
+\usepackage{luatexja-ruby}
+\usepackage{udline}
+\usepackage{omebook}
+\usepackage{svg}
+\usepackage{indentfirst}
+% \usepackage{supertabular}
+
+% \usepackage{amssymb}
+
+% 〇×マクロ
+\newcommand{\addox}[1]{%
+% \item #1 \vspace{0.5\zh}\\%
+\item #1 \vspace{0.5\zh}%
+% \fbox{\phantom{白}} $\leftarrow$〇または×\\
+\fbox{\phantom{白}}\\
+}
+
+
+\svgsetup{
+  inkscapelatex=false
+}
+\setcounter{chapter}{0}
+\setcounter{secnumdepth}{2}
+\begin{document}
+  \input body.tex
+\end{document}
+
+

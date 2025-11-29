@@ -1,0 +1,21 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+\section{音声\ruby{認識}{にん|しき}}
+音声認識は、文章を読み上げている音声ファイルからその文章を予想するものです。音声合成でも紹介したAmazon Echoは音声認識\ruby{機能}{き|のう}も持っています。「1時間後に起こして」と声を発すると、内部でそれが文字列に\ruby{変換}{へん|かん}されます。その後その文字列を\ruby{解析}{かい|せき}してアラームを\ruby{設定}{せっ|てい}します。
+
+この\ruby{演習}{えん|しゅう}では、音声認識のためのソフトウェアとしてJuliusを使います。入力は音声で出力は文字列になります(図\ref{Juliusの入出力})。
+
+\begin{figure}[H]
+\begin{center}
+    \includesvg[width=.6\linewidth]{../../asset/image/Julius.svg}
+    \caption{Juliusの入出力}
+    \label{Juliusの入出力}
+\end{center}
+\end{figure}
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+\addquiz{音声認識とはなんですか。50字以内で説明してください。}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}

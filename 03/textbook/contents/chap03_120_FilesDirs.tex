@@ -1,0 +1,272 @@
+\documentclass[text03.tex]{subfiles}
+\begin{document}
+\newpage
+\section{ファイルとディレクトリ}
+\subsection{ファイルってなんだろう？}
+ラズパイでは\ruby{情報}{じょう|ほう}を{\bf ファイル}として扱います。
+ファイルはコンピュータに\ruby{保存}{ほ|ぞん}されている文章、\ruby{画像}{が|ぞう}、音楽などのデータです。
+多くの場合、人間はコンピュータを使ってファイルを操作することで仕事をします。
+ファイルには「\ruby{拡張子}{かく|ちょう|し}」がついており、
+そのファイルがどんな種類なのかを表します。
+たとえば、画像を表す.jpgと.pngや、動画を表す.mp4、音楽を表す.mp3、
+テキストを表す.txtなどがあります。
+
+\begin{table}[H]
+  \begin{center}
+    \caption[tab:files]{ファイルの種類}
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \begin{minipage}{0.12\hsize}
+      \begin{center}
+        \includesvg[width=\linewidth]{../../asset/oto.svg}
+      \end{center}  
+    \end{minipage} & 
+    \begin{minipage}{0.12\hsize}
+      \begin{center}
+        \includesvg[width=\linewidth]{../../asset/image.svg}
+      \end{center}
+    \end{minipage} &
+    \begin{minipage}{0.12\hsize}
+      \begin{center}
+        \includesvg[width=\linewidth]{../../asset/douga.svg}
+      \end{center} 
+    \end{minipage} &
+    \begin{minipage}{0.12\hsize}
+      \begin{center}
+        \includesvg[width=\linewidth]{../../asset/image.svg}
+      \end{center} 
+    \end{minipage} &
+    \begin{minipage}{0.12\hsize}
+      \begin{center}
+        \includesvg[width=\linewidth]{../../asset/text.svg}
+      \end{center} 
+    \end{minipage} \\ \hline
+    oto.mp3 & gazou.jpg & douga.mp4 & image.png & memo.txt \\ \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+\subsection{ディレクトリってなんだろう？}
+\ruby{扱}{あつか}うファイルが\ruby{増}{ふ}えてくると、ファイルを\ruby{種類}{しゅ|るい}ごとに\ruby{分類}{ぶん|るい}して\ruby{保管}{ほ|かん}すると\ruby{便利}{べん|り}です。
+ディレクトリとはファイルを\ruby{分類}{ぶん|るい}・\ruby{整理}{せい|り}するためのもので、
+いくつかのファイルを入れておくためのファイルです。
+ファイルは紙、ディレクトリはバインダー、だと考えるとわかりやすいでしょう。
+以下に、ラズパイの主なディレクトリを示します。
+
+\begin{figure}[H]
+  \begin{minipage}{0.3\hsize}
+    {\footnotesize 
+    \begin{forest}
+      for tree={grow'=0,folder}
+      [/
+        [bin/]
+        [dev/]
+        [etc/]
+        [home/
+          [あなたのユーザ名/]]
+        [sbin/]
+        [tmp/]
+        [usr/
+          [bin/]
+          [lib/]
+          [local/]]
+        [var/]
+      ]
+    \end{forest}
+    }
+  \end{minipage}
+  \begin{minipage}{0.6\hsize}
+      \begin{description}
+      \item [/bin] システムの動作に必要なコマンドの実行ファイルを置くためのディレクトリです。
+      \item [/dev] ディスクやキーボードなどのハードウェアを操作するためのファイルを格納します。
+      \item [/etc] ラズパイで動作するさまざまなアプリケーションの動作を設定するためのテキストファイルが置かれます。
+      \item [/home] ホームディレクトリが配置されます。
+      \item [/sbin] shutdownなどの管理者用のコマンドを置くためのディレクトリです。
+      \item [/tmp] 一時的な作業ファイル(テンポラリファイル)を置くためのディレクトリです。
+      \item [/usr] 追加でアプリケーションをインストールした場合にはこのディレクトリの下に配置されます。
+      \item [/var] 変化するデータを置くためのディレクトリです。 
+      \end{description}
+  \end{minipage}
+  \caption{ラズパイの主なディレクトリ}
+  \label{fig:raspi-dir}
+\end{figure}
+
+
+
+% \begin{tcolorbox}[title=\useOmetoi]
+% \begin{enumerate}
+% \addquiz{ファイルとはなんでしょうか。}
+% \addquiz{ディレクトリとはなんでしょうか。}
+% \addex{どんな拡張子があるかインターネットで調べてみましょう。
+% 例を見て、拡張子とその拡張子が何を表すかを書いて表をうめてみましょう。
+% (ヒント: 教科書第1回 2.7 ブラウザでけんさくしよう を参考にしましょう。)
+% \begin{table}[H]
+%   \centering
+%   \begin{tabular}{p{2em}p{12em}p{12em}} \toprule
+% 番号 & 拡張子 & 表すもの \\ \midrule
+% 1.\vspace{16mm} & .jpg & 画像 \\
+% 2.\vspace{16mm} & .mp4 & 動画 \\
+% 3.\vspace{16mm} & .txt & \hspace{10\zw} \\
+% 4.\vspace{16mm} & .mp3 & \hspace{10\zw} \\
+% 5.\vspace{16mm} & .png & \hspace{10\zw} \\ \bottomrule
+% \end{tabular}
+% \end{table}
+% %不具合のため全角スペースを挿入
+% 　
+% }
+% \end{enumerate}
+% \end{tcolorbox}
+
+\section{ディレクトリとパス}
+ディレクトリの中にはファイルとディレクトリを作ることができます。
+ディレクトリの中にディレクトリを作り、その中にさらにディレクトリを作る・・・ということができるため、
+ラズパイの中にはたくさんのファイルやディレクトリがあります。
+処理に使うファイルやディレクトリの\ruby{位置}{い|ち}を正しくラズパイに\ruby{指定}{し|てい}するために、
+ディレクトリやファイルの指定方法を学びます。
+
+\subsection{ディレクトリの\ruby{関係}{かん|けい}と\ruby{特殊}{とく|しゅ}なディレクトリ}
+
+\noindent {\bf ●ディレクトリの\ruby{上下関係}{じょう|げ|かん|けい}}
+
+いま注目しているディレクトリの中に入っているディレクトリを{\bf 下のディレクトリ}または{\bf サブディレクトリ}と呼びます。
+いま注目しているディレクトリを中に持っているディレクトリを{\bf 上のディレクトリ}または{\bf 親ディレクトリ}と呼びます。
+
+\noindent {\bf ●ルートディレクトリ}
+
+一番上のディレクトリは / (スラッシュ)で書きます。特別なディレクトリで、root(ルート)ディレクトリと呼びます。その下にある bin/ boot/ dev/ etc/ などのディレクトリはラズパイの\ruby{設定}{せっ|てい}ファイルを持っているので、\ruby{間違}{ま|ちが}った使い方をするとラズパイが\ruby{壊}{こわ}れます。気を付けましょう。
+
+\noindent {\bf ●ホームディレクトリ}
+
+ユーザが作業に使ってもよいディレクトリを{\bf ホームディレクトリ}と言います。
+ホームディレクトリは、ラズベリーパイでは{\bf /home/あなたのユーザ名}です。
+ホームディレクトリを示すために記号「\code{\textasciitilde}」（チルダ）を使うこともできます。「\code{\textasciitilde}」（チルダ）と「\code{-}」（ハイフン）は\ruby{慣}{な}れないと\ruby{区別}{く|べつ}が付きにくいので気を付けましょう。
+
+\noindent {\bf ●カレントディレクトリ}
+
+みなさんが今、ターミナルで作業に使っているディレクトリは{\bf カレントディレクトリ}と言います。
+カレントディレクトリは「.」と書きます。ひとつ上のディレクトリは「..」と書きます。
+
+\subsection{\ruby{絶対}{ぜっ|たい}パスと\ruby{相対}{そう|たい}パス}
+ディレクトリの位置は、ディレクトリを / で区切った{\bf 「パス」}というもので指定します。
+ディレクトリの位置の指定の方法は\ruby{絶対}{ぜっ|たい}パスと\ruby{相対}{そう|たい}パスの2種類があります。
+
+\noindent {\bf ●\ruby{絶対}{ぜっ|たい}パス}
+
+ディレクトリの位置を{\bf ルートディレクトリ（/）から}見てどこにあるかで指定します。
+絶対パスの\ruby{特徴}{とく|ちょう}はパスの先頭に / がついています。
+例えば、/usr/bin/ などとして指定します。
+
+\noindent {\bf ●\ruby{相対}{そう|たい}パス}
+
+ディレクトリの位置を{\bf カレントディレクトリから}見てどこにあるかで指定します。
+相対パスの特徴はパスの先頭に / がついていません。
+例えば、./usr/bin/ や usr/bin/ などとして指定します。
+
+\noindent {\bf ●ホームディレクトリ}
+
+\textasciitilde (チルダ)から始まるディレクトリの位置は、\textasciitilde を
+「/home/あなたのユーザ名」と置き\ruby{換}{か}えたものとして扱われます。
+
+\subsection{パスを\ruby{指定}{し|てい}する}
+カレントディレクトリにあるディレクトリxxxの位置を指定する場合は、
+xxx、xxx/、./xxx、./xxx/などと書きます。
+ディレクトリをそのまま書いても、./から始めても、同じ意味になります。
+また、ディレクトリの最後に/をつけるとディレクトリであることがわかりやすいですが、省略してもよいことになっています。
+いろいろな指定の仕方があるのは面白いですね。
+
+ホームディレクトリにあるファイルyyyの位置を指定する場合は、
+\textasciitilde /yyy, または /home/あなたのユーザ名/yyy と書きます。ファイルの後ろにはスラッシュ記号(/)はつけません。
+
+図\ref{fig:folder-path1}, \ref{fig:folder-path2}, \ref{fig:folder-path3} にユーザー名が「pi」のときのディレクトリの関係をパスで\ruby{表}{あらわ}してあります。
+パスとフォルダ間の関係を考えながら図を読みましょう。
+
+\begin{figure}[H]
+  \begin{minipage}{0.2\hsize}
+    \begin{forest}
+      for tree={grow'=0,folder}
+      [/, draw
+        [home/
+          [pi/]]]
+    \end{forest}
+  \end{minipage}
+  \begin{minipage}{0.8\hsize}
+    \begin{tabular}{ll}
+      絶対パス & /からの相対パス \\ \hline
+      / & . \\ \hline
+      /home または /home/ & \begin{tabular}{l} home または ./home \\ または home/ または ./home/ \end{tabular} \\ \hline 
+      /home/pi または /home/pi/ & \begin{tabular}{l} home/pi または ./home/pi \\ または home/pi/ または ./home/pi/ \end{tabular} \\ \hline
+    \end{tabular}
+  \end{minipage}
+  \caption{フォルダの関係と/からのパスの指定}
+  \label{fig:folder-path1}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{minipage}{0.2\hsize}
+    \begin{forest}
+      for tree={grow'=0,folder}
+      [/
+        [home/ , draw
+          [pi/]]]
+    \end{forest}
+  \end{minipage}
+  \begin{minipage}{0.8\hsize}
+    \begin{tabular}{ll}
+      絶対パス & /home/からの相対パス \\ \hline
+      / & \begin{tabular}{l} .. または ../ \\ または ./.. または ./../ \end{tabular} \\ \hline
+      /home または /home/ & \begin{tabular}{l} . \\または ./  \end{tabular} \\ \hline 
+      /home/pi または /home/pi/ & \begin{tabular}{l} pi または ./pi \\ または pi/ または ./pi/ \end{tabular} \\ \hline
+    \end{tabular}
+  \end{minipage}
+  \caption{フォルダの関係と/home/からのパスの指定}
+  \label{fig:folder-path2}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{minipage}{0.2\hsize}
+    \begin{forest}
+      for tree={grow'=0,folder}
+      [/
+        [home/
+          [pi/ , draw ]]]
+    \end{forest}
+  \end{minipage}
+  \begin{minipage}{0.8\hsize}
+    \begin{tabular}{ll}
+      絶対パス & /home/pi/からの相対パス \\ \hline
+      / & \begin{tabular}{l} ../.. または ../../ \\ または ./../.. または ./../../ \end{tabular} \\ \hline
+      /home または /home/ & \begin{tabular}{l} .. または ../ \\ または ./.. または ./../ \end{tabular} \\ \hline 
+      /home/pi または /home/pi/ & \begin{tabular}{l} . \\ または ./ \end{tabular} \\ \hline
+    \end{tabular}
+  \end{minipage}
+  \caption{フォルダの関係と/home/pi/からのパスの指定}
+  \label{fig:folder-path3}
+\end{figure}
+
+\begin{tcolorbox}[title=\useOmetoi,breakable]
+\begin{figure}[H]
+ \centering
+%\includesvg[width=0.6\linewidth]{../../asset/ex3-2.svg}
+  \begin{forest}
+    for tree={grow'=0,folder}
+    [/
+      [home/
+        [pi/
+          [Desktop/
+            [Web/]]
+          [Pictures/]
+          [Video/
+            [Eiga/]]
+          [Music/]]]]
+  \end{forest}
+\end{figure}
+ユーザー名を「pi」としたときに次の問題に答えてみましょう。
+\begin{enumerate}
+\addquiz{ホームディレクトリはどれでしょうか。\ruby{絶対}{ぜっ|たい}パスで書きましょう。}
+\addquiz{カレントディレクトリが /home/pi/Video/ のとき、ひとつ上のディレクトリはどれでしょうか。\ruby{絶対}{ぜっ|たい}パスで書きましょう。}
+\addquiz{カレントディレクトリが /home/pi/ のとき、ひとつ下のディレクトリはどれでしょうか。４つあります。ディレクトリ名だけ書けばよいです。}
+\addquiz{カレントディレクトリが /home/pi/Desktop/ のとき、ひとつ上のディレクトリはどれでしょうか。\ruby{絶対}{ぜっ|たい}パスで書きましょう。}
+\addquiz{カレントディレクトリが \textasciitilde /Desktop のとき、ひとつ下のディレクトリはどれでしょうか。\ruby{絶対}{ぜっ|たい}パスで書きましょう。}
+\end{enumerate}
+\end{tcolorbox}
+
+\end{document}

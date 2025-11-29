@@ -1,0 +1,96 @@
+\documentclass[text03.tex]{subfiles}
+\begin{document}
+\newpage
+\section{ファイル操作の総合演習}
+
+\begin{figure}[H]
+    \centering
+	\begin{forest}
+		for tree={font=\footnotesize,grow'=0,folder}
+		[/
+			[home/
+				[あなたのユーザ名/
+					[03/ 
+						[rensyu/
+							[kokugo/
+								[syousetu.txt]]
+							[sansu/
+								[nihon.png]
+								[sansu.txt]]
+							[rika/
+								[mokei.png]
+								[rika.png]]
+							[syakai/
+								[sekai.png]]
+							[oda.jpg]
+							[kanji.txt]
+						]
+					]
+				]
+			]
+		]
+	\end{forest}
+    \caption{rensyuディレクトリの中身}
+    \label{rensyuDir}
+\end{figure}
+この図はこの章で使うファイルの配置を\ruby{示}{しめ}した図です。
+ターミナルを開いて、コマンドを使って問題をといてみましょう。\\
+
+\begin{itembox}[c]{rensyu ディレクトリを最初の\ruby{状態}{じょう|たい}に\ruby{戻}{もど}すには}
+\textasciitilde /03/rensyu ディレクトリはファイル\ruby{操作}{そう|さ}の練習用のディレクトリです。練習することで、\ruby{内容}{ない|よう}が変わってしまいます。\ruby{授業}{じゅ|ぎょう}が始まる前の状態に戻すには次のコマンドを使います。rensyu ディレククトリの下の自分で作ったファイルやディレクトリは消えてしまうので注意してください。\\
+\begin{enumerate}
+\item  cd\textvisiblespace \textasciitilde /03
+\item  tar\textvisiblespace \verb|--|recursive-unlink\textvisiblespace -zxvf\textvisiblespace rensyu.tar.gz
+% --表示できない
+\end{enumerate}
+\end{itembox}
+
+\newpage
+\begin{tcolorbox}[title=\useOmetoi,breakable]
+	図\ref{rensyuDir}を見ながら解きましょう。
+	\begin{enumerate}
+		\addquiz{ホームディレクトリに移動しましょう。}
+		\addex{ホームディレクトリに置かれているファイルやディレクトリを見てみましょう。}
+		\addex{\textasciitilde /03/rensyuに\ruby{移動}{い|どう}してみましょう。}
+		\addquiz{rensyuディレクトリの中身を調べてみましょう。どんなディレクトリがありますか？}
+		\addex{syousetu.txtを\ruby{絶対}{ぜっ|たい}パスで指定して、中身を見てみましょう。}
+		\addex{syousetu.txtをカレントディレクトリからの\ruby{相対}{そう|たい}パスで指定して、中身を見てみましょう。}
+		\addex{kokugoディレクトリに移動してから、syousetu.txtを\ruby{相対}{そう|たい}パスで指定して、ファイルの中身を見てみましょう。}
+		\addquiz{\vspace{.5\zh} 問題5, 6, 7で見たファイルの\ruby{内容}{ない|よう}はぜんぶ同じでしたか？}
+	\end{enumerate}
+\end{tcolorbox}
+
+\newpage
+\begin{tcolorbox}[title=\useOmetoi,breakable]
+	図\ref{rensyuDir}を見ながら解きましょう。
+	\begin{enumerate}
+		\addex{rikaディレクトリの下にあるmokei.pngをコピーしてrikaディレクトリの中にmokei2.pngを作りましょう。}
+		\addex{rikaディレクトリをコピーして、rensyuディレクトリの下にrika2ディレクトリを作りましょう。}
+		\addex{rensyuディレクトリの下にあるkanji.txtをkokugoディレクトリの下に移動しましょう。}
+		\addex{sansuディレクトリの下にあるnihon.pngをsyakaiディレクトリの下に移動しましょう。}
+		\addex{syakaiディレクトリの下に移動しましょう。その後、syakaiディレクトリの下にrekisiディレクトリを作りましょう。}
+		\addex{rensyuディレクトリの下にあるoda.jpgをsyakai/rekisiディレクトリに移動しましょう。}
+		\addex{syakaiディレクトリの下にあるrekisiディレクトリをrensyuディレクトリの下に移動しましょう。}
+		\addex{sansu/sansu.txtの名前をsansu/tasizan.txtに変えてみましょう。}
+	\end{enumerate}
+\end{tcolorbox}
+
+\newpage
+\begin{tcolorbox}[title=\useOmetoi,breakable]
+	図\ref{rensyuDir}を見ながら解きましょう。
+	\begin{enumerate}
+		\item syousetu.txtを一画面ずつ表示してみましょう。\vspace{.5\zh}
+		\begin{enumerate}
+			\addquiz{catと何が\ruby{違}{ちが}うでしょうか。}
+			\item 一行進めてみましょう。
+			\item 一行\ruby{戻}{もど}ってみましょう。
+			\item 終わりましょう。
+		\end{enumerate} \vspace{0.5\zh}
+		\fbox{\phantom{白}} $\leftarrow$できたらチェックしましょう。\\
+		\addex{rikaディレクトリの下にある、mokei2.pngを消してみましょう。}
+		\addex{rika2ディレクトリを消してみましょう。}
+		\addex{rensyuディレクトリの下にmy.txtファイルを作り、名前と好きな食べ物を書いてみましょう。書いたら\ruby{保存}{ほ|ぞん}しましょう。}
+		\addex{rensyuディレクトリの下にMyディレクトリを作り、my.txtをMyディレクトリの下に移動してみましょう。}
+	\end{enumerate}
+\end{tcolorbox}
+\end{document}

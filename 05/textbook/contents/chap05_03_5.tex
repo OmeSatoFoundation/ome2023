@@ -1,0 +1,54 @@
+\documentclass[text05.tex]{subfiles}
+\begin{document}
+\newpage
+\section{\ruby{距離}{きょ|り}センサーを使ってみよう}
+距離センサーをHSPで使ってみましょう。距離センサー(番号は書いてありません。\pageref{distance}ページを参考にしてください)をA0につなげましょう。HSPスクリプトエディタで、\textasciitilde /05/kyori.hspを開いて実行してください。
+\begin{center}
+  \begin{minipage}[t]{.3\columnwidth}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=.8\linewidth]{../../asset/image/text05-img031.png}
+      \caption{距離センサー}
+    \end{figure}
+  \end{minipage}
+  %\hspace{0.01\columnwidth} % ここで隙間作成
+  \begin{minipage}[t]{.5\columnwidth}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.8\linewidth]{../../asset/image/text05-img030.png}
+    \caption{A0}
+    \end{figure}
+  \end{minipage}
+\end{center}
+\begin{lstlisting}[caption=kyori.hsp,label=kyori.hsp]
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+spiopen 0	<#blue#;SPIチャンネルを開く#>
+
+*main
+
+	data = adcget(0,0)	<#blue#;SPIを使ってデータを受け取る#>
+	kyori = 3952640 / (875*data + 22272)	<#blue#;dataを距離に変換する#>
+	res = "距離 : "+kyori
+	
+	redraw 0
+	font "",20
+	pos 30,30
+	mes res
+	redraw 1
+
+	wait 10
+	goto *main
+
+spiclose 0	<#blue#;SPIチャンネルを閉じる#>
+\end{lstlisting}
+
+距離センサーのデータは\code{\adcget}を使って受け取ることができます。\ruby{値}{あたい}は0～1023になります。これでは距離がわからないので、受け取った値をcm(センチメートル)に変換する必要があります。変換するための式は\pageref{distance}ページに書いてあります。今回は入力は\code{data}という変数にしているので、式のxをdataにします。\code{kyori = 3952640 / (875*data + 22272)}で入力を距離に変換し、\code{kyori}変数に代入しています。単位はcmです。\\
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+\addex{距離センサーをA0につなげてkyori.hspを実行してみましょう。\ruby{測定}{そく|てい}できる距離はだいたい10～80cmです。}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}

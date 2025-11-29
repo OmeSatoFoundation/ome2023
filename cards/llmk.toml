@@ -1,0 +1,7 @@
+source = "cards.tex"
+
+sequence = ["latex"] # Skip bibtex and makeindex
+
+[programs.latex]
+command = "lualatex"
+opts = ["--shell-escape", "--cnf-line='TEXINPUTS=.;../texmf//;'"]

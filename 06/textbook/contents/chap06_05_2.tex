@@ -1,0 +1,74 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+\newpage
+\section{単語\ruby{辞書}{じ|しょ}を使った音声\ruby{認識}{にん|しき}を体験する}
+さきほど書いたように、日本語の全ての言葉を認識させるのはとても\ruby{難}{むずか}しいことです。しかし、多くの場合、認識させたい単語はいくつかに\ruby{限}{かぎ}られることが多いです。たとえば、声で\ruby{操作}{そう|さ}する照明の場合、「つけて」と「けして」の単語を登録しておけば十分でしょう。認識させる単語を\ruby{減}{へ}らすと、\ruby{似}{に}た発音の単語を聞き\ruby{間違}{ま|ちが}えることが減ります。また、\ruby{探}{さが}すべき言葉の量も減ります。この結果、認識の正\ruby{確}{かく}さと速度が向上します。ここではJuliusに単語辞書を登録し、その辞書に登録されている単語だけを認識させる方法を\ruby{紹介}{しょう|かい}します。
+
+少ない単語を登録した単語辞書をJuliusに読み\ruby{込}{こ}ませたときの動作を確認しましょう。juliusで辞書ファイルを使うには、辞書ファイルを引数にして、\code{julius.sh}命令を使います。\\
+\code{julius.sh <辞書ファイル名.dic>}
+
+例えば \textasciitilde /07/に果物の単語を登録した辞書ファイル、kudamono.dicを用意しています。kudamono.dicに下の単語が登録されています。
+\begin{center}
+	りんご　みかん　ぶどう　もも　あけび　あんず　いちご　いちじく　かき　スイカ\\すもも　	なし　メロン
+\end{center}
+
+単語辞書を使うと、単語辞書なしで音声認識させたときよりも正確で高速に動作していると思います。これが単語の種類を\ruby{制限}{せい|げん}する\ruby{効果}{こう|か}です。みなさんがjuliusを使って何か作りたいと思ったときは単語辞書を作り、必要な言葉だけを認識させる方法を使うのがおすすめです。\\
+
+\begin{itembox}[c]{ディレクトリの移動}
+        Juliusを使ったサンプルプログラムや必要なファイルは \textasciitilde /07/に用意してあります。入力する引数を短くするためにディレクトリを移動しておきましょう。\\
+\end{itembox}
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+        \addex{ターミナルを開いて、 \textasciitilde /07/に移動しましょう。\\ヒント：cd  \textasciitilde /07/}
+        \addquiz{ターミナルにjulius.sh kudamono.dicと入力して、果物の名前を5\ruby{個}{こ}話しかけてみましょう。単語は何個認識されましたか？}
+\end{enumerate}
+\end{tcolorbox}
+
+\newpage
+\section{自分の単語辞書を作成する}
+それでは、実際に自分で単語辞書を作成・登録しましょう。大まかな流れは、まず人間が読める形式で辞書を作成します。次に、辞書をJuliusが読める形式に変換します。最後に、\ruby{変換}{へん|かん}した辞書をjuliusに読み込ませます。辞書は\ruby{識別子}{しき|べつ|し}と読み方のペアでできています。識別子とは、コンピュータが使うラベル（名前）です。辞書ファイルの例として \textasciitilde /07/kudamono.yomiがあります。\\
+
+（識別子（コンピュータが使うラベル）と読み方のペア）
+
+
+\begin{lstlisting}[caption=kudamino.yomi,label=kudamino.yomi]
+りんご りんご
+みかん みかん
+ぶどう ぶどう
+桃 もも
+あけび あけび
+あんず  あんず
+苺      いちご
+いちじく        いちじく
+柿      かき
+スイカ  すいか
+すもも  すもも
+なし    なし
+メロン  めろん
+\end{lstlisting}
+
+このファイルのように、辞書ファイルは\\
+\textbf{「<コンピュータが使うラベル> (半角スペース) <読み方（ひらがな)> (改行)」}\\
+という形式である必要があります。mousepadなどで新しいファイルを開き、この形式で辞書ファイルを作成・\ruby{保存}{ほ|ぞん}してください。次に、この.yomiファイルをJuliusが読めるように.dicファイルに変換します。このために、\code{convert\_yomi.sh}コマンドが用意してあります。使いかたは\\
+\code{convert\_yomi.sh (辞書ファイルの名前 .yomiファイル) > (辞書ファイルの名前.dicファイル)}
+です。これをターミナルに打ち込みます。例えば、\\
+\code{convert\_yomi.sh kudamono.yomi > kudamono.dic}\\
+のように使います。
+
+.dicファイルができたら、これをJuliusから使ってみましょう。Juliusを起動するためのコマンド \code{julius.sh} が用意してあります。\\
+\code{julius.sh <.dicファイル>}\\
+のように使います。たとえば、\\
+\code{julius.sh kudamono.dic}\\
+のように使います。これを実行したら、またマイクに向かって話しかけてみて、言葉が認識されるかを確認してください。\ruby{終了}{しゅう|りょう}するときは\pageref{Julius}ページで説明したように、Ctrl+c(コントロールキーを\ruby{押}{お}しながらcを押す)を使います。
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+\addex{ターミナルを開いて、 \textasciitilde /07/に移動しましょう。}
+\addex{kudamono.yomiに好きな果物を3つ追加してみましょう。}
+\addex{辞書ファイルを変換しましょう。\\ターミナルに\code{convert\_yomi.sh kudamono.yomi > kudamono.dic}と入力します。}
+\addex{果物を追加したkudamono.dicで音声認識をしてみましょう。\\ターミナルに\code{julius.sh kudamono.dic}と入力します。}
+\addex{時間があったらやりましょう。\\3単語以上からなるオリジナル辞書を作成し、juliusに認識させてみましょう。}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}

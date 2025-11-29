@@ -1,0 +1,3 @@
+# Ignoring all the *.pdf files.
+# Do NOT place any source files (e.g., figures) of *.pdf.
+*.pdf

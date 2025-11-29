@@ -1,0 +1,28 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+\newpage
+\section{Julius}\label{Julius}
+次にJuliusを\ruby{紹介}{しょう|かい}します。コマンド1つで試せるようにしてあります。下のようにターミナルにコマンドを入力し、実行しましょう。\\
+\code{run-linux-gmm.sh}\\
+このコマンドを実行すると、いくらかシステム\ruby{情報}{じょう|ほう}が\ruby{表示}{ひょう|じ}された後、「<<please speak>>」という文字列が\ruby{現}{あらわ}れます（ 図\ref{juliusの使い方}）。
+\begin{figure}[H]
+\begin{center}
+    \includegraphics[width=.8\linewidth]{../../asset/image/text06-img009.png}
+    \caption{Juliusの使い方}
+    \label{juliusの使い方}
+\end{center}
+\end{figure}
+その後マイクに向かって話しかければ、話しかけた単語が文字列になって画面に表示されます。今回は試しに果物の名前を話しかけてみましょう。
+\begin{center}
+	りんご　みかん　ぶどう　もも　あけび　あんず　いちご　いちじく　かき　スイカ\\すもも　	なし　メロン
+\end{center}
+\ruby{終了}{しゅう|りょう}するときはCtrl+c（コントロールキーを\ruby{押}{お}しながらcを押す）を使います。<<please speak>>と表示されなくなり、コマンドを入力できる状態になればOKです。
+
+Juliusはうまく言葉を\ruby{認識}{にん|しき}してくれましたか？おそらく、何度か\ruby{間違}{ま|ちが}えて認識したと思います。日本語には数多の単語がありますし、\ruby{似}{に}た発音の単語もあるので、それらを\ruby{完璧}{かん|ぺき}に認識することは\ruby{難}{むずか}しいのです。これを\ruby{解決}{かい|けつ}するために、次の節では「単語\ruby{辞書}{じ|しょ}」を登録してみます。\\
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+        \addquiz{ターミナルにrun-linux-gmm.shと入力し、Juliusを試してみましょう。\\<<please speak>>と表示されたらマイクに向かって果物の名前を5つ話しかけましょう。\\単語は\ruby{何個}{なん|こ}認識されましたか？}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}

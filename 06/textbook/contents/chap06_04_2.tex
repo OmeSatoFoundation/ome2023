@@ -1,0 +1,50 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+\newpage
+\section{OpenJtalkの\ruby{声音}{こわ|ね}を変えてみる}
+ところで、人間の声は人によって高い声だったり低い声だったり\ruby{違}{ちが}いますよね。このような声の調子を\ruby{声音}{こわ|ね}といいます。OpenJTalkでは文章を読ませるときの声音を指定することができます。声音はhtsvoiceというファイルフォーマットによって定められおり、setvoice 命令で指定することができます。\\
+\code{setvoice <声音ファイル>}
+
+% TODO: relative or absolute path
+<声音ファイル>には、 \ruby{拡張子}{かく|ちょう|し}が .htsvoice であるようなファイルへのパスを指定します。\\
+みなさんのRaspberry Piにはいくつかの声音ファイルがすでにダウンロードされています。  \textasciitilde /07/htsvoice-tohoku-f01を見てみてください。
+
+\begin{itemize}
+\item htsvoice-tohoku-f01/tohoku-f01-neutral.htsvoice
+\item htsvoice-tohoku-f01/tohoku-f01-angry.htsvoice
+\item htsvoice-tohoku-f01/tohoku-f01-happy.htsvoice
+\item htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice
+\end{itemize}
+
+が利用できます。例を示します。 \textasciitilde /07/voice.hsp をHSPスクリプトエディタで開いてみましょう。\\
+
+\begin{lstlisting}[caption=voice.hsp,label=voice.hsp]
+#include "hsp3dish.as"
+#include "jtalk.as"
+
+redraw 0
+mes "発話開始"
+mes "「子どもIT未来塾」"
+redraw 1
+
+setvoice "htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice"	<#blue#;音声ファイル指定#>
+jtload "子どもIT未来塾", 0				<#blue#;音声ファイル生成と読み込み#>
+mmplay 0						<#blue#;音声ファイルの再生#>
+stop
+\end{lstlisting}
+
+8行目までは前と同じです。9行目でsetvoiceが使用されています\\
+\code{setvoice "htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice"}\\
+\code{voice.hsp} は \code{\textasciitilde /07} にあるので、
+\code{voice.hsp} 内に書かれた \code{htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice}
+は \code{\textasciitilde /07} から\ruby{探}{さが}されます。
+この行\ruby{以降}{い|こう}、jtloadが\ruby{呼}{よ}び出されると \code{\textasciitilde /07/htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice}
+という声音が使用されます。ダブルクォーテーションで囲われている部分を\ruby{変更}{へん|こう}することで、別の声音にすることができます。\\
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+\addex{voice.hsp をHSPスクリプトエディタで実行してみましょう。}
+\addex{時間があったらやりましょう。\\好きな声音を使って読み上げさせましょう。}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}

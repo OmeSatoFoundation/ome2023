@@ -1,0 +1,47 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+\newpage
+\section{OpenJTalkが読み上げる文字列に変数を使う (1)}
+これまではOpenJTalkに文字列を読ませていました。しかし読ませる文字列を変数にしたいことはよくあることです。まずは例として日付を読み上げさせましょう。HSPのgettime命令を使うと今日の日付を\ruby{取得}{しゅ|とく}することができます。\\
+\code{gettime(<取得タイプ>)}\\
+<取得タイプ>を0から7で指定することで、日付\ruby{時刻}{じ|こく}に関するさまざまな\ruby{値}{あたい}が返ってきます。
+\begin{itemize}
+\item 0: 年
+\item 1: 月
+\item 2: 曜日
+\begin{itemize}
+ \item 0から6の値が返って来ます。0=日, 1=月, 2=火, 3=水, 4=木, 5=金, 6=土 の曜日を表します。
+\end{itemize}
+\item 3: 日
+\item 4: 時
+\item 5: 分
+\item 6: 秒
+\item 7: ミリ秒
+\end{itemize}
+さて、それではこの\ruby{情報}{じょう|ほう}を使って今日の年、月、日を読み上げさせてみましょう。 \textasciitilde /07/readdate.hsp をHSPスクリプトエディタで開いてください。\\
+
+\begin{lstlisting}[caption=readdate.hsp,label=readdate.hsp]
+#include "hsp3dish.as"
+#include "jtalk.as"
+
+date = "" + gettime(0) + "年" + gettime(1) + "月" + gettime(3) + "日"
+
+redraw 0
+mes "日付を読み上げます"
+mes date
+redraw 1
+
+jtload date, 0	<#blue#;date変数に代入されている文字を音声ファイルにし、読み込む#>
+mmplay 0	<#blue#;音声ファイルを再生する#>
+stop
+\end{lstlisting}
+
+4行目の代入によって、変数dateにたとえば2024年9月21日と、日付をあらわす文字列が代入されます。これが、11行目と12行目の\code{jtload}命令、\code{mmplay}命令によって読み上げられます。\\
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+\addex{readdate.hspを実行してみましょう。}
+\addex{時間があったら、時刻を読み上げるようにプログラムを書きかえてみましょう。}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}

@@ -1,0 +1,73 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+%偶数ページに飛ばしたい
+\newpage
+\section{音声でLEDのON OFFをする}
+
+\begin{lstlisting}[caption=onoff.yomi,label=onoff.yomi]
+ON おん
+OFF おふ
+\end{lstlisting}
+
+\begin{lstlisting}[caption=ledbyvoice.hsp,label=ledbyvoice.hsp]
+#include "hsp3dish.as"
+#include "julius.as"
+
+redraw 0
+pos 0, 0
+mes "Loading Julius..."
+redraw 1
+
+init_julius "onoff.dic"
+
+sockidx = 0
+domain = "127.0.0.1"
+PORT = 10500
+
+sockopen sockidx, domain, PORT
+
+if stat != 0 {
+  redraw 0
+  mes "Error in opening socket"
+  redraw 1
+  wait 30
+  stop
+}
+
+sdim words, 4096, 0
+ddim cm, 0
+repeat -1
+  if is_recieved(sockidx) = 0 {
+    get_word_list words, cm
+    repeat length(words)
+      if cm(cnt) > 0.7 {
+        if words(cnt) = "ON" {			<#blue#;認識された文字がONのとき#>
+          gpio 17, 1				<#blue#;GPIO17のLEDを光らせる#>
+        }else : if words(cnt) = "OFF" {		<#blue#;認識された文字がOFFのとき#>
+          gpio 17, 0				<#blue#;GPIO17を消す#>
+        }
+      }
+    loop
+  }
+  redraw 0
+  pos 0,0
+  mes "話しかけてLEDのONとOFFをしよう"
+  redraw 1
+  await 30
+loop
+\end{lstlisting}
+
+HSPプログラムから、音声を使ってLEDをつけたり消したりしてみましょう。 \textasciitilde /07にonoff.yomiファイルがあります。これは音声でLEDのON/OFFをするための辞書ファイルです。この辞書ファイルはリスト\ref{onoff.yomi}のように書いてあります。ONとOFFが表示する文字、おんとおふが読み方です。これを\code{convert\_yomi.sh}を使って変換したものがonoff.dicです。onoff.dicを使って、音声からLEDを\ruby{制御}{せい|ぎょ}してみましょう。 \textasciitilde /07/ledbyvoice.hsp を開いてください。\\
+
+\code{words}(\code{cnt})に認識された文字が代入されています。認識された文字がONなのかOFFか\code{if}文（条件分岐）を使って、LEDを制御しています。\\
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+\addex{ターミナルを開いて、 \textasciitilde /07/に移動しましょう。}
+\addex{ledbyvoice.hspをHSPスクリプトエディタで実行しましょう。}
+\addex{点灯させるLEDを変\ruby{更}{こう}しましょう。}
+\addex{時間があったらやりましょう。\\点灯させるための言葉を「つける」と「けす」に変更しましょう。}
+\addex{時間があったらやりましょう。\\センサーボードには4色のLEDが点いています。色ONでその色のLEDがつき、色OFFでその色のLEDが消えるようなプログラムを書きましょう。（オレンジONでオレンジ色のLEDがつき、オレンジOFFでオレンジ色のLEDが消えるなど）}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}

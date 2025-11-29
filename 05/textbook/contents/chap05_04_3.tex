@@ -1,0 +1,74 @@
+\documentclass[text05.tex]{subfiles}
+\begin{document}
+\newpage
+\section{Raspberry Piをリモコンにしよう}
+センサーボードには赤外線を送るLEDと、赤外線を受け取るセンサーがついています。これを使ってRaspberry Piをリモコンにして家電を\ruby{制御}{せい|ぎょ}することができます。また、これを応用して、いろいろなリモコンをひとつにまとめたり、外出先から家電を\ruby{操作}{そう|さ}したり、音声を使って家電を操作したりすることができます。
+
+Raspberry Piをリモコンにするには、リモコンの信号を記録して、その記録をもとに信号を送信します。まず、リモコンが出す赤外線の信号をセンサーボードの赤外線受信ユニットで受け取り、その信号を記録します。次に、コマンドを使って信号をテキストに\ruby{変換}{へん|かん}します。最後に、テキストに記録された信号を赤外線LEDから家電に送信します。こうすることで、Raspberry Piでリモコンと同じ信号を家電に送ることができます。
+\begin{figure}[H]
+    \centering
+ \includesvg[width=0.7\hsize]{../../asset/image/IRproc.svg}
+    \caption{Raspberry Piをリモコンにする}
+\end{figure}
+%レイアウトの都合により移動
+\begin{lstlisting}[caption=template.lircd.conf,label=template.lircd.conf]
+    begin remote
+    
+            name <#red#fan#>
+            flags RAW_CODES
+            eps 30
+            aeps 100
+    
+            gap 200000
+            toggle_bit_mask 0x0
+    
+            begin raw_codes
+            name <#red#onoff#>
+    <#red#ここに信号をペーストする#>
+            end raw_codes
+    
+    end remote
+    \end{lstlisting}
+
+\newpage
+\subsection{Raspberry Piをリモコンにする手順}
+\noindent
+ターミナルを開いて、コマンドを入力しましょう。
+\begin{enumerate}
+\item リモコンの信号を受け取り、ファイルに記録します。
+ \begin{enumerate}[1]
+  \item \textasciitilde /05に\ruby{移動}{い|どう}します。\\ \code{cd \textasciitilde /05}
+  \item \ruby{違}{ちが}う信号を受け取らないように、赤外線受信を止めます。\ruby{警告}{けい|こく}が表示される場合がありますが、気にしなくても良いです。 \\ \code{sudo service lircd stop}
+  \item 赤外線を受信し、onoff.txtに記録します。コマンドを実行してから、赤外線受信ユニットに向かって、リモコンのボタンを\ruby{押}{お}しましょう。この際、センサーボードの赤外線LEDはリモコンから10cmくらい離し、間をさえぎるものが無いようにしましょう。記録が終わったらCtrl+c（Ctrlキーを押しながらcを押す）で終了します。\\ \code{mode2 -d /dev/lirc1 | tee onoff.txt}\\信号を記録するときは、ボタンは短く一回押すようにし、長押ししないように注意してください。
+  \item 記録した信号を、convert\_pattern コマンドを使って送信用に変換します。\\ \code{convert\_pattern onoff.txt > onoff.pattern}
+  \item \ruby{設定}{せっ|てい}ファイルを作ります。\textasciitilde /05/template.lircd.confを元に作ります。まずはこのテンプレートを05.lircd.confという名前でコピーします。そのあと、mousepadで開きましょう。\\ \code{cp template.lircd.conf 05.lircd.conf\\mousepad 05.lircd.conf}
+  \item \pageref{template.lircd.conf}ページにあるリスト \ref{template.lircd.conf}の赤字の部分を書き換えます。
+  \begin{enumerate}[(1)]
+    \item リモコンの名前を決めます。使う家電の名前(fan, robot, TV...)にしましょう。
+    \item 信号の名前を決めます。動作(digital\_onoff,walk...)の名前にしましょう。
+    \item “ここに信号をペーストする”と書いてある行を消します。onoff.patternに書かれた信号をコピーして\ruby{貼}{は}り付けます。mousepadを使ってonoff.patternを\ruby{表示}{ひょう|じ}しましょう。\\ \code{mousepad onoff.pattern}
+\\onoff.patternに書かれた信号は、たとえば「1207 588 447 838 447 823 475 812 1218」のような文字列です。\\書き換えたら、\ruby{保存}{ほ|ぞん}しましょう (名前が05.lircd.confになっていることを\ruby{確認}{かく|にん}しましょう)。
+  \end{enumerate}
+ \end{enumerate}
+\item ファイルに記録された信号を、赤外線LEDから送信する。
+ \begin{enumerate}[1]
+  \item 設定ファイルをコピーします。 \\ \code{sudo cp 05.lircd.conf /etc/lirc/lircd.conf.d/}
+  \item 設定ファイルを\ruby{再}{さい}読み\ruby{込}{こ}みします。\\ \code{sudo service lircd restart}
+  \item 赤外線を送ります。fanは設定ファイルに書いたリモコンの名前、onoffは設定ファイルに書いた信号の名前に変えましょう。\\ \code{irsend SEND\_ONCE \textcolor{red}{fan onoff}} 
+ \end{enumerate}
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+ \includesvg[width=\columnwidth]{../../asset/image/control_signal.svg}
+    \caption{信号のイメージ　数字にある時間で点灯/消灯が切り\ruby{替}{か}わる}
+\end{figure}
+
+convert\_pattern コマンドは、mode2 コマンドの出力を送信用に変換します。このとき信号長 (信号列の数)の最大数は1023\ruby{個}{こ}です。講座で使用する赤外線家電を使う上では\ruby{支障}{し|しょう}ありませんが、おうちの家電に応用するときは注意する必要があります。たとえば、多くのエアコンの赤外線信号は信号長が長すぎてこの講座のプログラムをつかえません。また、講座で使うロボット(Sikaye-RB1)の「前進」コマンドのような、押し続けることで送信し続ける信号でも不具合が出ることがありますが、1周期あたりの信号長は十分短いので、注意して信号を記録すればこの講座のプログラムで使用できます (節 \ref{ir_robot_notice})。\\
+
+\begin{tcolorbox}[title=\useOmetoi]
+    \begin{enumerate}
+    \addex{教室にあるリモコンを使って"Raspberry Piをリモコンにする手順"をやってみましょう。}
+    \end{enumerate}
+    \end{tcolorbox}
+\end{document}

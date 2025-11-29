@@ -1,0 +1,34 @@
+% LuaLaTeX文書; 文字コードはUTF-8
+\documentclass[14pt]{beamer}% 'unicode'が必要
+\usepackage{subfiles}
+\usepackage{luatexja-fontspec}
+\usepackage{beamerthemesplit}
+\usepackage{caption}
+\usepackage{svg}
+\usepackage[]{graphicx}
+\usepackage{hyperref}
+\usepackage{nameref} % これが\zexternaldocumentの前までに必要
+\usepackage{color}
+\usepackage{listings,jvlisting}
+\usepackage[edges]{forest}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usepackage{xcolor}
+
+\usepackage{zref-xr}
+
+\zxrsetup{toltxlabel} % 通常のLaTeXスタイルの\refを使う（\zexternaldocumentより前におく）
+\zexternaldocument*[1:]{text07} % \zのついたexternaldocumentを使う
+
+\setbeamersize{text margin left=15pt, text margin right=15pt}
+\setbeamertemplate{footline}[frame number]
+\title{子どもIT未来塾　第7回}
+\author{佐藤雅俊}
+
+\begin{document}
+
+  \subfile{contents/slide07-1.tex}
+  \subfile{contents/slide07-2.tex}
+  \subfile{contents/slide07-3.tex}
+  \subfile{contents/slide07-4.tex}
+\end{document}

@@ -1,0 +1,43 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+\newpage
+\section{OpenJTalkに文を読み上げてもらう}
+ここでは音声合成ソフトウェアOpenJTalkの\ruby{紹介}{しょう|かい}をします。まずは文を読み上げるHSPプログラムを紹介します。openjtalk.hsp をHSPスクリプトエディタで開いてください。openjtalk.hsp は  \textasciitilde /07/ の中にあります。\\
+
+\begin{lstlisting}[caption=openjtalk.hsp,label=openjtalk.hsp]
+#include "hsp3dish.as"
+#include "jtalk.as"
+
+redraw 0
+mes "発話開始"
+mes "「子どもIT未来塾」"
+redraw 1
+
+jtload "子どもIT未来塾", 0	<#blue#;音声ファイルを出力し、読み込む#>
+mmplay 0			<#blue#;音声ファイルを再生する#>
+stop
+\end{lstlisting}
+
+\noindent
+2行目\\
+\code{\#include “jtalk.as”}\\
+で、OpenJtalkをHSPで使うのに必要な\ruby{設定}{せっ|てい}が行われます。この行によって、後に説明する \code{jtload} 命令と \code{setvoice} 命令が使えるようになります。\\
+4行目から7行目までは\ruby{復習}{ふく|しゅう}です。\code{mes}命令で文字を\ruby{表示}{ひょう|じ}させています。\\
+9行目からが新しい命令です。\\
+\code{jtload "子どもIT未来塾", 0}\\
+で、0番のバッファに “子どもIT未来塾” と読ませた音声ファイルがロードされます。 \ruby{画像}{が|ぞう}を配置するときや、I2Cを使うときと同じような仕組みです。より\ruby{一般}{いっ|ぱん}的に書くと、jtload命令は\\
+jtload <読み上げ文字列>, <バッファ番号>\\
+となります。\\
+10行目\\
+\code{mmplay 0}\\
+で、0番のバッファ（今ロードしたバッファ）を再生します。より一般的に書くと、\\
+\code{mmplay <再生するバッファ番号>}\\
+となります。この命令は再生開始後すぐに次の命令を実行するので、複数の音声を順番に再生したいときはwait命令を入れるなどの工夫が必要になります。\\
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+        \addex{「本日は青天なり」と読み上げるようにプログラムを書き変えて、sunny.hspという名前で \textasciitilde /07/に\ruby{保存}{ほ|ぞん}し、実行しましょう。\\ヒント：\code{jtload "子どもIT\ruby{未来塾}{み|らい|じゅく}", 0} を書き\ruby{換}{か}えます。}
+\addex{時間があったらやりましょう。\\好きな言葉を読み上げさせましょう。}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}
