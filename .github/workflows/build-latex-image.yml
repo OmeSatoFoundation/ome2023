@@ -25,8 +25,8 @@ jobs:
         submodules: "false"
     - name: Rewrite GitHub SSH URLs to HTTPS for CI
       run: |
-        git config --global url."https://github.com/".insteadOf "git@github.com:"
-        git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+        git config --global --add url."https://github.com/".insteadOf "git@github.com:"
+        git config --global --add url."https://github.com/".insteadOf "ssh://git@github.com/"
     - name: Initialize submodules
       run: |
         git submodule sync --recursive
