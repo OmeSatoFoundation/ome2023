@@ -3,10 +3,10 @@ name: Build and Push ome-doc Container Image
 on:
   push:
     tags:
+      - "*"
       - "buildenv-**"
     branches:
       - "workflow-dev"
-      - "master"
 
 env:
   REGISTRY: ghcr.io
@@ -45,9 +45,9 @@ jobs:
     - name: Build and Push Container
       uses: docker/build-push-action@v5
       with:
-        context: .
         push: true
-        file: docker/text.Dockerfile
-        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME_LC }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
+        target: "buildenv"
+        file: "./docker/expcnt.Dockerfile"
+        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME_LC }}/${{ env.IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME_LC }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
 
 # Inherited by https://qiita.com/Jazuma/items/aca397e081a7825d0dec
