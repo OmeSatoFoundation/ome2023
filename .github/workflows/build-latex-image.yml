@@ -48,7 +48,7 @@ jobs:
         context: .
         push: true
         target: "buildenv"
-        file: "./docker/expcnt.Dockerfile"
+        file: "./docker/text.Dockerfile"
         tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME_LC }}/${{ env.IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME_LC }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
 
 # Inherited by https://qiita.com/Jazuma/items/aca397e081a7825d0dec
