@@ -59,9 +59,11 @@ RUN tlmgr update --self && \
   collection-langjapanese \
   collection-latexextra \
   latexmk \
-  light-latex-make \
   ;
 
+# Install forked llmk to which target source argument is added
+RUN curl -L -o /opt/texlive/2023/bin/x86_64-linux/llmk https://raw.githubusercontent.com/RollMan/llmk/bb0bb9a5183c06046a9cc07531dfa8021bd1a443/llmk.lua && \
+    chmod +x /opt/texlive/2023/bin/x86_64-linux/llmk
 
 FROM ubuntu:25.10 AS font
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
