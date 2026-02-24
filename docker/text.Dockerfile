@@ -79,12 +79,12 @@ RUN mkdir -p /usr/share/fonts/TTF && \
     curl -L --remote-name-all \
         https://github.com/liberationfonts/liberation-fonts/files/7261482/liberation-fonts-ttf-2.1.5.tar.gz \
         https://moji.or.jp/wp-content/ipafont/IPAexfont/IPAexfont00401.zip \
-        https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip \
-        https://noto-website-2.storage.googleapis.com/pkgs/NotoSerifCJKjp-hinted.zip \
+    https://github.com/notofonts/noto-cjk/releases/download/Serif2.003/07_NotoSerifCJKjp.zip \
+    https://github.com/notofonts/noto-cjk/releases/download/Sans2.004/06_NotoSansCJKjp.zip \
         && \
     tar -xvf liberation-fonts-ttf-2.1.5.tar.gz -C /usr/share/fonts/TTF && \
     ls && \
-    echo "IPAexfont00401.zip" "NotoSansCJKjp-hinted.zip" "NotoSerifCJKjp-hinted.zip" | xargs -n 1 unar -d -f -o /usr/share/fonts/TTF
+    echo "IPAexfont00401.zip" "06_NotoSansCJKjp.zip" "07_NotoSerifCJKjp.zip" | xargs -n 1 unar -d -f -o /usr/share/fonts/TTF
 WORKDIR /usr/share/fonts/TTF
 RUN curl -L --remote-name-all \
         https://github.com/google/fonts/raw/main/ofl/bizudgothic/BIZUDGothic-Bold.ttf \
