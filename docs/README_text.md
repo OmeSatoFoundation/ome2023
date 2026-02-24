@@ -10,18 +10,16 @@
 タイプセットのための Docker Image をプル（ダウンロード）する。
 
 ```
-docker pull ghcr.io/omesatofoundation/ome-doc/texlive:latest
+docker pull ghcr.io/omesatofoundation/ome2023/texlive:latest
 ```
 
-latest ではないバージョンを使用する必要があれば，https://github.com/OmeSatoFoundation/ome-doc/pkgs/container/ome-doc%2Ftexlive から必要なバージョンを選択し，tag として latest を置き換えて pull する．
+latest ではないバージョンを使用する必要があれば，https://github.com/OmeSatoFoundation/ome2023/pkgs/container/ome2023%2Ftexlive から必要なバージョンを選択し，tag として latest を置き換えて pull する．
 
 (optional) このあとの手順に合うように、イメージ名を短いものに変更する。
 
 ```
-docker tag ghcr.io/omesatofoundation/ome-doc/texlive:latest latex
+docker tag  ghcr.io/omesatofoundation/ome2023/texlive:latest latex
 ```
-
-https://github.com/OmeSatoFoundation/ome-doc/pkgs/container/ome-doc%2Ftexlive
 
 プルができない場合、または必要がある場合はタイプセットのための Docker Image をローカルコンピュータでビルドすることもできる。
 
@@ -106,7 +104,7 @@ docker build . -f docker/text.Dockerfile --output . --build-arg TARGET="." --bui
 
 ### GitHub Container Registry への push
 texlive を含む、教科書・スライドをビルドする環境は GitHub Workflow 経由で push され、GitHub Container Registry 経由で管理されます。
-詳細は `/home/yshimmyo/Documents/ome-doc/.github/workflows/build-image.yml` を確認してください。
+詳細は `.github/workflows/build-image.yml` を確認してください。
 
 - Working with the Container registry - GitHub Docs https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
 - GitHub Actions documentation - GitHub Docs https://docs.github.com/en/actions
