@@ -52,7 +52,7 @@ jobs:
         outputs: "type=local,dest=/artifact_01"
         file: "./docker/text.Dockerfile"
     - name: Upload Chapter 01
-      uses: actions/upload_artifact@v6
+      uses: actions/upload-artifact@v6
       with:
         name: "itm01"
         path: "/artifact_01"
