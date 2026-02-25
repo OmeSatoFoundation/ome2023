@@ -57,6 +57,6 @@ jobs:
       uses: actions/upload-artifact@v6
       with:
         name: "itm01"
-        path: "./artifact_01/text01.pdf"
+        path: "./artifact/01/text01.pdf"
 
 # Inherited by https://qiita.com/Jazuma/items/aca397e081a7825d0dec
