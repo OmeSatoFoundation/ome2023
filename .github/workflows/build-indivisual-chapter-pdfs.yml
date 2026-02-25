@@ -1,4 +1,4 @@
-name: Build and Push ome-doc Container Image
+name: Build Indivisual Chapter PDFs
 
 on:
   push:
@@ -51,6 +51,8 @@ jobs:
         target: "final"
         outputs: "type=local,dest=/artifact_01"
         file: "./docker/text.Dockerfile"
+        build-args: |
+          TARGET=01/textbook/
     - name: Upload Chapter 01
       uses: actions/upload-artifact@v6
       with:
