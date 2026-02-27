@@ -151,8 +151,8 @@ done
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/bin
 cp $(which qemu-aarch64-static) $MOUNT_POINT/usr/local/bin
 
-# Package-related configuration
-chroot $MOUNT_POINT sh -c "apt update"
+# Update package index and upgrade security packages
+chroot $MOUNT_POINT sh -c "apt update && apt-get -s dist-upgrade | grep \"^Inst\" | grep -i securi | awk '{print \$2}' | xargs apt install -y"
 
 ## Install depending packages
 ## TODO: summarize dependencies into "control" in a deb package with contesnts of obj (${OBJDIR})and here apt should call that package.
@@ -162,6 +162,7 @@ chroot $MOUNT_POINT apt install -y \
 build-essential \
 dnsutils \
 fcitx5 \
+fcitx-mozc \
 fswebcam \
 gimp \
 hts-voice-nitech-jp-atr503-m001 \

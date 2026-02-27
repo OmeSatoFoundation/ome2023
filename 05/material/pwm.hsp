@@ -15,9 +15,3 @@ loop
 
 await 1
 loop
-
-gpio 17,0
-gpio 18,0
-gpio 22,0
-gpio 27,0
-stop
