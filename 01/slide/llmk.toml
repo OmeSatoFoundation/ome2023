@@ -1,0 +1,9 @@
+source = ["slide01-1.tex", "slide01-2.tex", "slide01-3.tex", "slide01-4.tex"]
+
+sequence = ["latex"] # Skip bibtex and makeindex
+
+[programs.latex]
+command = "uplatex"
+opts  = [
+    "--cnf-line='TEXINPUTS=.;../../texmf//;'",
+]

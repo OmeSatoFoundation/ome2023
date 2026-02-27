@@ -1,0 +1,317 @@
+% +++
+% latex = "lualatex"
+% +++
+\documentclass[paper=a4]{jlreq}
+\usepackage{bxpapersize}
+%\usepackage{sourcecodepro}
+\usepackage{graphicx,color}
+\usepackage{tikz}
+\usetikzlibrary{math}
+\usepackage[top=11truemm,bottom=11truemm,left=14truemm,right=14truemm]{geometry}
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{0.0}
+\pagestyle{empty}
+% Completeは問題数が12以下の時に重ならずに書くことができる
+% シール枠は左から優先して描画される
+% スタンプの数はゼロにできないので、それぞれのシートに適切に個数を分けてほしい。
+% 1: タイトル
+% 2: タイトル左イラストのファイル名
+% 3: タイトル右イラストのファイル名
+% 4: 章番号
+% 5: 開始番号
+% 6: 終了番号
+% 7: Completeを書くかどうか(boolean)
+% 8: 穴あけ位置（0:なし 1:左上 2:右上）
+\newcommand\StampCard[8]{
+\begin{tikzpicture}
+  \tikzmath {
+    \height = 55;
+    \width  = 91;
+    \vgrids = 3;
+    \hgrids = 6;
+    \vcentor  = (\width) / 2.0;
+    \gridsize = 13;
+    \vmargin = 2;
+    \gridtop = \height - (\vgrids*\gridsize + \vmargin);
+    \hmargin = (\width - \hgrids*\gridsize)/2.0;
+  }
+  \path (0mm,0mm) rectangle (\width mm,\height mm);
+  %\draw [line width=0.97mm] (0.5mm,0.5mm) rectangle (\width mm-0.5mm,\height mm-0.5mm);
+  % calc grids layout with the number of grids
+  \tikzmath {
+    \gridbegin = #5;
+    \gridend   = #6;
+    \chapnum   = #4;
+    \complete  = #7;
+    \numgrids  = \gridend - \gridbegin + 1;
+    \gridx     = int(ceil(\numgrids/\vgrids));
+    \gridlast  = int(mod(\numgrids, \vgrids));
+    \numhlines = \gridx==1 ? (\gridlast==0?\vgrids:\gridlast) : \vgrids;
+    \numvlines = \gridx;
+    function locx(\ix) {
+        return \hmargin + \ix * \gridsize;
+    };
+    function locy(\iy) {
+        return \height  - (\gridtop + \iy * \gridsize);
+    };
+  }
+  %horizontal lines
+  \foreach \i in {0,...,\numhlines}{
+    \tikzmath {
+        if (\gridlast==0) || (\gridlast>=\i) then {\gridadjust=0;} 
+        else {\gridadjust=1;};
+        \sx = locx(0) ;
+        \ex = locx(\gridx-\gridadjust);
+        \y  = locy(\i);
+    }
+    \draw [semithick] (\sx mm, \y mm) -- (\ex mm, \y mm);
+  }
+  %vartical lines
+  \foreach \i in {0,...,\numvlines} {
+    \tikzmath {
+        % && がうまくつかえない・・・。
+        if (\i==\numvlines) * (\gridlast > 0) then {\gridadjust = \gridlast;}
+        else {\gridadjust = \numhlines;};
+        \sy = locy(0);
+        \ey = locy(\gridadjust); 
+        \x  = locx(\i);
+    }
+    \draw [semithick] (\x mm, \sy mm) -- (\x mm, \ey mm);
+  }
+  % 番号を振る
+    % tikzmath 環境をまたぐカウンタの更新に注意
+    \tikzmath {\cellcnt = int(\gridbegin -1);}
+    \def\texcnt{\cellcnt}
+    \foreach \iy in {1,...,\numhlines}{
+        \tikzmath {
+            if (\gridlast==0) || (\gridlast>=\iy) then {\nextx=\numvlines;} 
+            else {\nextx=\numvlines-1;};
+        }
+        \foreach \ix in {1,...,\nextx}{  
+            \tikzmath {
+                    \x = locx(\ix-1)+ 0.5 * \gridsize;
+                    \y = locy(\iy-1)- 0.2 * \gridsize;
+                    \cellcnt = \texcnt;
+                    \cellcnt = int(\cellcnt + 1);
+            }
+            \global\edef\texcnt{\cellcnt}
+            \node (\iy-\ix) at (\x mm, \y mm) {\chapnum -\cellcnt};
+    }
+  }
+    % complete stamp
+    % draw ()--()--()--()
+    \tikzmath{
+        \px4 = locx(4);
+        \px5 = locx(5);
+        \px6 = locx(6);
+        \py1 = locy(1);
+        \py2 = locy(2);
+        \py3 = locy(3);
+        \txtx = \px5;
+        \txty = \py2-0.2*\gridsize;
+        if \complete then {
+            {
+            \draw [semithick]  (\px4 mm, \py1 mm)
+                    -- (\px6 mm, \py1 mm)
+                    -- (\px6 mm, \py3 mm)
+                    -- (\px4 mm, \py3 mm)--cycle;
+            \node (comp) at (\px5 mm, \py1 mm - 0.5*\gridsize mm) {Complete!};
+            \node (CompImg) at (\txtx mm,\txty mm) {\includegraphics[keepaspectratio,height= 20 mm]{ccimages/publicdomainq-0015006bbqpwg.eps}};
+            };
+        };
+    } 
+    % タイトル
+    \node [font=\large\gtfamily\bfseries] (Title) at (45.5 mm,55mm-8mm) {\includegraphics[keepaspectratio,height=2.5\zh]{#2}\raisebox{1\zh}{\hbox{#1}}\includegraphics[keepaspectratio,height=2.5\zh]{#3}};
+    % 穴
+    \tikzmath{
+        \hole = int(#8);
+        if \hole==1 then{
+            {\draw ( 10 mm, \height mm - 10 mm) circle (1.5 mm); };            
+        } else {
+            if \hole == 2 then {
+                {\draw (\width mm - 10 mm, \height mm - 10 mm) circle (1.5 mm);};
+            };
+        };
+    }
+\end{tikzpicture}%
+}
+\newcommand\cover[1]{
+    \begin{tikzpicture}
+        \tikzmath {
+            \height = 55;
+            \width  = 91;
+        }
+        \path (0mm,0mm) rectangle (\width mm,\height mm);
+%        \draw [line width=0.97mm] (0.5mm,0.5mm) rectangle (\width mm-0.5mm,\height mm-0.5mm);
+        \node [font=\Huge\gtfamily\bfseries, align=center] (Title) at (.5*\width mm,.5*\height mm) {#1年度\\子どもIT未来塾\\シールラリーカード};
+        \fill [red] (0 mm, \height mm)--(\width mm, \height mm)--(\width mm, \height mm - 10 mm) -- (0 mm, \height mm - 10 mm) -- cycle;
+        \fill [red] (0 mm, 0 mm)--(\width mm, 0 mm)--(\width mm, 10 mm) -- (0 mm, 10 mm) -- cycle;
+        \draw ( 10 mm, \height mm - 10mm) circle (1.5 mm);                
+\end{tikzpicture}%
+}
+\newcommand\backCover{
+    \begin{tikzpicture}
+        \tikzmath {
+            \height = 55;
+            \width  = 91;
+        }
+        \path (0mm,0mm) rectangle (\width mm,\height mm);
+        \node [font=\huge\gtfamily\bfseries, align=center] (Title) at (.5*\width mm,.5*\height mm + 13 mm) {子どもIT未来塾};
+        \node [font=\huge\gtfamily\bfseries, align=center] (Title) at (2.5 mm + 8mm ,26mm + 4mm) {名前};
+        \node [font=\huge\gtfamily\bfseries, align=center] (Title) at (\width mm - 2.5mm - 8 mm,26 mm + 4mm) {班};
+        \draw [blue, very thick] (2.5 mm, 11 mm)--(\width mm - 2.5 mm, 11mm)--(\width mm-2.5mm, 26 mm) -- (2.5 mm, 26 mm) -- cycle;        
+        \draw [blue, very thick] (\width mm - 2.5 mm - 16 mm, 11mm)--(\width mm - 2.5 mm - 16 mm, 26mm) ;
+        \fill [red] (0 mm, \height mm)--(\width mm, \height mm)--(\width mm, \height mm - 10 mm) -- (0 mm, \height mm - 10 mm) -- cycle;
+        \fill [red] (0 mm, 0 mm)--(\width mm, 0 mm)--(\width mm, 10 mm) -- (0 mm, 10 mm) -- cycle;
+        \draw (\width mm - 10 mm, \height mm - 10mm) circle (1.5 mm);        
+\end{tikzpicture}%
+}
+
+\newcommand\typeJP{
+    \begin{tikzpicture}
+        \tikzmath {
+            \height = 55;
+            \width  = 91;
+            \typegrid = 16;
+            \typevwidth = 5* \typegrid;
+            \typevmargin = (\width - \typevwidth)/2.0;
+        }
+        \path (0mm,0mm) rectangle (\width mm,\height mm);
+        \node [font=\huge\gtfamily\bfseries, align=left] (Title) at (2.5 mm + 32mm , \height mm - 7mm - 12mm) {タイピング\\シールラリーカード};
+        \draw [blue, very thick] (\typevmargin mm, 8 mm) -- (\width mm - \typevmargin mm, 8 mm) -- (\width mm-\typevmargin mm, 8 mm+\typegrid mm) -- (\typevmargin mm, 8 mm+\typegrid mm) -- cycle;
+        \foreach \i in {1,...,4} {
+            \tikzmath{
+                \x = \typevmargin + \i * \typegrid;
+            }
+            \draw [blue, very thick] (\x mm, 8mm)--(\x mm, 8mm + \typegrid mm) ;
+        }
+        \node [font=\huge\gtfamily\bfseries] (E) at (\typevmargin mm + 8 mm, 16mm) {E};
+        \node [font=\huge\gtfamily\bfseries] (D) at (\typevmargin mm + 24 mm, 16mm) {D};
+        \node [font=\huge\gtfamily\bfseries] (C) at (\typevmargin mm + 40 mm, 16mm) {C};
+        \node [font=\huge\gtfamily\bfseries] (B) at (\typevmargin mm + 56 mm, 16mm) {B};
+        \node [font=\huge\gtfamily\bfseries] (A) at (\typevmargin mm + 72 mm, 16mm) {A};
+        
+        %\draw [blue, very thick] (\width mm - 2.5 mm - 16 mm, 11mm)--(\width mm - 2.5 mm - 16 mm, 26mm) ;
+        \fill [red] (0 mm, \height mm)--(\width mm, \height mm)--(\width mm, \height mm - 7 mm) -- (0 mm, \height mm - 7 mm) -- cycle;
+        \fill [red] (0 mm, 0 mm)--(\width mm, 0 mm)--(\width mm, 7 mm) -- (0 mm, 7 mm) -- cycle;
+        \draw ( 10 mm, \height mm - 10mm) circle (1.5 mm);                
+\end{tikzpicture}%
+}
+\newcommand\typeEN{
+    \begin{tikzpicture}
+        \tikzmath {
+            \height = 55;
+            \width  = 91;
+            \typegrid = 16;
+            \typevwidth = 5* \typegrid;
+            \typevmargin = (\width - \typevwidth)/2.0;
+        }
+        \path (0mm,0mm) rectangle (\width mm,\height mm);
+        \node [font=\huge\gtfamily\bfseries, align=left] (Title) at (2.5 mm + 32mm , \height mm - 7mm - 12mm) {タイピング(英語)\\シールラリーカード};
+        \draw [blue, very thick] (\typevmargin mm, 8 mm) -- (\width mm - \typevmargin mm, 8 mm) -- (\width mm-\typevmargin mm, 8 mm+\typegrid mm) -- (\typevmargin mm, 8 mm+\typegrid mm) -- cycle;
+        \foreach \i in {1,...,4} {
+            \tikzmath{
+                \x = \typevmargin + \i * \typegrid;
+            }
+            \draw [blue, very thick] (\x mm, 8mm)--(\x mm, 8mm + \typegrid mm) ;
+        }
+        \node [font=\huge\gtfamily\bfseries] (E) at (\typevmargin mm + 8 mm, 16mm) {E};
+        \node [font=\huge\gtfamily\bfseries] (D) at (\typevmargin mm + 24 mm, 16mm) {D};
+        \node [font=\huge\gtfamily\bfseries] (C) at (\typevmargin mm + 40 mm, 16mm) {C};
+        \node [font=\huge\gtfamily\bfseries] (B) at (\typevmargin mm + 56 mm, 16mm) {B};
+        \node [font=\huge\gtfamily\bfseries] (A) at (\typevmargin mm + 72 mm, 16mm) {A/S};
+        
+        %\draw [blue, very thick] (\width mm - 2.5 mm - 16 mm, 11mm)--(\width mm - 2.5 mm - 16 mm, 26mm) ;
+        \fill [red] (0 mm, \height mm)--(\width mm, \height mm)--(\width mm, \height mm - 7 mm) -- (0 mm, \height mm - 7 mm) -- cycle;
+        \fill [red] (0 mm, 0 mm)--(\width mm, 0 mm)--(\width mm, 7 mm) -- (0 mm, 7 mm) -- cycle;
+        \draw (\width mm - 10 mm, \height mm - 10mm) circle (1.5 mm);        
+\end{tikzpicture}%
+}
+\newcommand\tencards[1]{
+\begin{tabular}{@{}c@{}c}
+#1 & #1 \\
+#1 & #1 \\
+#1 & #1 \\
+#1 & #1 \\
+#1 & #1 \\
+\end{tabular}
+}
+
+\newcommand\checkall{
+\begin{tabular}{@{}c@{}c}
+\cover{2024} & \backCover\\
+\typeJP & \typeEN \\
+\StampCard{第1回例題チェック}{ccimages/hydrangea.png}{ccimages/yellow-umbrella.eps}{1}{1}{18}{false}{1} & \StampCard{第1回例題チェック}{ccimages/hydrangea.png}{ccimages/yellow-umbrella.eps}{1}{19}{28}{true}{2} \\
+\StampCard{第1回問題チェック}{ccimages/hydrangea.png}{ccimages/yellow-umbrella.eps}{1}{1}{18}{false}{1} & \StampCard{第1回問題チェック}{ccimages/hydrangea.png}{ccimages/yellow-umbrella.eps}{1}{19}{30}{true}{2} \\
+\StampCard{第2回例題チェック}{ccimages/boy-raincoat.eps}{ccimages/rainbow.png}{2}{1}{9}{false}{1} & \StampCard{第2回例題チェック}{ccimages/boy-raincoat.eps}{ccimages/rainbow.png}{2}{10}{16}{true}{2} \\
+\end{tabular}
+\begin{tabular}{@{}c@{}c}
+\StampCard{第1回問題チェック}{ccimages/publicdomainq-0055442njyucl.png}{ccimages/sun.png}{3}{1}{18}{false}{1} & \StampCard{第3回問題チェック}{ccimages/publicdomainq-0055442njyucl.png}{ccimages/sun.png}{3}{19}{21}{true}{2} \\
+\StampCard{第2回例題チェック}{ccimages/fireworks.png}{ccimages/publicdomainq-0044202onqfss.png}{3}{1}{9}{false}{1} & \StampCard{第4回例題チェック}{ccimages/fireworks.png}{ccimages/publicdomainq-0044202onqfss.png}{2}{10}{16}{true}{2} \\
+\end{tabular}
+}
+
+\newcommand\absentFront{
+\begin{tabular}{@{}c@{}c}
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{1}{7}{false}{1} &
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{1}{6}{false}{1} \\
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{1}{7}{false}{1} &
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{1}{6}{false}{1} \\
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{1}{7}{false}{1} &
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{1}{6}{false}{1} \\
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{1}{7}{false}{1} &
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{1}{6}{false}{1} \\
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{1}{7}{false}{1} &
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{1}{6}{false}{1} 
+\end{tabular}
+}
+
+\newcommand\absentBack{
+\begin{tabular}{@{}c@{}c}
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{7}{11}{true}{2} &
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{8}{14}{true}{2} \\
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{7}{11}{true}{2} &
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{8}{14}{true}{2} \\
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{7}{11}{true}{2} &
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{8}{14}{true}{2} \\
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{7}{11}{true}{2} &
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{8}{14}{true}{2} \\
+    \StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{7}{11}{true}{2} &
+    %\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{8}{14}{true}{2} \\            
+\end{tabular}
+}
+
+
+\newcommand\printall{
+%\tencards{\cover{2024}}% 表紙表　
+%\tencards{\backCover}% 裏表紙裏　
+%\tencards{\typeJP}% 1枚目表
+%\tencards{\typeEN}% 1枚目裏
+%\tencards{\StampCard{第1回例題チェック}{ccimages/hydrangea.png}{ccimages/yellow-umbrella.eps}{1}{1}{18}{false}{1}}% 2枚目表 
+%\tencards{\StampCard{第1回例題チェック}{ccimages/hydrangea.png}{ccimages/yellow-umbrella.eps}{1}{19}{28}{true}{2}}% 2枚目裏
+%\tencards{\StampCard{第1回問題チェック}{ccimages/hydrangea.png}{ccimages/yellow-umbrella.eps}{1}{1}{18}{false}{1}}% 3枚目表
+%\tencards{\StampCard{第1回問題チェック}{ccimages/hydrangea.png}{ccimages/yellow-umbrella.eps}{1}{19}{30}{true}{2}}% 3枚目裏
+%\tencards{\StampCard{第2回例題チェック}{ccimages/boy-raincoat.eps}{ccimages/rainbow.png}{2}{1}{9}{false}{1}}% 4枚目表
+%\tencards{\StampCard{第2回例題チェック}{ccimages/boy-raincoat.eps}{ccimages/rainbow.png}{2}{10}{16}{true}{2}}% 4枚目裏
+%\tencards{\StampCard{第3回問題チェック}{ccimages/publicdomainq-0055442njyucl.png}{ccimages/sun.png}{3}{1}{18}{false}{1}} 
+%\tencards{\StampCard{第4回例題チェック}{ccimages/fireworks.png}{ccimages/publicdomainq-0044202onqfss.png}{4}{1}{9}{false}{1}}
+%\tencards{\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{1}{7}{false}{1}}
+\tencards{\StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{1}{6}{false}{1}}
+%\tencards{\StampCard{第7回例題チェック}{ccimages/ice.png}{ccimages/suika.png}{7}{1}{7}{false}{1}}
+%\tencards{\StampCard{第7回問題チェック}{ccimages/ice.png}{ccimages/suika.png}{7}{1}{7}{false}{1}}
+\tencards{\StampCard{第8回例題チェック}{ccimages/majo.jpg}{ccimages/haro.jpg}{8}{1}{7}{false}{1}}
+\tencards{\StampCard{第8回問題チェック}{ccimages/majo.jpg}{ccimages/haro.jpg}{8}{1}{18}{false}{1}}
+%\tencards{\StampCard{第3回問題チェック}{ccimages/publicdomainq-0055442njyucl.png}{ccimages/sun.png}{3}{19}{24}{true}{2}} 
+%\tencards{\StampCard{第4回例題チェック}{ccimages/fireworks.png}{ccimages/publicdomainq-0044202onqfss.png}{4}{10}{17}{true}{2}} 
+%\tencards{\StampCard{第5回問題チェック}{ccimages/natsu.jpg}{ccimages/kani.png}{5}{8}{14}{true}{2}}
+\tencards{\StampCard{第6回問題チェック}{ccimages/nashi.jpg}{ccimages/donguri.jpg}{6}{7}{11}{true}{2}}
+%\tencards{\StampCard{第7回例題チェック}{ccimages/ice.png}{ccimages/suika.png}{7}{8}{12}{true}{2}}
+%\tencards{\StampCard{第7回問題チェック}{ccimages/ice.png}{ccimages/suika.png}{7}{8}{15}{true}{2}}
+\tencards{\StampCard{第8回例題チェック}{ccimages/majo.jpg}{ccimages/haro.jpg}{8}{8}{16}{true}{2}}
+\tencards{\StampCard{第8回問題チェック}{ccimages/majo.jpg}{ccimages/haro.jpg}{8}{19}{25}{true}{2}}
+}
+\begin{document}
+%\absentFront
+%\absentBack
+\printall
+\end{document}

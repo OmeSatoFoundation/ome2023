@@ -1,0 +1,30 @@
+\documentclass[a4paper,12pt]{ltjsbook}
+\usepackage{subfiles}
+\usepackage{omebook}
+\usepackage{svg}
+\svgsetup{
+  inkscapelatex=false
+}
+\setcounter{chapter}{4}
+\setcounter{secnumdepth}{4}
+
+% 表の行間を広げるための環境
+% デフォルトは1.4倍
+\newenvironment{widerrows}[1][1.4]
+  {\renewcommand\arraystretch{#1}}
+  {}
+
+% Chapter-dependent Macros
+\newcommand{\ADC}{ADC}
+\newcommand{\adcget}{adcget}
+
+
+\begin{document}
+  \input body.tex
+  \begin{thebibliography}{99}
+  \bibitem{matlab} 樋口龍雄, 川又政征. MATLAB対応ディジタル信号処理. 森北出版. 2015.
+  \bibitem{elecSym} 日本産業標準調査会. 電気用図記号. 2011. (規格番号 JISC0617)
+  \bibitem{fabo} Fabo, Inc \\ \url{https://www.fabo.io/}
+  \bibitem{curve} ナルガッキ. ボリューム、トーンに適したポットのカーブの特徴と違い. (図\ref{ボリュームの特性}) \\ \url{https://naru-gakki.com/pot-curve/}
+  \end{thebibliography}
+\end{document}

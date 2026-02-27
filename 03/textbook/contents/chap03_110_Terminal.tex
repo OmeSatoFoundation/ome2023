@@ -1,0 +1,149 @@
+\documentclass[text03.tex]{subfiles}
+\begin{document}
+
+\section{ターミナルを使ってみよう}
+\subsection{コマンドについて知ろう}
+
+ターミナルではコマンドを使ってコンピュータとやりとりをします。
+コマンドとはコンピュータに\ruby{与}{あた}える命令のことです。
+コマンドは次のような\ruby{形}{かたち}で書きます。
+
+\begin{description}
+\item[コマンド\textvisiblespace オプション\textvisiblespace \ruby{引数}{ひき|すう}１\textvisiblespace\ruby{引数}{ひき|すう}２]\mbox{}\\
+コマンドは動作、引数は操作の\ruby{対象}{たい|しょう}です。
+ コマンドの最後にEnter（エンター）キーを\ruby{押}{お}して、
+ コンピュータにコマンドを送ります。
+ EnterキーはReturn（リターン）キーと\ruby{呼}{よ}ぶこともあります。
+\end{description}
+
+コマンドは、{\bf 半角英数字}で入力します。また、コマンド、オプション、\ruby{引数}{ひき|すう}の\ruby{間}{あいだ}には{\bf 半角のスペース（空白）}をいれます。教科書ではわかりやすいように、スペースを「\textvisiblespace 」のように示すこともあります。
+必ずそうなっているわけではありませんので、どこにスペースを入れるべきかをしっかり自分で覚えましょう。
+また、みなさんが使うラズパイでは英語が使われています。最初から入っているフォルダの名前も英語になっています。
+読み方を知りたい人は\pageref{英語と日本語の対応表}ページの英語と日本語の\ruby{対応表}{たい|おう|ひょう}を見てみましょう。
+
+\subsection{この章で使うファイルをコピーしよう}
+はじめに、この章で使うファイルをコピーしてもらいます。コマンドの説明はあとで行いますので、以下のコマンドを入力して実行してみましょう。
+\begin{lstlisting}[caption=使うファイルのコピー,label=workfilecopy]
+<#green#pi@raspberrypi#>:<#blue#~ $#> cp -r /usr/local/share/ome/03 ~
+<#green#pi@raspberrypi#>:<#blue#~ $#>
+\end{lstlisting}
+「\textasciitilde 」記号とスペースに気を付けて入力してください。不安な時はTAの先生に確認してもらってください。
+
+\subsection{カレントディレクトリを知ろう}
+ディレクトリとは、第１回で習ったフォルダと同じものです。
+マウスで操作する場合はフォルダ、コマンドで操作する場合はディレクトリと呼ぶことが多いです。
+ターミナルで作業をするディレクトリを{\bf カレントディレクトリ}と呼びます。
+カレントディレクトリを調べるには以下のコマンドを使用します。
+
+\begin{description}
+\item[● \texttt{pwd}]\mbox{}\\
+ カレントディレクトリ（ターミナルでの作業ディレクトリ）を表示します。
+\end{description}
+
+\begin{lstlisting}[caption=pwdコマンドの例,label=pwdtest]
+<#green#pi@raspberrypi#>:<#blue#~ $#> pwd
+/home/pi   <-- カレントディレクトリを表示します
+<#green#pi@raspberrypi#>:<#blue#~ $#>
+\end{lstlisting}
+
+ターミナルがコマンドの入力を待っているときは、\$ （ドル、ダラー）マークが表示されます。
+\$ マークの左側には、ユーザー名やコンピュータの名前、カレントディレクトリが表示されています。
+\$ マークやその左側の表示は、{\bf プロンプト}と呼ばれます。
+
+\subsection{ディレクトリの中を見てみよう}
+\begin{description}
+\item[● \texttt{ls}\textvisiblespace \texttt{-F}\textvisiblespace \underline{ファイル}$\ldots$]\mbox{}\\
+\underline{ファイル}$\ldots$やその中のファイルやディレクトリの\ruby{一覧}{いち|らん}を表示します。\underline{ファイル}$\ldots$を指定しないときは、カレントディレクトリのファイルやディレクトリの\ruby{一覧}{いち|らん}を表示します。ファイルはピンクの文字、ディレクトリは青い文字で表示されます。Fは大文字なので注意してください。
+\end{description}
+\begin{itemize}
+  \item[<例>] ls\textvisiblespace -Fだけを入力するとカレントディレクトリの中を見ることができます。
+\end{itemize}
+
+\begin{lstlisting}[caption=ls -F コマンドの例。ファイルやディレクトリが表示されます,label=lsFtest]
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls -F
+<#blue#01/  03/         Desktop/    Downloads/  Pictures/  Templates/
+02/  Bookshelf/  Documents/  Music/      Public/    Videos/#>
+<#green#pi@raspberrypi#>:<#blue#~ $#>
+\end{lstlisting}
+
+\begin{itemize}
+  \item[<例>] Picturesというディレクトリの中を見たい場合は ls\textvisiblespace -F\textvisiblespace Pictures/と入力します。 
+\end{itemize}
+
+ディレクトリの中にあるファイルは人によってちがいます。
+\begin{lstlisting}[caption=ls -F Pictures/コマンドの例,label=lsFPicttest]
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls -F Pictures/
+<#magenta#2019-07-08-145604_1366X768_scrot.png  2019-07-08-150326_1366X768_scrot.png  
+2019-07-08-150313_1366X768_scrot.png  2019-07-08-150348_1366X768_scrot.png  
+2019-07-08-150323_1366X768_scrot.png  2019-07-08-150356_1366X768_scrot.png  #>
+<#green#pi@raspberrypi#>:<#blue#~ $#> 
+\end{lstlisting}
+
+\subsection{便利な Tab（タブ）キーを使ってみよう}
+ターミナルはbash（バッシュ）というプログラムで入力を受け取ります。
+bashでは、入力したい文字の\ruby{途中}{と|ちゅう}まで入力してから、Tab キーを\ruby{押}{お}すと、コンピュータが残りの文字を\ruby{推測}{すい|そく}して
+くれます。似たような文字があるときは、\ruby{候補}{こう|ほ}を出してくれます。
+\newpage
+\begin{itemize}
+\item[<例>]コマンドを入力する途中で Tab キーを使ってみます。
+\end{itemize}
+
+みなさんの実行結果と教科書の実行結果では違う場合があります。
+\begin{lstlisting}[caption=Tabの例1, label=Tab1]
+<#green#pi@raspberrypi#>:<#blue#~ $#> pw
+pw-cat         pwd            pw-metadata    pw-mon         pw-reserve
+pwck           pw-dot         pw-mididump    pw-play        pw-top
+pw-cli         pw-dump        pw-midiplay    pw-profiler    pwunconv
+pwconv         pwdx           pw-midirecord  pw-record                 <--Tabを打つと出てくる
+<#green#pi@raspberrypi#>:<#blue#~ $#> pw
+\end{lstlisting}
+どのコマンドのことかわからないので、コマンドの候補を出してくれました。
+\begin{itemize}
+\item[<例>]ファイルやディレクトリの名前の途中で Tab キーを使ってみます。
+\end{itemize}
+\begin{lstlisting}[caption=Tabの例2, label=Tab2]
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls -F Pi
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls -F Pictures/	<--Tabを打つと出てくる
+\end{lstlisting}
+コンピュータが残りの文字を入力してくれました。
+\begin{itemize}
+\item[<例>]ファイルやディレクトリの名前の途中で Tab キーを使ってみます。
+\end{itemize}
+\begin{lstlisting}[caption=Tabの例3, label=Tab3]
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls -F 0
+01/	02/	03/	<--Tabを打つと出てくる
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls -F 0
+\end{lstlisting}
+どのファイルやディレクトリかわからないので、ディレクトリやファイルの候補を出してくれました。
+
+\subsection{コマンド\ruby{履歴}{り|れき}}
+bashは今までにどのようなコマンドを受け付けたのかを記録しています。次の表の操作で以前に入力したコマンドを表示できます。
+コマンドを表示した後に、カーソルキーの左右キー（←→）でカーソルを移動したり、
+文字を入力したり、文字を削除したりすることで、
+コマンドを\ruby{編集}{へん|しゅう}することができます。
+
+\begin{figure}[h]
+  \center
+  \begin{tabular}{ll}\hline
+    キー & 機能 \\ \hline
+    ↑ または Ctrl+P & ひとつ前のコマンドを表示\\
+    ↓ または Ctrl+N & ひとつ後ろのコマンドを表示\\ \hline
+  \end{tabular}
+\end{figure}
+
+
+Tabキーとコマンド\ruby{履歴}{り|れき}の機能を使うと、コマンドの入力がとても楽になります。
+コマンドの入力をするときは、これらの機能を使ってみましょう。
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+  \addex{\texttt{cp}\textvisiblespace\texttt{-r}\textvisiblespace\texttt{/usr/local/share/ome/03}\textvisiblespace\texttt{\textasciitilde}と入力して実行しましょう。}\\
+  \vspace{\zh}
+  \addquiz{ターミナルにpwdと入力し、実行しましょう。カレントディレクトリが\ruby{表示}{ひょう|じ}されることを確かめましょう。
+  表示されたカレントディレクトリを書いてください。}
+  \addquiz{\texttt{ls}\textvisiblespace \texttt{-F}と入力し、実行しましょう。Fは大文字です。\ruby{表示}{ひょう|じ}されたファイルとディレクトリの名前をそれぞれ１つずつ書きましょう。}
+  \addquiz{Tabキーを使いながら \texttt{ls}\textvisiblespace \texttt{-F}\textvisiblespace Pictures/ と入力しましょう。実行して\ruby{表示}{ひょう|じ}されたファイルかディレクトリの名前を１つ書きましょう。}
+  \addex{ターミナルの中で、カーソルの上下キーを押し、コマンドの\ruby{履歴}{り|れき}を見てみましょう。}
+\end{enumerate}
+\end{tcolorbox}
+
+\end{document}

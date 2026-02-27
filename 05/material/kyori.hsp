@@ -1,0 +1,21 @@
+#include "hsp3dish.as"
+#include "rpz-gpio.as"
+
+spiopen 0
+
+*main
+
+	data = adcget(0,0)
+	kyori = 3952640 / (875*data + 22272)
+	res = "距離 : "+kyori
+	
+	redraw 0
+	font "",20
+	pos 30,30
+	mes res
+	redraw 1
+
+	wait 10
+	goto *main
+
+spiclose 0

@@ -1,0 +1,500 @@
+\documentclass[text03.tex]{subfiles}
+\begin{document}
+\newpage
+\section{出力をつくるいろいろなコマンド}
+この節では、下の表に書かれた出力を作るコマンドを\ruby{紹介}{しょう|かい}します。
+
+\begin{figure}[h]
+    \center
+    \begin{tabular}{ll}\hline
+    コマンド & 動作                                         \\ \hline
+    ls      & ファイルやディレクトリのいちらんを出力する（紹介ずみ）             \\
+    du      & ディレクトリの中のファイルの大きさを\ruby{報告}{ほう|こく}する \\
+    wc      & 入力の文字数・単語数・行数を出力する         \\
+    seq     & 数字の列を出力する                       \\ 
+    echo    & 文字をそのまま出力する                       \\ 
+    touch   & 空のファイルを作成する(出力はありません)                       \\ \hline
+    \end{tabular}
+\end{figure}
+
+\subsection{ディレクトリやファイルの大きさを報告する}
+
+\begin{description}
+    \item[● \texttt{du}\textvisiblespace \underline{ファイルやディレクトリ}$\ldots$]\mbox{}\\
+    \underline{ファイルやディレクトリ}$\ldots$の大きさを表示します。
+\end{description}
+次に、具体的な例を見てみましょう。
+\begin{lstlisting}[caption=duコマンドの実行例, label=du_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> du ~/03
+124	/home/pi/03/rensyu/rika
+20	/home/pi/03/rensyu/kokugo
+68	/home/pi/03/rensyu/sansu
+256	/home/pi/03/rensyu/syakai
+500	/home/pi/03/rensyu
+980	/home/pi/03
+\end{lstlisting}
+この例では、\textasciitilde/03の中のディレクトリの大きさを表示しています。
+左側の数字が各ディレクトリの大きさで「キロバイト」という単位を使って表しています。
+ただし、このままでは各数字がどれくらいの大きさを表しているのかがわかりにくいですよね。
+そこで、-hオプションを使って、数字に単位を付けることができます。
+\begin{lstlisting}[caption=du -hの実行例, label=du_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> du -h ~/03
+124K	/home/pi/03/rensyu/rika
+20K	/home/pi/03/rensyu/kokugo
+68K	/home/pi/03/rensyu/sansu
+256K	/home/pi/03/rensyu/syakai
+500K	/home/pi/03/rensyu
+980K	/home/pi/03
+\end{lstlisting}
+この例では、全てのディレクトリにキロバイトを示すKが表示されました。
+また、-aオプションを使うことで、ディレクトリ内のファイルの大きさを表示することもできます。
+\begin{lstlisting}[caption=du -haの実行例, label=du_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> du -ha ~/03
+24K     /home/pi/03/rensyu/rika/rika.png
+96K     /home/pi/03/rensyu/rika/mokei.png
+124K	/home/pi/03/rensyu/rika
+4.0K	/home/pi/03/rensyu/kanji.txt
+16K     /home/pi/03/rensyu/kokugo/syousetu.txt
+20K     /home/pi/03/rensyu/kokugo
+24K     /home/pi/03/rensyu/oda.jpg
+60K     /home/pi/03/rensyu/sansu/nihon.png
+4.0K	/home/pi/03/rensyu/sansu/sansu.txt
+68K     /home/pi/03/rensyu/sansu
+252K	/home/pi/03/rensyu/syakai/sekai.png
+256K	/home/pi/03/rensyu/syakai
+500K	/home/pi/03/rensyu
+4.0K	/home/pi/03/Ltika.hsp
+4.0K	/home/pi/03/led.hsp
+4.0K	/home/pi/03/button_led2.hsp
+4.0K	/home/pi/03/button.hsp
+4.0K	/home/pi/03/button_led.hsp
+4.0K	/home/pi/03/README.md
+4.0K	/home/pi/03/button_led3.hsp
+444K	/home/pi/03/rensyu.tar.gz
+4.0K	/home/pi/03/sensors.hsp
+980K	/home/pi/03
+\end{lstlisting}
+この実行例ではわかりやすさのためにhオプションも同時に使用しました。
+
+最後に、-sオプションを用いてディレクトリの大きさの合計だけを表示する方法を紹介します。
+\begin{lstlisting}[caption=du -hsの実行例, label=du_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> du -hs ~/03
+980K	/home/pi/03
+\end{lstlisting}
+もし特定のディレクトリの合計\ruby{容量}{よう|りょう}を知りたい場合には、このオプションを使うと便利です。
+
+\subsection{文字数・単語数・行数を出力する}
+\begin{description}
+    \item[● \texttt{wc}\textvisiblespace \underline{ファイル}$\ldots$]\mbox{}\\
+    指定した\underline{ファイル}$\ldots$の文字数・単語数・行数を表示します。
+\end{description}
+次に、具体的な例を見てみましょう。
+\begin{lstlisting}[caption=wcコマンドの実行例, label=wc_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> wc ~/03/rensyu/kokugo/syousetu.txt
+  118    99 16061 /home/pi/03/rensyu/kokugo/syousetu.txt
+\end{lstlisting}
+この例では、\textasciitilde/lsfileの中身の文字数・単語数・行数を表示しています。
+左から順に、行数、単語数、文字数、ファイルのパスを表しています。
+ただし、単語数は英単語の数え方で数えますので、日本語の文章では正しい数にならないことがあります。
+
+\subsection{数字の列を出力する}
+\begin{description}
+    \item[● \texttt{seq}\textvisiblespace \underline{数字1}\textvisiblespace \underline{数字2}]\mbox{}\\
+    \underline{数字1}から\underline{数字2}までの数字を出力します。
+\end{description}
+例として、1から5までの数字をseqで表示してみましょう。
+\begin{lstlisting}[caption=seqコマンド]
+<#green#pi@raspberrypi#>:<#blue#~ $#> seq 1 5
+1
+2
+3
+4
+5
+<#green#pi@raspberrypi#>:<#blue#~ $#>
+\end{lstlisting}
+seqコマンドを使うことで、数字を\ruby{順番}{じゅん|ばん}に出力することができました。
+
+\subsection{文字をそのまま出力する}
+\begin{description}
+    \item[● \texttt{echo}\textvisiblespace \underline{文字列}$\ldots$]\mbox{}\\
+    \underline{文字列}$\ldots$をそのまま出力します。
+    \label{cmd:echo}
+\end{description}
+
+\begin{lstlisting}[caption=echoコマンド]
+<#green#pi@raspberrypi#>:<#blue#~ $#> echo hello
+hello
+<#green#pi@raspberrypi#>:<#blue#~ $#>
+\end{lstlisting}
+echoコマンドを使うことでhelloと出力できました。
+
+%%%%%%%%
+
+\subsection{\ruby{空}{から}のファイルを作成する}
+出力を作るコマンドではありませんが、\ruby{空}{から}のファイルを作成する便利なコマンドを紹介します。
+
+\begin{description}
+    \item[● \texttt{touch} \underline{ファイル名}$\cdots$]\mbox{}\\
+    名前が\underline{ファイル名}$\cdots$の空のファイルを作成します。ファイルがすでにある場合は、ファイルの更新日時とアクセス日時を更新します。 
+\end{description}
+
+ファイルの更新日時とアクセス日時とは、それぞれ最後にファイルを保存した日時と、最後にファイルを読んだ日時になります。 ls -l で確認することができます。
+\begin{lstlisting}[caption=空のファイルを作成, label=cmd:touch]
+<#green#pi@raspberrypi#>:<#blue#~ $#> touch testtouch
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls -l testtouch
+-rw-r--r-- 1 pi pi 0  7月 11 19:40 testtouch <- 7月11日19:40に更新された。
+\end{lstlisting}
+
+\begin{tcolorbox}[title=\useOmetoi]
+    \begin{enumerate}
+        \addex{duコマンドを使って、ホームディレクトリの大きさを表示してみましょう。}
+        \addex{wcコマンドを使って、\textasciitilde/03/rensyu/kokugo/syousetu.txtの中身の文字数・単語数・行数を表示してみましょう。}
+        \addex{seqコマンドを使って、100から200までの数字を表示してみましょう。}
+        \addex{echoコマンドを使って、I LOVE PROGRAMMING!と表示してみましょう。echoに空白を含む文字列をわたすときは、文字列を「'」で囲みましょう。}
+        \addex{touchコマンドを使って、touchtestという名前のファイルを作成してください。ファイルができたことを確認したら、touchtestを\ruby{削除}{さく|じょ}してください。}
+    \end{enumerate}
+\end{tcolorbox}
+
+\newpage
+%%%%%%%%%%%%%%%%% コマンドをつなげて便利に使うをいれる？
+\section{コマンドをつなげて使う}
+ラズパイにはコマンドをつなげて便利に使うための方法が\ruby{用意}{よう|い}されています。
+コマンドをつなげると、いくつかの\ruby{処理}{しょ|り}を連続して行うことができるようになります。
+まずは、コマンドが入力・出力をどのように行うのかを\ruby{理解}{り|かい}しましょう。
+次に入出力を変更して、コマンドの入力と出力がどのように変わるのかを\ruby{理解}{り|かい}しましょう。
+最後に、コマンドをいくつかつなげて、\ruby{複雑}{ふく|ざつ}な\ruby{処理}{しょ|り}をやってみましょう。
+
+\begin{figure}[h]
+    \centering
+    \includesvg[width=0.65\linewidth]{../../asset/std_in_out_err.svg}
+    \caption{標準入力・標準出力・標準エラー出力の図}
+    \label{ch03:stdioerr}
+\end{figure}
+
+\subsection{コマンドの\ruby{入出力}{にゅう|しゅつ|りょく}}
+
+コマンドを\ruby{実行}{じっ|こう}すると、{\bf \ruby{標準}{ひょう|じゅん}入力}、{\bf \ruby{標準}{ひょう|じゅん}出力}、{\bf \ruby{標準}{ひょう|じゅん}エラー出力}の3つのデータの\ruby{通}{とお}り道が\ruby{準備}{じゅん|び}されます。このデータの\ruby{通}{とお}り道をチャネルといいます。チャネルに何も指定せずにコマンドを\ruby{実行}{じっ|こう}すると、\ruby{標準}{ひょう|じゅん}入力はキーボードに\ruby{設定}{せっ|てい}されます。\ruby{標準}{ひょう|じゅん}出力と\ruby{標準}{ひょう|じゅん}エラー出力はディスプレイに\ruby{設定}{せっ|てい}されます。
+
+catコマンドは、"cat ファイル名"と実行することで、ファイルの内容を\ruby{標準}{ひょう|じゅん}出力に表示するコマンドでした。cat にファイル名を指定しないと、\ruby{標準}{ひょう|じゅん}入力、つまりキーボードからデータを受け取ります。このように、コマンドによっては入力するデータをコマンドの引数として与えるか、\ruby{標準}{ひょう|じゅん}入力から与えるかを選ぶことができるものがあります。
+
+\begin{lstlisting}[caption=catの標準入力・標準出力, label=stdioCat]
+<#green#pi@raspberrypi#>:<#blue#~ $#> cat 
+sansu <Enter> <- 標準入力（キーボード）からの入力
+sansu         <- 標準出力（ディスプレイ）への出力
+<Ctrl+D>      <- 標準入力からEOFを入力し、入力が終了したことを伝える
+<#green#pi@raspberrypi#>:<#blue#~ $#>
+\end{lstlisting}
+EOFはファイルがここで終ることを示す記号です。End Of File(エンドオブファイル)と呼びます。キーボードからcatコマンドを使って文字を入力するときには、最後にEOFを入力します。
+
+\subsection{リダイレクト}
+\ruby{標準}{ひょう|じゅん}入力、\ruby{標準}{ひょう|じゅん}出力、\ruby{標準}{ひょう|じゅん}エラー出力の出力先は、ファイルに\ruby{変更}{へん|こう}することができます。この\ruby{機能}{き|のう}を{\bf リダイレクト}と呼びます。
+リダイレクトを使うと、ファイルからデータを読み込んだり、結果をファイルに保存したりすることが\ruby{簡単}{かん|たん}にできるようになります。
+\begin{figure}
+    \centering
+    \includesvg[width=0.65\linewidth]{../../asset/redirect.svg}
+    \caption{リダイレクトを表した図}
+    \label{ch03:redirect}
+\end{figure}
+\begin{lstlisting}[caption=lsの出力をリダイレクトする, label=redirectLs]
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls 
+<#blue#01  03         Desktop    Downloads  Pictures  Templates   rika#>
+<#blue#02  Bookshelf  Documents  Music      Public    Videos#>
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls > lsfile
+<#green#pi@raspberrypi#>:<#blue#~ $#> cat lsfile
+01
+02
+03
+Bookshelf
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+lsfile
+rika
+\end{lstlisting}
+
+「>(大なり記号)」の後にファイル名を指定することで、
+ファイルを作成し、そのファイルにコマンドの結果を保存します。
+いつも画面で見ている結果を、リダイレクトでファイルに保存するように\ruby{変更}{へん|こう}しました。
+
+\ruby{標準}{ひょう|じゅん}入力の入力元を、ファイルに\ruby{変更}{へん|こう}することもできます。
+「<(小なり記号)」の後にファイル名を指定することで、そのファイルの内容を標準入力から入力されたものとして、コマンドが実行されます。
+\begin{lstlisting}[caption=catコマンドにリダイレクトでファイルを入力する, label=redirectCat]
+<#green#pi@raspberrypi#>:<#blue#~ $#> cat < lsfile
+01
+02
+03
+Bookshelf
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+lsfile
+rika
+\end{lstlisting}
+
+ちなみに、"cat lsfile"と入力しても動作は同じです。
+
+\subsection{パイプライン}\label{sec:pipelne}
+
+パイプ\ruby{記号}{き|ごう}「|」を使うことで、パイプ記号の前のコマンドの\ruby{標準}{ひょう|じゅん}出力と、
+パイプ記号の後のコマンドの\ruby{標準}{ひょう|じゅん}入力をつなぐことができます。
+コマンド同士をパイプ記号でつなぐことによって、コマンドの実行結果をほかのコマンドに渡すことができるようになります。
+つまり、コマンドをつなげていろいろな処理をできるようになります。
+\begin{figure}[h]
+    \centering
+    \includesvg[width=0.65\linewidth]{../../asset/pipe.svg}
+    \caption{パイプを表した図}
+    \label{ch03:pipe}
+\end{figure}
+
+\begin{lstlisting}[caption=lsコマンドの出力をパイプでlessコマンドに渡す, label=redirectCat]
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls | less
+\end{lstlisting}
+
+\begin{lstlisting}[caption=lsコマンドの出力をパイプでlessコマンドに渡した結果, label=redirectCat_result]
+01
+02
+03
+Bookshelf
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+lsfile
+rika
+~
+~
+~
+~
+~
+(END)
+\end{lstlisting}
+
+lsコマンドはリダイレクトやパイプを使うとファイルが一行ずつ出力されます。
+lessコマンドにlsコマンドの\ruby{標準}{ひょう|じゅん}出力を渡すことで、ファイルやディレクトリを一画面ずつ表示することができました。
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{tcolorbox}[title=\useOmetoi]
+    \begin{enumerate}
+        \addex{コマンドラインで \texttt{cat > keytest} を実行して、ファイルkeytestにキーボードの入力を保存してみましょう。保存できたら、内容を確認してみましょう。}
+        \addex{lsコマンドの実行結果をファイルlsfileに保存してください。保存できたら、内容を確認してください。}
+        \addex{\texttt{seq 1 100 | less} を実行すると、どのようなことが起きるでしょうか。まず結果を\ruby{想像}{そう|ぞう}して、TAの先生や周りの人に話してください。次に、コマンドを実行して結果を確かめてください。}
+    \end{enumerate}
+\end{tcolorbox}
+
+\newpage 
+\section{フィルタコマンド}
+フィルタコマンドは、入力ファイルの内容を操作して、出力をするコマンドです。
+以下のようなコマンドがあります。
+
+\vspace{1.5\zh}
+\begin{tabular}{ll}\hline
+    コマンド & 動作                               \\ \hline
+    cat      & 入力をなにもせずに出力する         \\
+    tac      & 行を\ruby{逆順}{ぎゃく|じゅん}に出力する                 \\
+    shuf     & 行をランダムに入れ\ruby{替}{か}えて出力する   \\
+    head     & 先頭のいくつかの行を表示する       \\
+    tail     & \ruby{末尾}{まつ|び}のいくつかの行を表示する       \\
+    sort     & 行を順番にならべかえる             \\
+    grep     & \ruby{検索}{けん|さく}パターンに\ruby{一致}{いっ|ち}する行を出力する \\ \hline
+\end{tabular}
+\vspace{1.5\zh}
+
+\subsection{行を\ruby{逆順}{ぎゃく|じゅん}に出力する}
+\begin{description}
+    \item[● \texttt{tac}\textvisiblespace \underline{ファイル}$\ldots$]\mbox{}\\
+    \underline{ファイル}$\ldots$の内容を、行を\ruby{逆}{ぎゃく}にして出力します。
+\end{description}
+次に、具体的な例を見てみましょう
+\begin{lstlisting}[caption=tacコマンドの実行例, label=tac_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> tac ~/lsfile
+rika
+lsfile
+keytest
+Videos
+Templates
+Public
+Pictures
+Music
+Downloads
+Documents
+Desktop
+Bookshelf
+03
+02
+01 
+\end{lstlisting}
+この例では、リスト\ref{redirectLs}で使用したlsfileの中身を逆順に表示してみました。
+ちなみにtacコマンドは、catコマンドの逆のことをすることから、catを逆さにした名前になっています。
+
+
+\subsection{行をランダムに入れ替える}
+\begin{description}
+    \item[● \texttt{shuf}\textvisiblespace \underline{ファイル}$\ldots$]\mbox{}\\
+    \underline{ファイル}$\ldots$の内容を、行をランダムに入れ替えて出力します。
+\end{description}
+次に、具体的な例を見てみましょう。
+\begin{lstlisting}[caption=shufコマンドの実行例, label=shuf_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> shuf ~/lsfile
+03
+Desktop
+Documents
+02
+Music
+01
+Videos
+Pictures
+testtouch
+Bookshelf
+Templates
+Public
+lsfile
+Downloads
+\end{lstlisting}
+この例では、リスト\ref{redirectLs}で使用したlsfileの中身をランダムに入れ替えて表示してみました。
+実行するたびにランダムに入れ替わるので、この例とは\ruby{異}{こと}なる結果が表示されるかもしれません。
+
+\subsection{先頭の行をいくつか表示する}
+\begin{description}
+    \item[● \texttt{head}\textvisiblespace \texttt{-n}\textvisiblespace \underline{行数}\textvisiblespace \underline{ファイル}$\ldots$ ]\mbox{}\\
+    \underline{ファイル}$\ldots$の内容を、先頭から\underline{行数}だけ抜き出して表示する。
+\end{description}
+次に、具体的な例を見てみましょう。
+\begin{lstlisting}[caption=headコマンドの実行例, label=shuf_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> head -n 2 ~/lsfile
+01
+02
+\end{lstlisting}
+この例では、lsfileの中身の先頭の2行を表示しました。
+
+\subsection{末尾のいくつかの行を表示する}
+\begin{description}
+    \item[● \texttt{tail}\textvisiblespace \texttt{-n}\textvisiblespace \underline{行数}\textvisiblespace \underline{ファイル}$\ldots$ ]\mbox{}\\
+    \underline{ファイル}$\ldots$の内容を、末尾から\underline{行数}の行を抜き出して表示する。
+\end{description}
+次に、具体的な例を見てみましょう。
+\begin{lstlisting}[caption=tailコマンドの実行例, label=shuf_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> tail -n 2 ~/lsfile
+lsfile
+rika
+\end{lstlisting}
+この例では、lsfileの中身の末尾の2行を表示しました。
+
+\subsection{行を順番にならべかえる}
+\begin{description}
+    \item[● \texttt{sort}\textvisiblespace \underline{ファイル}$\ldots$ ]\mbox{}\\
+    \underline{ファイル}$\ldots$の内容を、行を\ruby{辞書}{じ|しょ}順に並べ替えて表示する。
+\end{description}
+\ruby{辞書}{じ|しょ}順とは、英語の辞書にのせる単語の順番の決め方と同じ決め方をしているという意味です。
+次に、具体的な例を見てみましょう。
+\begin{lstlisting}[caption=sortコマンドの実行例, label=sort_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> sort ~/lsfile
+01
+02
+03
+Bookshelf
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+keytest
+lsfile
+rika
+\end{lstlisting}
+この例では、lsfileの中身を順番に並べ替えて表示してみました。
+数字とアルファベットが\ruby{混在}{こん|ざい}している場合、数字が先に表示され、その後にアルファベットが表示されます。
+
+\subsection{パターンに一致する行を出力する}
+\begin{description}
+    \item[● \texttt{grep}\textvisiblespace \underline{パターン}\textvisiblespace \underline{ファイル}$\ldots$ ]\mbox{}\\
+    \underline{ファイル}$\ldots$ から、\underline{パターン}に一致する行を表示します。
+\end{description}
+次に、具体的な例を見てみましょう。
+\begin{lstlisting}[caption=grepコマンドの実行例, label=grep_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> grep Do ~/lsfile
+<#red#Do#>cuments
+<#red#Do#>wnloads
+\end{lstlisting}
+この例では、lsfileの中身から"Do"という文字列に一致する行を表示してみました。
+このように、一致する行がある場合はその行が表示されます。
+また、一致する文字列は赤字で表示されます。
+
+
+\subsection{パイプラインとフィルタコマンドを組み合わせた使い方}
+これまでフィルタコマンドの使い方を紹介してきました。
+これらのフィルタコマンドは、節\ref{sec:pipelne}で勉強したパイプラインと組み合わせることでより便利に使うことができます。
+
+まず、パイプラインとフィルタコマンドを組み合わせた使い方は次の通りです。
+
+\begin{lstlisting}[caption=パイプラインを用いたフィルタコマンドの実行例, label=pipeline_filter]
+標準出力を出すコマンド | フィルタコマンド
+\end{lstlisting}
+
+パイプラインを使うことで、標準出力を出すコマンドの結果をフィルタコマンドに渡すことができます。
+また、更にパイプでフィルタコマンドを\ruby{繋}{つな}げることで、さらなるフィルタリングを行うこともできます。
+
+次に、具体的な例を見てみましょう。
+例えば、lsコマンドの標準出力をフィルタコマンドであるsortに渡すことで、ファイルの\ruby{一覧}{いち|らん}を並び替える方法を紹介します。
+
+\begin{lstlisting}[caption=パイプラインを用いたsortコマンドの実行例, label=sort_example]
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls | sort
+01
+02
+03
+Bookshelf
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+keytest
+lsfile
+rika
+\end{lstlisting}
+
+この例では、lsコマンドでホームディレクトリの中身を表示し、その結果をsortコマンドに渡して並べ替えています。
+lsfileをsortコマンドに渡した\ruby{際}{さい}と同じ結果が表示されていることが分かります。
+
+
+\begin{tcolorbox}[title=\useOmetoi]
+    以下の問題を解きましょう。Tabキーやコマンド\ruby{履歴}{り|れき}の\ruby{機能}{き|のう}を使うと便利です。
+    \begin{enumerate}
+        \addex{\textasciitilde/03/rensyu/kokugo/syousetu.txtの中身を逆順に表示してみましょう。}
+        \addex{\textasciitilde/03/rensyu/kokugo/syousetu.txtの行をランダムに入れ替えて表示してみましょう。}
+        \addex{\textasciitilde/03/rensyu/kokugo/syousetu.txtの先頭の5行を表示してみましょう。}
+        \addex{\textasciitilde/03/rensyu/kokugo/syousetu.txtの末尾の5行を表示してみましょう。}
+        \addex{\textasciitilde/03ディレクトリの中のファイルとディレクトリのリストをsortコマンドを使って並べ替えて表示してみましょう。 \\ 
+        ヒント:まず、03の中身を表示するコマンドの出力をリダイレクトでファイルに書き込もう。次にsortコマンドを使ってファイルの中身を並べ替えよう。}
+        \addex{\textasciitilde/03/rensyu/kokugo/syousetu.txtの中身から"ごん"という文字列に一致する行を表示してみましょう。}
+    \end{enumerate}
+\end{tcolorbox}
+\begin{tcolorbox}[title=\useOmetoi]
+    \begin{enumerate}
+        \addquiz{ls \$HOME | \fbox{コマンド1} \\ ホームディレクトリの中身を\ruby{辞書}{じ|しょ}順に並び替えるように \fbox{コマンド1} を\ruby{埋}{う}めましょう。}
+        \addquiz{ls \$HOME | \fbox{コマンド1} | \fbox{コマンド2} Downloads \\ 1の結果から Downloads を含む行を抜き出すように \fbox{コマンド2} を埋めましょう。}
+        \addquiz{cat \textasciitilde/03/rensyu/kokugo/syousetu.txt | tail -n \fbox{数字1} | head -n \fbox{数字2} \\ syousetu.txtの下から3行目を表示するように \fbox{数字1} と \fbox{数字2} を埋めて、コマンドを実行しましょう。}
+    \end{enumerate}
+\end{tcolorbox}
+
+\end{document}

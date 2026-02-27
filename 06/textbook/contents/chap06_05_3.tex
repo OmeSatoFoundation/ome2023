@@ -1,0 +1,88 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+\newpage
+\section{HSPからJuliusを使う}
+認識した音声を元に何か\ruby{処理}{しょ|り}を行いたいことは良くあります。例えば、認識した音声に\ruby{応}{おう}じて部屋の電気をつけたり、タイマーをセットしたりすることが考えられます。そんなときには自分のプログラムとJuliusを\ruby{連携}{れん|けい}させましょう。
+\subsection{JuliusとHSPの連携のしくみ}
+Juliusは図\ref{JuliusとHSPの連携}のように、HSPの外で動きます。別に起動しているJuliusと、書いたHSPプログラムが「ソケット」と呼ばれる通信\ruby{経路}{けい|ろ}を\ruby{介}{かい}して通信することで認識結果やコマンド（Juliusの起動・停止など）のやり取りをすることができます。
+\begin{figure}[H]
+\begin{center}
+    \includesvg[width=\linewidth]{../../asset/image/JuliuswithHSP.svg}
+    \caption{JuliusとHSPの連携}
+    \label{JuliusとHSPの連携}
+\end{center}
+\end{figure}
+\ruby{従}{したが}って、HSPからJuliusを使うためには、HSPプログラムだけではなく別にJuliusも事前に起動しておきます。
+
+\subsection{認識した単語を取得・表示する}
+新しく覚える命令と関数は\code{init\_julius},\code{is\_recieved()}, \code{get\_word\_list} の3つです。例題のプログラム julius.hsp を見ながら\ruby{解説}{かい|せつ}していきます。\\
+
+まず、\code{init\_julius},\code{is\_recieved}と\code{get\_word\_list}を使えるようにするために、2行目のように\\
+\code{\#include “julius.as”}\\
+を書きます。続いて、\code{init\_julius}を実行してjuliusを使うための初期化 (initialization) を行います。これは\code{is\_recieved}と\code{get\_word\_list}が実行される前に一回だけ実行されるように書く必要があります。これによってJuliusが起動します。引数には音声認識に使用する辞書ファイル (今回は \code{kudamono.dic}) を指定してください。続いて、\code{sockopen}命令でjuliusと通信するための経路 の番号(ソケットIDと呼びます) を\code{sockidx}、つまり0に設定します。juliusは自分のラズベリーパイ (127.0.0.1) の10500番ポートを使用します。\code{sockopen}命令を実行したとき、エラーが起きればシステム変数\code{stat}に0以外の\ruby{値}{あたい}が入ります。エラーが起きた時にプログラムを終了させるため、statに0以外の値が入っていたらエラーメッセージを表示して\ruby{終了}{しゅう|りょう}するように、\ruby{条件分岐}{じょう|けん|ぶん|き}を使ってプログラムを書きます。
+
+\begin{lstlisting}[caption=julius.hsp,label=julius.hsp]
+#include "hsp3dish.as"
+#include "julius.as"
+
+redraw 0
+pos 0, 0
+mes "Loading Julius..."
+redraw 1
+
+init_julius "kudamono.dic"
+
+sockidx = 0
+domain = "127.0.0.1"
+PORT = 10500
+
+sockopen sockidx, domain, PORT
+
+if stat != 0 {
+*errorjulius
+  redraw 0
+  pos 0, 0
+  mes "Error in opening socket"
+  redraw 1
+  await 30
+  goto *errorjulius
+  stop
+}
+
+sdim words, 4096, 0
+ddim cm, 0
+
+repeat -1
+  if is_recieved(sockidx) = 0 {
+    get_word_list words, cm
+    len =  "L1 " + length(words)
+    repeat length(words)
+      if cm(cnt) > 0.5 {
+          ans =  "" + cnt + ": " + words(cnt) + " CM = " + cm(cnt)
+      }
+    loop
+  }
+  redraw 0
+  pos 0,0
+  mes len
+  mes ans
+  redraw 1
+  await 30
+loop
+\end{lstlisting}
+
+続いて、\\
+\code{sdim words, 4096, 0\\
+ddim cm, 0}\\
+は、Juliusの認識結果を\ruby{格納}{かく|のう}するための配列を\ruby{宣言}{せん|げん}しています。Juliusは認識結果として2つの\ruby{要素}{よう|そ}を出力します: 1つめは認識された単語、2つ目は認識の正確さ（単語\ruby{信頼度}{しん|らい|ど}）です。それぞれが文字列配列\code{word}と小数配列\code{cm}に格納されます。認識された単語が必要なのはもっともですね。単語信頼度は、Juliusがその認識結果にどれだけ自信があるかを示します。1が最大（最も自信がある）で0が最小（最も自信がない）で、小数で表されます。\\
+\code{repeat -1}
+以下が認識結果を画面に表示するための\ruby{無限}{む|げん}ループによるメインルーチンになります。\code{is\_recieved(sockidx)}は、\code{sockidx}の先のJuliusから認識結果を取得し終えたら0が返ってきます。従って、0が返ってきたときだけ認識結果の代入と画面表示の処理を行うように条件分岐が書いてあります。\\
+\code{get\_word\_list word, cm}
+によって、文字列配列\code{word}と小数配列\code{cm}に認識結果が代入されます。\code{word}と\code{cm}は配列なので、次の\code{repeat}文でそれぞれの要素に対して、\code{cm}（単語信頼度）が0.5以上のもののみ\code{mes}命令を実行し、結果を画面に表示させています。\\
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+\addex{ターミナルを開いて、 \textasciitilde /07/に移動しましょう。}
+\addex{HSPでjulius.hspを実行しましょう。\\果物の名前を３つ話しかけて、認識されるか確かめてみましょう。}
+\end{enumerate}
+\end{tcolorbox}
+\end{document}

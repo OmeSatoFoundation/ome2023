@@ -1,0 +1,40 @@
+\documentclass[text05.tex]{subfiles}
+\begin{document}
+\newpage
+\section{HSPを使って赤外線を出力するプログラムを作ってみよう}
+HSPスクリプトエディタで\textasciitilde /05/ir.hspを開いてみましょう。\\
+HSPではexec命令を使ってターミナルで使うコマンドを実行することができます。\\
+\code{exec "irsend SEND\_ONCE fan onoff"}\\
+exec命令は、\code{exec “コマンド”}とターミナルのコマンドを指定します。ここでのコマンドは先ほどターミナルで実行した\code{irsend SEND\_ONCE \textcolor{red}{fan onoff}}です。\code{\textcolor{red}{fan}}はリモコンの名前、\code{\textcolor{red}{onoff}}は信号の名前でした。\code{\textcolor{red}{fan}}と\code{\textcolor{red}{onoff}}は自分で\ruby{設定}{せっ|てい}ファイルに書いた名前に変えましょう。\\
+
+\begin{lstlisting}[caption=ir.hsp,label=ir.hsp]
+#include "hsp3dish.as"
+
+BUTTON_PIN = 24
+prev = 0
+status=0
+
+*main
+        redraw 0 
+        font "",20
+	pos 0,0
+        mes "ボタンPUSHで赤外線照射!"
+        redraw 1
+	wait 1
+        goto *edge
+
+*edge
+        current = gpioin(BUTTON_PIN)
+        if (prev=0) & (current=1) {		<#blue#;ボタンが押されたら#>
+            exec "irsend SEND_ONCE fan onoff"	<#blue#;irsendコマンドを実行する#>
+        }
+        prev = current
+        wait 1
+        goto *edge
+\end{lstlisting}
+
+\begin{tcolorbox}[title=\useOmetoi]
+\begin{enumerate}
+\addex{ボタンをGPIO24につなげ、自分でコピーした赤外線を出力してみましょう。\code{\textcolor{red}{fan}}と\code{\textcolor{red}{onoff}}は自分で設定ファイルに書いた名前に変えましょう。}
+\end{enumerate}
+\end{tcolorbox}\end{document}

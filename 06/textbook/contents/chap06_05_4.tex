@@ -1,0 +1,16 @@
+\documentclass[text06.tex]{subfiles}
+\begin{document}
+\subsection{Juliusが起動しなくなったら}
+もしもJuliusがうまく起動しなくなったときは、インストールしてあるコマンド\\
+\code{stopjulius.sh}\\
+を一度実行してからもう一度起動を試してみましょう。このコマンドは、上手く終了できなかった前のJuliusを終了させるコマンドです。
+
+\subsection{HSPでのファイルの指定}
+このプログラムでは、\\
+\code{init\_julius "kudamono.dic"}\quad\\
+として、プログラムを実行しているディレクトリにある\code{kudamono.dic}ファイルを辞書として指定しています。dicファイルが格納されているディレクトリが、プログラムを実行しているディレクトリと異なる場合は、相対パスか絶対パスでディレクトリを指定します。HSPプログラムからファイルを指定する際に\textasciitilde は使用できないので注意しましょう。このプログラムで読み込んでいるkudamono.dicを絶対パスで指定すると、\\
+\code{init\_julius "/home/<ユーザ名>/07/kudamono.dic"}\\
+となります。
+
+
+\end{document}

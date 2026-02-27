@@ -1,0 +1,56 @@
+\documentclass[text05.tex]{subfiles}
+\begin{document}
+\subsubsection{距離センサー}\label{distance}
+\begin{table}[H]
+	\begin{widerrows}
+		\begin{tabular}{|p{\colF}|p{\colG}|} \hline
+		名称 & 距離センサー（きょりせんさー）\\ \hline
+		接続箇所 & アナログコネクタ (3pin)\\ \hline
+		機能概要 & センサーから障害物までの距離を計測\\ \hline
+		\end{tabular}
+  \end{widerrows}	
+\end{table}
+
+\begin{table}[H]
+	\begin{widerrows}
+		\begin{tabular}{|p{\colF}|p{\colG}|}	\hline
+		サンプルコードの場所 & 05/anain.hsp\\ \hline
+		raspiへの入力 & 距離をあらわす0から1023の値。測定可能な距離は10cmから80cm。\\ \hline
+		raspiへの入力方法 & val = \adcget(ピン番号, チャンネル番号)\\ \hline
+		raspiからの出力 & なし\\ \hline
+		raspiからの出力方法 & なし\\ \hline
+		\end{tabular}
+  \end{widerrows}	
+\end{table}
+
+\begin{table}[H]
+	\begin{widerrows}
+		\begin{tabular}{|p{\colF}|p{\colG}|} \hline
+		使い道 & 距離計測、障害物センサーとして。\\ \hline
+		注意事項 & レンズを\ruby{覗}{のぞ}き\ruby{込}{こ}むと目に\ruby{影響}{えい|きょう}を\ruby{及}{およ}ぼすことがあるため覗き込まないこと。\\ \hline
+		補足 & 入力の単位はセンチメートルではないため、変換が必要です。出力は0から1023で出力されるので、これを数式\ref{eq:distance}で変換しますする必要があります。数式\ref{eq:distance}の$x$にセンサーからの数値を代入することでセンチメートルへ変換します。
+		\begin{equation}
+		\frac{3952640}{875 \times x + 22272}
+		\label{eq:distance}
+		\end{equation}
+	三角測量の原理により、ある三角形があったとき一辺の長さとそれに対する角の角度がわかれば三角形が決定します（\ruby{余弦}{よ|げん}定理）。距離センサーは\ruby{光源}{こう|げん}と受光器で成っています。受光器は光源から出た光が対象にぶつかって\ruby{反射}{はん|しゃ}してきた光の角度を計測することが出来ます。光源と受光器は固定されているので、その間の距離と対する角の角度がわかり、これと三角関数を使うと対象との距離が求まります\\ \hline
+		\end{tabular}
+  \end{widerrows}	
+\end{table}
+
+\begin{figure}[H]
+	\begin{widerrows}
+		\begin{tabular}{|p{\colH}|p{\colI}|p{\colH}|p{\colI}|} \hline
+		外観 & 
+		\begin{minipage}[t]{\linewidth}
+			\smallskip
+				\centering
+				\includegraphics[width=0.5\linewidth]{../../asset/image/text05-img031.png}
+				\caption{距離センサー}
+				\smallskip
+			\end{minipage} &
+			回路記号 & 回路記号はありません。\\ \hline
+		\end{tabular}
+  \end{widerrows}	
+\end{figure}
+\end{document}

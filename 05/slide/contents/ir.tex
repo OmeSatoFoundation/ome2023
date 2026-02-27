@@ -1,0 +1,335 @@
+\documentclass[slide05.tex]{subfiles}
+\begin{document}
+\begin{frame}[plain]
+    \begin{center}
+        \vspace{48pt}
+        {\huge\bf 赤外線（せきがいせん）}
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{赤外線(IR)とは}
+    \vspace{20pt}
+    \begin{center}
+        \includesvg[width=\linewidth]{../../asset/image/electromagnetic_wave.svg}
+    \end{center}
+    \textpageref{26}
+\end{frame}
+
+\begin{frame}
+    \frametitle{赤外線で通信する}
+    \begin{itemize}
+        \item ついていたらA, 消えていたらB
+        \item 例
+        \begin{itemize}
+            \item 点いている: ロボットが前に進む
+            \item 消えている: ロボットが止まる
+        \end{itemize}
+    \end{itemize}
+    % \note{画像を入れる}
+    \textpageref{26}
+\end{frame}
+
+\begin{frame}
+   \frametitle{2通りでは足りない} 
+   \begin{itemize}
+        \item 2通りでは伝えられることが少ない
+        \begin{itemize}
+            \item 止まる
+            \item 前に進む
+        \end{itemize}
+        \item もっといろいろなことを伝えたい
+        \begin{itemize}
+            \item 左に進む
+            \item 右に進む
+            \item 飛ぶ
+            \item \dots
+        \end{itemize}
+   \end{itemize}
+   \textpageref{26}
+\end{frame}
+
+\begin{frame}
+    \frametitle{リモコンの原理} 
+    \vspace{15pt}
+    \begin{itemize}
+        \item 1秒点いて2秒消えてまた2秒点いたら歩く
+        \item 2秒点いて3秒消えたらジャンプ
+    \end{itemize}
+    \begin{center}
+        \includesvg[width=0.8\linewidth]{../../asset/image/text05-img037.svg}
+    \end{center}
+    \textpageref{27}
+\end{frame}
+
+\begin{frame}
+    \frametitle{赤外線をつかった家電}
+    \begin{figure}[H]
+    \begin{minipage}[t]{0.3\columnwidth}
+        \centering
+    \includesvg[scale=0.1]{../../asset/image/tv.svg}
+        \caption{テレビ}
+    \end{minipage}
+    %\hspace{0.01\columnwidth} % ここで隙間作成
+    \begin{minipage}[t]{0.3\columnwidth}
+        \centering
+        \includesvg[scale=0.1]{../../asset/image/aircondition.svg}
+        \caption{エアコン}
+    \end{minipage}
+    \begin{minipage}[t]{0.3\columnwidth}
+        \centering
+        \includesvg[scale=0.1]{../../asset/image/fan.svg}
+        \caption{扇風機}
+    \end{minipage}
+    \end{figure}
+    \textpageref{27}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Raspberry Piをリモコンにする}
+    \begin{itemize}
+        \item リモコンを1つにまとめられる
+        \vspace{10pt}
+        \item プログラムで\ruby{制御}{せい|ぎょ}できる
+        \begin{itemize}
+            \item 外出先からエアコンをつける
+            \item 音声でテレビのチャンネルを変える
+        \end{itemize}
+    \end{itemize}
+    \textpageref{28}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Raspberry Piリモコンのしくみ}
+    \vspace{12pt}
+    \begin{center}
+        \includesvg[width=0.7\linewidth]{../../asset/image/IRproc.svg}
+    \end{center}
+    \begin{textblock*}{0.4\linewidth}(90pt,180pt)
+        \begin{tikzpicture}
+            \node[rectangle,fill=cyan!10,text width=4cm, text centered,rounded corners]{赤外線の\ruby{点滅}{てん|めつ}で\\情報を伝える};
+        \end{tikzpicture}
+    \end{textblock*}
+    \textpageref{28}
+\end{frame}
+
+\begin{frame}
+    \frametitle{ラズパイをリモコンにする手順} 
+    リモコンの動作をマネすることが必要
+    \begin{enumerate}
+        \item リモコンの信号を受信してファイルに記録する
+        \item ファイルに記録された信号を赤外線LEDから出力する
+    \end{enumerate}
+    \textpageref{29}
+\end{frame}
+
+\begin{frame}
+    \frametitle{チーム分け}
+    班ごとに
+    \begin{itemize}
+        \item ロボットを使うチーム
+        \item \ruby{扇風機}{せん|ぷう|き}を使うチーム
+    \end{itemize}
+    で分かれて、ロボットか扇風機を準備しよう
+\end{frame}
+
+\begin{frame}
+    \frametitle{ラズパイをリモコンにする -1} 
+    \begin{enumerate}
+        \item cd \textasciitilde/05
+        \item sudo service lircd stop
+        \item mode2 -d /dev/lirc1 \textbar tee onoff.txt
+        \begin{itemize}
+            \item 受信機に向かってリモコンのボタンを押そう
+            \item onoff.txtに受信した信号が記録される
+            \item Ctrl+cキーで終了！
+        \end{itemize}
+        \item convert\_pattern onoff.txt \textgreater \space onoff.pattern
+    \end{enumerate}
+    \textpageref{29}
+\end{frame}
+
+\begin{frame}
+    \frametitle{ラズパイをリモコンにする -2} 
+    onnoff.patternを使って設定ファイルを作る
+    \begin{enumerate}
+        \item cp template.lircd.conf 05.lircd.conf
+        \item mousepad 05.lircd.conf
+        \item mousepad onoff.pattern
+    \end{enumerate}
+    \textpageref{29}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{ラズパイをリモコンにする -3}
+    赤字の部分を書き換えよう
+    \begin{lstlisting}
+    begin remote
+        name <#red#fan#>
+        flags RAW_CODES
+        eps 30
+        aeps 100
+
+        gap 200000
+        toggle_bit_mask 0x0
+    
+        begin raw_codes
+            name <#red#onoff#>
+            <#red#1207 588 447 838 447 823 475 812 1218 ...#>
+        end raw_codes
+    end remote
+    \end{lstlisting}
+    \textpageref{29}
+\end{frame}
+
+\begin{frame}
+    \frametitle{ラズパイをリモコンにする -4}
+    \begin{itemize}
+        \item sudo cp 05.lircd.conf /etc/lirc/lircd.conf.d/
+        \begin{itemize}
+            \item 設定ファイルをコピー
+        \end{itemize}
+        \item sudo service lircd restart
+        \begin{itemize}
+            \item 設定ファイルが再読み込みされる
+        \end{itemize}
+        \item irsend SEND\_ONCE \color{red}fan onoff\color{black}
+    \end{itemize}
+    \textpageref{29-30}
+\end{frame}
+
+\begin{frame}
+    \begin{exampleblock}{問題をといてみよう}
+    \begin{itemize}
+        \item 教科書30ページ 例題5-12(1問)
+        \begin{itemize}
+            \item 手順を読みながら、赤外線を入力・出力してみよう
+        \end{itemize}
+    \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{HSPで赤外線を出力}
+    \begin{itemize}
+        \item exec命令を使ってirsendコマンドを呼び出す
+        \begin{itemize}
+            \item exec "irsend SEND\_ONCE fan onoff" 
+        \end{itemize}
+    \end{itemize}
+    \textpageref{31}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{ボタンを押して扇風機を回す}
+    \begin{lstlisting}[title=\textasciitilde/05/ir.hsp]
+    #include "hsp3dish.as"
+    BUTTON_PIN = 24
+    prev = 0
+    status=0
+
+    *main
+        redraw 0 
+        font "",20
+        pos 0,0
+    mes "ボタンPUSHで赤外線照射!"
+        redraw 1
+        wait 1
+        goto *edge
+
+    *edge
+        current = gpioin(BUTTON_PIN)
+        if (prev=0) & (current=1) {	 <#blue#;ボタンが押されたら#>
+            exec "irsend SEND_ONCE fan onoff"<#blue#;irsendコマンドを実行する#>
+        }
+        prev = current
+        wait 1
+        goto *edge
+    \end{lstlisting}
+    \textpageref{31}
+\end{frame}
+
+\begin{frame}
+    \begin{exampleblock}{問題を解いてみよう}
+    \begin{itemize}
+        \item 教科書31ページ 問題5-13(1問)
+    \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{信号を二つ以上登録したいとき}
+    \begin{lstlisting}[title=２つの信号を登録するときのtemplate.lircd.comf,label=２つの信号を登録するときのtemplate.lircd.comf]
+    begin remote
+    name fan
+    flags RAW_CODES
+    eps 30
+    aeps 100
+
+    gap 200000
+    toggle_bit_mask 0x0
+
+    begin raw_codes
+
+        name onoff
+        1207 588 447 838 447 823 475 812 1218…
+
+        <#red#name power
+        1364 363 752 743 372 836 164 614 ...#>
+
+    end raw_codes
+
+    end remote
+    \end{lstlisting}
+    \textpageref{33}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{赤外線受信のまとめ}
+    \begin{lstlisting}
+    mode2 -d /dev/lirc1 | tee <filename1>
+    convert_pattern <filename1> > <filename2>
+    <filename3>.confを<filename2>を使って作成
+    sudo cp <filename3>.conf /etc/lirc/lircd.d/
+    sudo service lircd restart
+    \end{lstlisting}
+    \textpageref{32}
+\end{frame}
+
+\begin{frame}
+    \frametitle{赤外線を送るコマンド}
+    irsend \textless 送り方\textgreater \textless リモコンの名前\textgreater \textless 信号の名前\textgreater
+
+    \begin{itemize}
+        \item \textless 送り方\textgreater
+        \begin{itemize}
+            \item SEND\_ONCE 一度だけ送る
+            \item SEND\_START 送り続ける
+            \item SEND\_STOP "SEND\_START"で送り続けていた信号を止める
+        \end{itemize}
+        \item \textless リモコンの名前\textgreater
+        \begin{itemize}
+            \item なんとか.lircd.confファイルの"begin remote"の直後の"name"
+        \end{itemize}
+        \item \textless 信号の名前\textgreater
+        \begin{itemize}
+            \item なんとか.lircd.confファイルの"begin codes"または"begin codes\_raw"の直後の"name"
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{センサー紹介}
+    教科書34ページから46ページに詳しいセンサーの紹介があります。
+\end{frame}
+
+\begin{frame}
+    \frametitle{宿題}
+    教科書32ページ 問題 5-14
+    \begin{itemize}
+        \item 自分の家にある家電をRaspberry Piで制御してみましょう。
+        \item エアコン、扇風機、テレビなど赤外線を使って操作する家電を選びましょう。
+        \item 赤外線で動かない家電もあります。宿題の結果が動かなかった、でもOKです。
+        \item 1問
+    \end{itemize}
+\end{frame}\end{document}

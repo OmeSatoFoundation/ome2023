@@ -1,0 +1,72 @@
+\documentclass[text03.tex]{subfiles}
+\begin{document}
+\newpage
+\section{ターミナルで\ruby{困}{こま}ったときの\ruby{対応}{たい|おう}}
+
+\subsection{エラーメッセージが出たときは}
+\begin{lstlisting}[caption=コマンドがちがうときの例, label=cmdMiss]
+<#green#pi@raspberrypi#>:<#blue#~ $#> pwb
+bash: pwb: コマンドが見つかりません
+<#green#pi@raspberrypi#>:<#blue#~ $#> 
+\end{lstlisting}
+コマンドがちがいます。スペル　（アルファベット）があっているか見てみましょう。\\\\
+
+\begin{lstlisting}[caption=ディレクトリやファイルの名前がちがうときの例, label=nameMiss]
+<#green#pi@raspberrypi#>:<#blue#~ $#> cd AAA
+bash: cd: AAA: そのようなファイルやディレクトリはありません
+<#green#pi@raspberrypi#>:<#blue#~ $#> 
+\end{lstlisting}
+ディレクトリやディレクトリの名前が\ruby{違}{ちが}います。スペルがあっているか見てみましょう。\\
+
+\subsection{キーボードで文字が入力できない}
+ターミナルは Ctrl+S を入力すると画面ロック機能が有効になります。画面のロック中は新しい表示がされないため、
+キーボードの入力も受け付けていないように見えてしまいます。このような時は Ctrl+Q を入力して、画面のロックを解除してください。
+
+\subsection{コマンドが終了しない}
+一部のコマンドは、実行した後ずっと動作し続けるものがあります。このようなコマンドは、自分で\ruby{終了操作}{しゅう|りょう|そう|さ}をしなければなりません。実行中のコマンドを終了させるためには Ctrl+C を入力します。
+
+\subsection{表示される文字がおかしい}
+テキストファイルでないファイルを表示させると、そのあとの表示がおかしくなってしまうことがあります。
+その際はまず、 Ctrl+L を入力するか、clearコマンドを実行して画面の内容を\ruby{消去}{しょう|きょ}してみてください。
+それでもおかしい場合は、reset コマンドを実行しましょう。
+resetコマンドでも直らない場合は、ターミナルのウィンドウをいったん閉じて、再度ターミナルを起動しましょう。
+
+\subsection{コマンドをもっと知りたい}
+コマンドの詳しい使い方についてい知りたい場合は、以下の方法があります。
+\begin{description}
+    \item[Web検索] "bash コマンド名"でWeb検索をすると、たいていのコマンドの日本語での説明が見つかります。
+    \item[manで調べる] ターミナルに"man コマンド名"と入力すると、英語ですが詳しい使い方が表示されます。直接英語が読めると一番良いのですが、難しければWebのほんやくサービスなどを使って読むとよいでしょう。
+\end{description}
+
+\subsection{\ruby{豆知識}{まめ|ち|しき}}
+\label{英語と日本語の対応表}
+コマンドは英文や英単語の\ruby{省略}{しょう|りゃく}になっています。\\
+\begin{figure}[h]
+    \begin{tabular}{llp{0.5\columnwidth}}\hline
+     コマンド & 対応する英語             & 意味 \\ \hline
+     pwd     & print working directory & ワーキングディレクトリを表示する \\
+     ls      & list segments           & セグメント(Linuxの祖先でのファイル)の一覧を表示 \\
+     cd      & change directory        & ディレクトリを変える\\
+     cat     & concatenate             & 結合する\\
+     cp      & copy                    & \ruby{複写}{ふく|しゃ}する\\
+     mv      & move                    & \ruby{移動}{い|どう}する\\
+     less    & more の反対の意味        & more:もっとみせて というコマンドの拡張版にlessという名前を付けた \\
+     mkdir   & make directory          & ディレクトリを作る\\
+     rm      &  remove                 & 消す\\
+     du      & disk usage              & ディスク使用量\\ 
+     wc      & word count              & 単語を数える\\ 
+     seq     & sequence                & 順番  \\ 
+     echo    & echo                    & やまびこ \\ 
+     touch   & touch                   & 触る \\ 
+     xargs   & extended argments       & 拡張した引数\\ 
+     tac     & 対応なし                 & catと逆の処理なのでcatを逆にした\\ 
+     shuf    & shuffle                 & ごちゃまぜにする \\ 
+     head    & head                    & 頭、先頭\\ 
+     tail    & tail                    & しっぽ、末尾\\ 
+     sort    & sort                    & 並べ替え、仕分け\\ 
+     sed     & stream editor           & ストリームエディタ、編集する決まりを与えてテキストを流すことに由来\\ 
+     grep    & g/re/p                  & ラインエディタedのコマンドから。global/regular expression/print\\ 
+     tr      & translate               & 変換する\\ 
+     alias   & alias                   & 別名 \\ \hline
+    \end{tabular}
+\end{figure}\end{document}

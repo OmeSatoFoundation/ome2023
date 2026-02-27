@@ -1,0 +1,13 @@
+source = ["text04.tex"]
+
+sequence = ["latex"] # Skip bibtex and makeindex
+
+[programs.latex]
+command = "lualatex"
+opts  = [
+    "--cnf-line='TEXINPUTS=.;../../texmf//;'",
+    "--shell-escape",
+    "-file-line-error",
+    "-interaction=nonstopmode",
+    "-synctex=1",
+]

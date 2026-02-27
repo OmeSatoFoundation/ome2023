@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="command2.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.4252341"
+     inkscape:cx="311.52777"
+     inkscape:cy="42.449167"
+     inkscape:window-width="1920"
+     inkscape:window-height="1094"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="311.57202"
+       y="478.27297"
+       width="174.63909"
+       height="46.636576"
+       id="rect8" />
+    <rect
+       x="21.829887"
+       y="269.89678"
+       width="468.3503"
+       height="147.84787"
+       id="rect7" />
+    <rect
+       x="58.937687"
+       y="81.390139"
+       width="694.62274"
+       height="230.13763"
+       id="rect6" />
+    <rect
+       x="311.57202"
+       y="478.27298"
+       width="174.63908"
+       height="46.636578"
+       id="rect8-9" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,2.1002998,-3.4129871)"
+       id="text6"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:sans-serif;-inkscape-font-specification:sans-serif;white-space:pre;opacity:0.98;fill:#010000;fill-opacity:1;stroke:#000000;stroke-width:1.13386;stroke-linecap:square;stroke-dasharray:none;shape-inside:url(#rect6)"><tspan
+         x="58.9375"
+         y="107.64066"
+         id="tspan4">コマンド␣オプション<tspan
+   style="fill:#000000"
+   id="tspan2">␣</tspan>引数１<tspan
+   style="fill:#020202"
+   id="tspan3">␣</tspan>引数２</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.1841136,0,0,0.17267657,57.828413,-69.691884)"
+       id="text8"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:sans-serif;-inkscape-font-specification:sans-serif;white-space:pre;shape-inside:url(#rect8);opacity:0.98;fill:#010000;fill-opacity:1;stroke:#000000;stroke-width:0.377953;stroke-linecap:square;stroke-dasharray:none"><tspan
+         x="311.57227"
+         y="504.52347"
+         id="tspan5">ひきすう</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.1841136,0,0,0.17267657,30.057495,-69.713375)"
+       id="text8-3"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:sans-serif;-inkscape-font-specification:sans-serif;white-space:pre;shape-inside:url(#rect8-9);opacity:0.98;fill:#010000;fill-opacity:1;stroke:#000000;stroke-width:0.377953;stroke-linecap:square;stroke-dasharray:none"><tspan
+         x="311.57227"
+         y="504.52347"
+         id="tspan6">ひきすう</tspan></text>
+    <rect
+       style="opacity:0.98;fill:none;fill-opacity:1;stroke:#001cff;stroke-width:2.07878;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1"
+       id="rect9"
+       width="135.38715"
+       height="20.90988"
+       x="12.910892"
+       y="10.548056" />
+  </g>
+</svg>

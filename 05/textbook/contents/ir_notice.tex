@@ -1,0 +1,73 @@
+\documentclass[text05.tex]{subfiles}
+\begin{document}
+\section{赤外線動作ロボット(Sikaye-RB1)に関する備考} \label{ir_robot_notice}
+赤外線ロボット(Sikaye-RB1)の赤外線信号長はすべて 33 であり、
+信号長制限にはかかりません。
+一方で、押し続けると送信され続けるコマンドは意図せず信号長が長くなることがあります。
+
+参考までに、赤外線ロボット(Sikaye-RB1)の信号を実際に記録した場合に信号長がどの程度になるかを表 \ref{ir_robot_signal} に示します。
+
+\begin{table}[htbp] \begin{center}
+    \caption{記録される赤外線ロボット(Sikaye-RB1)の信号長の一例}
+    \label{ir_robot_signal}
+    \begin{tabular}{cr}
+\hline
+Command & Length \\
+\hline
+Backward & 136 \\
+Forward & 238 \\
+good habit & 34 \\
+Machine Language & 34 \\
+MEMO & 34 \\
+Mode Switch rightpad & 34 \\
+Mode Switch & 70 \\
+Music & 34 \\
+Program & 102 \\
+Science Popularization & 34 \\
+Slide Backward & 68 \\
+Slide Forward & 34 \\
+Song & 34 \\
+STOP & 34 \\
+Turn Left rightpad & 102 \\
+Turn Left & 68 \\
+Turn Right rightpad & 102 \\
+Turn Right & 102 \\
+Volume minus & 34 \\
+Volume plus & 34 \\
+\hline
+    \end{tabular}
+\end{center} \end{table}
+
+一方で、これらから 1 周期分を取り出した信号の長さは表 \ref{ir_robot_signal_ideal} のように、すべて 33 となります。
+
+\begin{table}[htbp] \begin{center}
+    \caption{赤外線ロボット(Sikaye-RB1)の信号の一周期分の長さ}
+    \label{ir_robot_signal_ideal}
+    \begin{tabular}{cr}
+\hline
+Command & Length \\
+\hline
+Backward & 33 \\
+Forward & 33 \\
+good habit & 33 \\
+Machine Language & 33 \\
+MEMO & 33 \\
+Mode Switch rightpad & 33 \\
+Mode Switch & 33 \\
+Music & 33 \\
+Program & 33 \\
+Science Popularization & 33 \\
+Slide Backward & 33 \\
+Slide Forward & 33 \\
+Song & 33 \\
+STOP & 33 \\
+Turn Left rightpad & 33 \\
+Turn Left & 33 \\
+Turn Right rightpad & 33 \\
+Turn Right & 33 \\
+Volume minus & 33 \\
+Volume plus & 33 \\
+\hline
+    \end{tabular}
+\end{center} \end{table}
+\end{document}
