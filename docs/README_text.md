@@ -3,7 +3,12 @@
 
 ## ビルド手順 (Docker)
 ### Prerequisites
-本リポジトリを適当な場所に `git clone` する。
+本リポジトリを適当な場所にクローンする。この手順書では `~/ome/` 下にクローンしたとする。
+
+```
+cd ~/ome/
+git clone https://github.com/OmeSatoFoundation/ome2023.git
+```
 
 [Docker Engine (または Docker Desktop)](https://docs.docker.com/engine/install/) をインストールする。
 
@@ -15,7 +20,7 @@ docker pull ghcr.io/omesatofoundation/ome2023/texlive:latest
 
 latest ではないバージョンを使用する必要があれば，https://github.com/OmeSatoFoundation/ome2023/pkgs/container/ome2023%2Ftexlive から必要なバージョンを選択し，tag として latest を置き換えて pull する．
 
-(optional) このあとの手順に合うように、イメージ名を短いものに変更する。
+このあとの手順に合うように、イメージ名を短いものに変更する。
 
 ```
 docker tag  ghcr.io/omesatofoundation/ome2023/texlive:latest latex
@@ -25,7 +30,7 @@ docker tag  ghcr.io/omesatofoundation/ome2023/texlive:latest latex
 
 ```
 # タイプセットのための Docker Image をビルドする。 1GB のストレージ使用と 1 時間程度の時間がかかる。
-# このリポジトリの clone 先に作業ディレクトリを移動して、以下のコマンドを実行する。
+cd ~/ome/ome2023/
 docker build . -f docker/text.Dockerfile -t latex --target buildenv
 ```
 
@@ -33,13 +38,16 @@ docker build . -f docker/text.Dockerfile -t latex --target buildenv
 TBD
 
 ### チャプター単体をビルドする
-`llmk.toml` があるディレクトリで `llmk` を実行する．ただし、コンテナにはプロジェクトルートを bind-mount する必要がある。
+`llmk.toml` があるディレクトリで `llmk` を実行する．ただし、コンテナにはプロジェクトルートを bind-mount する必要がある。<br>
+
 例: 教科書 3 章 `03/textbook/text03.tex`をタイプセットする:
 
 ```
-# プロジェクトルート (clone 先のディレクトリ) で以下のコマンドを実行する。
+cd ~/ome/ome2023/
 docker run --rm -v ${PWD}:/workdir --workdir=/workdir/03/textbook latex llmk
 ```
+
+`03/textbook/` に目的のファイルが生成される。
 
 中間ファイルを消去する
 
@@ -51,11 +59,12 @@ docker run --rm -v ${PWD}:/workdir --workdir=/workdir/03/textbook latex llmk -c
 
 
 ### チャプターの一部をビルドする
-チャプター全体を含むファイル (e.g., `text03.tex`) の他に，チャプターが読み込む個ファイルを単体でビルドすることもできる．
+チャプター全体を含むファイル (e.g., `text03.tex`) の他に，チャプターが読み込む個ファイルを単体でビルドすることもできる．<br>
+
 例: 教科書 3 章の `chap03_010_Intro.tex` をビルドする
 
 ```
-# プロジェクトルート (clone 先のディレクトリ) で以下のコマンドを実行する。
+cd ~/ome/ome2023/
 docker run --rm -v ${PWD}:/workdir --workdir=/workdir/03/textbook latex llmk -i contents/chap03_010_Intro.tex
 ```
 
@@ -73,7 +82,7 @@ TBD
 例: 教科書 3 章をビルドする
 
 ```bash
-# プロジェクトルート (clone 先のディレクトリ) で以下のコマンドを実行する。
+cd ~/ome/ome2023/
 TARGET=03/textbook
 docker build . -f docker/text.Dockerfile --output "${TARGET}/" --build-arg TARGET="${TARGET}"
 ```
