@@ -1,4 +1,4 @@
-name: Build and Push ome-doc Container Image
+name: Build Indivisual Chapter PDFs
 
 on:
   push:
@@ -49,12 +49,14 @@ jobs:
         context: .
         push: false
         target: "final"
-        outputs: "type=local,dest=/artifact_01"
+        outputs: "type=local,dest=./artifact/01"
         file: "./docker/text.Dockerfile"
+        build-args: |
+          TARGET=01/textbook/
     - name: Upload Chapter 01
-      uses: actions/upload_artifact@v6
+      uses: actions/upload-artifact@v6
       with:
         name: "itm01"
-        path: "/artifact_01"
+        path: "./artifact/01/text01.pdf"
 
 # Inherited by https://qiita.com/Jazuma/items/aca397e081a7825d0dec
