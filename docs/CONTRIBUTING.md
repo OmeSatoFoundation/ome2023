@@ -7,51 +7,38 @@
 - **目的**: Raspberry Pi 上で動作する子ども向けプログラミング演習環境の提供。8つの演習セクションがあり、各セクションごとにサンプルプログラムや教材を収録しています。ビルドの結果、これら教材や必要なソフトウェアを含んだ Raspberry Pi OS (64-bit, Bullseye) のカスタムイメージが得られます。
 - **構成**: リポジトリ直下に `01/` ～ `08/` のディレクトリがあり、それぞれ第1～8節の教材（サンプルコード、素材、演習用プログラムなど）を含みます。そのほか、全セクション共通で使用するプログラムやライブラリ、開発環境（例: OpenHSP SDK）を `contrib/` 配下に格納。ビルドスクリプトや Docker/Vagrant 設定なども含まれています。
 
-詳細な仕様については [FEATURES.md](FEATURES.md) を参照してください。
-
 ## ディレクトリ構成
 
 ```
-itschool_dist_gen/
-|--01/ # 各演習セクション用ディレクトリ（第1～8章の教材）
-|  |--textbook/
-|  |  |--text.tex    # Preambless and inclusion of "document" environment for per-chapter build.
-|  |  |--body.tex    # Only inside "document" environment. Refered when top-level book is built.
-|  |  |--chapters/   # Optional
-|  |--slides/
-|  |  |--slide.tex   # Preambless and inclusion of "document" environment for per-chapter build.
-|  |  |--body.tex    # Only inside "document" environment. Refered when top-level book is built.
-|  |  |--chapters/   # Optional
-|  |--material/      # Files installed in the os.
-|     |--*.hsp etc.  # HSP言語のサンプルコード、演習用スクリプト
-|     |--*.png, *.wav, etc.  # プログラミングで利用する画像・音声などの素材
-|     |--www/, cgi-bin/      # （章によって）ウェブ関連ファイルやCGIスクリプト
-|-- contrib/                共通プログラム・サードパーティライブラリなど
-|   |-- OpenHSP/            OpenHSP SDK 本体（HSPランタイム・エディタ等）
-|   |-- OpenHSPUtil/        HSP向けユーティリティモジュール
-|   |-- FaBo/               環境センサーボード制御コード
-|   |-- IR/                 赤外線リモコン制御モジュール
-|   |-- Julius/             Julius 音声認識エンジン（ソースサブモジュール）
-|   |-- JuliusMisc/         Julius 関連の辞書・設定ファイル
-|   |-- OpenJTalk/          日本語音声合成エンジンの辞書・設定
-|   |-- Dictationkit/       Dictation Kit 音声認識モデル
-|   |-- HTMLParse/          HTML解析ライブラリ
-|   |-- WebServer/          CGI 演習用ファイル
-|-- contrib/scripts/        ビルド・インストール用スクリプト
-|   |-- install.bash        イメージ作成＆インストールスクリプト
-|-- docs/                   ドキュメント類（VM ビルド手順など）
-|-- docker/              ビルド用 Docker イメージ定義
-|   |--os.Dockerfile     # 講座用 Raspberry Pi OS 拡張ビルド用 Docker イメージ定義
-|   |--text.Dockerfile     # 教科書・スライド等ビルド用 Docker イメージ定義
-|-- vm/                     Vagrant 設定ファイル
-|-- Makefile.am             Automake 定義
-|-- configure.ac            Autoconフ設定
-|-- README.md               基本的なビルド手順・依存関係説明
+ome2023/
+├── 01/, 02/, ... 08/        各演習セクション用ディレクトリ（第1～8章の教材）
+│   ├── *.hsp 等             HSP言語のサンプルコード、演習用スクリプト
+│   ├── *.png, *.wav 等      プログラミングで利用する画像・音声などの素材
+│   └── www/, cgi-bin/      （章によって）ウェブ関連ファイルやCGIスクリプト
+├── contrib/                共通プログラム・サードパーティライブラリなど
+│   ├── OpenHSP/            OpenHSP SDK 本体（HSPランタイム・エディタ等）
+│   ├── OpenHSPUtil/        HSP向けユーティリティモジュール
+│   ├── FaBo/               環境センサーボード制御コード
+│   ├── IR/                 赤外線リモコン制御モジュール
+│   ├── Julius/             Julius 音声認識エンジン（ソースサブモジュール）
+│   ├── JuliusMisc/         Julius 関連の辞書・設定ファイル
+│   ├── OpenJTalk/          日本語音声合成エンジンの辞書・設定
+│   ├── Dictationkit/       Dictation Kit 音声認識モデル
+│   ├── HTMLParse/          HTML解析ライブラリ
+│   └── WebServer/          簡易 Web サーバ実装
+├── contrib/scripts/        ビルド・インストール用スクリプト
+│   └── install.bash        イメージ作成＆インストールスクリプト
+├── docs/                   ドキュメント類（VM ビルド手順など）
+├── vm/                     Vagrant 設定ファイル
+├── Dockerfile              ビルド用 Docker イメージ定義
+├── Makefile.am             Automake 定義
+├── configure.ac            Autoconフ設定
+└── README.md               基本的なビルド手順・依存関係説明
 ```
 
 ### 各ディレクトリの役割
 
-- **`01/`--`08/`**: 各章の教材一式。HSPスクリプト、HTML/CGI、画像・音声素材など。
+- **`01/`～`08/`**: 各章の教材一式。HSPスクリプト、HTML/CGI、画像・音声素材など。
 - **`contrib/OpenHSP`**: HSP ランタイム／エディタをクロスコンパイルするソース一式。
 - **`contrib/OpenHSPUtil`**: HSP からハードウェア制御等を行うユーティリティモジュール。
 - **`contrib/FaBo`**: 環境センサー（BME280等）制御用スクリプト・コマンド。
@@ -63,8 +50,6 @@ itschool_dist_gen/
 - **`contrib/WebServer`**: Python ベースの組込 Web サーバスクリプト。
 
 ## ビルド方法
-- [README_os.md]
-- [README_text.md]
 
 ### 1. クロスコンパイルによるイメージ作成 (x86_64)
 
@@ -189,3 +174,7 @@ itschool_dist_gen/
 
 - **バージョン情報**  
   `/etc/itschool_distro_version_info` にコミットハッシュを記録。
+
+## おわりに
+
+ome2023プロジェクトへのご参加ありがとうございます。まずはローカルでビルド・テストを行い、ドキュメントを参照しながら修正・機能追加に取り組んでください。質問や改善提案は Issue を通じてお気軽にお知らせください。これから一緒により良い教材環境を作っていきましょう！
