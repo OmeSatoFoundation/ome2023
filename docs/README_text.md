@@ -38,7 +38,7 @@ docker build . -f docker/text.Dockerfile -t latex --target buildenv
 TBD
 
 ### チャプター単体をビルドする
-`llmk.toml` があるディレクトリで `llmk` を実行する．ただし、コンテナにはプロジェクトルートを bind-mount する必要がある。<br>
+`llmk.toml` があるディレクトリで `llmk` を実行する．ただし、コンテナにはプロジェクトルートを bind-mount する必要がある。
 
 例: 教科書 3 章 `03/textbook/text03.tex`をタイプセットする:
 
@@ -59,7 +59,7 @@ docker run --rm -v ${PWD}:/workdir --workdir=/workdir/03/textbook latex llmk -c
 
 
 ### チャプターの一部をビルドする
-チャプター全体を含むファイル (e.g., `text03.tex`) の他に，チャプターが読み込む個ファイルを単体でビルドすることもできる．<br>
+チャプター全体を含むファイル (e.g., `text03.tex`) の他に，チャプターが読み込む個ファイルを単体でビルドすることもできる．
 
 例: 教科書 3 章の `chap03_010_Intro.tex` をビルドする
 
