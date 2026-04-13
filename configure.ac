@@ -40,7 +40,16 @@ AC_SUBST(have_git)
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile
+AC_CONFIG_FILES([
+                 01/material/Makefile
+                 02/material/Makefile
+                 03/material/Makefile
+                 04/material/Makefile
+                 05/material/Makefile
+                 06/material/Makefile
+                 07/material/Makefile
+                 08/material/Makefile
+                 Makefile
                  contrib/Makefile
                  contrib/HTMLParse/Makefile
                  contrib/OpenHSP/Makefile
