@@ -79,16 +79,29 @@ itschool_dist_gen/
 
 3. **Docker イメージ作成**  
    ```bash
-   docker build . -t ome2023
+   docker build . -f docker/os.Dockerfile -t ome2023
    ```
 
 4. **ビルド & インストール**  
    ```bash
-   docker run --rm -ti --privileged      -v $(pwd):/work -w /work      -v /dev/:/dev      -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent      ome2023 sh -c '
-       aclocal -I m4 && automake -a -c && autoconf &&        ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local &&        make -j$(nproc) && ./contrib/scripts/install.bash -f
+   IMG_NAME=itschool-raspberrypi-os-2026v0.4.img
+   docker run --rm -ti --privileged \
+     -v /dev/:/dev \
+     -v "$(pwd):/work" \
+     -w /work \
+     -v "$SSH_AUTH_SOCK:/ssh-agent" \
+     -e SSH_AUTH_SOCK=/ssh-agent \
+     -e IMG_NAME="$IMG_NAME" \
+     ome2023 sh -c '
+       aclocal -I m4 &&
+       automake -a -c &&
+       autoconf &&
+       ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local &&
+       make -j"$(nproc)" &&
+       ./contrib/scripts/install.bash -f -o "obj/${IMG_NAME}"
      '
    ```
-   生成された `itschool-raspbian-*.img` を取得。
+   必要なら続けて `cd obj && 7z a "${IMG_NAME}.7z" "./${IMG_NAME}" && md5sum "${IMG_NAME}" > "${IMG_NAME}.md5"` を実行。
 
 5. **注意**  
    - 古い `.img` は事前に削除  
@@ -99,7 +112,7 @@ itschool_dist_gen/
 1. **依存パッケージ**  
    ```bash
    sudo apt update
-   sudo apt install build-essential autoconf automake libtool      libasound2-dev libgtk2.0-dev libsdl2-dev libglew-dev      libegl1-mesa-dev libgles2-mesa-dev libgpiod-dev      i2c-tools lirc libcurl4-openssl-dev open-jtalk      open-jtalk-mecab-naist-jdic fcitx-mozc dnsutils      nmap telnet gimp vlc
+   sudo apt install build-essential autoconf automake libtool      libasound2-dev libgtk2.0-dev libsdl2-dev libglew-dev      libegl1-mesa-dev libgles2-mesa-dev libgpiod-dev      i2c-tools lirc libcurl4-openssl-dev open-jtalk      open-jtalk-mecab-naist-jdic fcitx5 fcitx5-mozc dnsutils      nmap telnet gimp vlc
    ```
 
 2. **リポジトリ取得**  
