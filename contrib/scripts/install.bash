@@ -230,9 +230,6 @@ echo 'dtoverlay=gpio-ir-tx,gpio_pin=13' >> $MOUNT_POINT/$CONFIG_TXT
 sed -i -e "s/driver *= *devinput/driver = default/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 sed -i -e "s/device *= *auto/device = \/dev\/lirc0/g" $MOUNT_POINT/etc/lirc/lirc_options.conf
 
-# A WORKAROUND to put executable on webserver.py
-chmod +x $MOUNT_POINT/usr/local/share/ome/07/www/webserver.py $MOUNT_POINT/usr/local/share/ome/08/www/webserver.py
-
 # A WORKAROUND against the wayland environment that bothers chromium about getting along with IMs.
 sed 's;Exec=/usr/bin/chromium %U;Exec=/usr/bin/chromium --ozone-platform=x11 %U;g' $MOUNT_POINT/usr/share/applications/chromium.desktop
 
