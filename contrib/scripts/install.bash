@@ -162,7 +162,7 @@ chroot $MOUNT_POINT apt install -y \
 build-essential \
 dnsutils \
 fcitx5 \
-fcitx-mozc \
+fcitx5-mozc \
 fswebcam \
 gimp \
 hts-voice-nitech-jp-atr503-m001 \

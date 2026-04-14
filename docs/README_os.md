@@ -39,12 +39,30 @@ docker build . -f docker/os.Dockerfile -t ome2023
 rm -f 2022-09-22-raspios-bullseye-arm64.img  # ファイル名は異なる場合がある
 ```
 
-ssh 鍵の登録をし，コンテナでスクリプトを実行することで Raspberry Pi OS のイメージが現在時刻付きのファイル名とともにホストのカレントディレクトリに生成される．
+ssh 鍵の登録をし，コンテナでスクリプトを実行することで Raspberry Pi OS のイメージがホストのカレントディレクトリに生成される．
 
 ```bash
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa  # or any key you registers in github.com.
-docker run --rm -ti -v /dev/:/dev --privileged -v $(pwd):/work -v --workfdir=/work -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent ome2023 sh -c 'aclocal -I m4 && automake -a -c && autoconf && ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local && make -j$(nproc) && ./contrib/scripts/install.bash -f'
+IMG_NAME=itschool-raspberrypi-os-2026v0.4.img
+docker run --rm -ti --privileged \
+  -v /dev/:/dev \
+  -v "$(pwd):/work" \
+  -w /work \
+  -v "$SSH_AUTH_SOCK:/ssh-agent" \
+  -e SSH_AUTH_SOCK=/ssh-agent \
+  -e IMG_NAME="$IMG_NAME" \
+  ome2023 sh -c '
+    aclocal -I m4 &&
+    automake -a -c &&
+    autoconf &&
+    ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local &&
+    make -j"$(nproc)" &&
+    ./contrib/scripts/install.bash -f -o "obj/${IMG_NAME}"
+  ' &&
+cd obj &&
+7z a "${IMG_NAME}.7z" "./${IMG_NAME}" &&
+md5sum "${IMG_NAME}" > "${IMG_NAME}.md5"
 ```
 
 作成された `.img` ファイルは、元の Raspberry Pi と同じ用に SD カード等に書き込んで使用する。
