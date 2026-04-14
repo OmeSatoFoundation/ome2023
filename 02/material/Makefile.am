@@ -2,7 +2,7 @@
 # find . -type f -not -name "Makefile.am" -not -name "Makefile" | sort
 # to fill the entry below of nobase_dist_omedata_DATA when you add or remove
 # files.
-omedatadir = $(datadir)/ome
+omedatadir = $(datadir)/ome/02
 nobase_dist_omedata_DATA = \
 80font.png \
 bg.png \
