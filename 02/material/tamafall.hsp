@@ -1,0 +1,152 @@
+#include "hsp3dish.as"
+
+	;
+	;	パチンコ風のフィールドに玉を落とします
+	;	[ESC]で終了します
+	;
+	randomize
+
+	wx=480:wy=800
+	bx=wx/20:by=wy/20
+	divx=12:divy=16
+	sx=wx/4/divx:sy=wy/4/divy
+
+	screen 0,wx,wy
+	title "Tamafall"
+	celload "parts.png",3
+	celdiv 3,40,40
+	celload "minitama.png",4
+
+	;	マップデータの読み込み
+	sdim mapd,$10000
+	sdim s1,$1000
+	cr="\n"
+	;
+	mapd+="  0   0  "+cr
+	mapd+="0   0   0"+cr
+	mapd+=" 0 0 0 0 "+cr
+	mapd+="0   0   0"+cr
+	mapd+="  0   0  "+cr
+	mapd+="0 0 0 0 0"+cr
+	mapd+=" 0 0 0 0 "+cr
+	mapd+="  0   0  "+cr
+	mapd+=" 1 1 1 1 "+cr
+	mapd+="         "+cr
+	mapd+="   0 0   "+cr
+
+*start
+	qreset
+	frame=0
+	score=0
+	left=100
+
+	;	自分を登録
+	;
+	qaddpoly goal, 4, 40,20,, 4,4
+	qmat goal, mat_spr2, 4
+	qtype goal, type_bindY
+	qgroup goal,2,1,1
+	px=0.0:py=0.0:pr=0.0
+
+	;	盤面を出す
+	;
+	goals=0
+	dim id_goal,100
+	notesel mapd
+	repeat 11
+		y=(cnt+3)*sy
+		noteget s1,cnt
+		repeat 9
+			x=(cnt+2)*sx
+			a1=peek(s1,cnt)
+			if a1='0' : gosub *put_kugi
+			if a1='1' : gosub *put_hole
+		loop
+	loop
+
+
+	goto *main
+
+*put_kugi
+	;	釘を出す
+	qaddpoly i, 3, x,y,0.01*157,3,3
+	if i>=0 {
+		qmat i,mat_wire2, $ffffff, $555555
+		qtype i, type_bind
+		qgroup i,1,2
+	}
+	return
+*put_hole
+	;	穴を出す
+	qaddpoly i, 4, x,y,0.01*157,6,6
+	if i>=0 {
+		qmat i,mat_wire2, $00ff00, $555555
+		qtype i, type_bind
+		qgroup i,2,1,1
+		id_goal(goals)=i
+		goals++
+	}
+	return
+
+*main
+	;	メインループ
+	;
+	gosub *gameloop
+
+	;	玉を降らせる
+	;
+	if (frame&7)=0 {
+		qgetpos goal,x,y,angle
+		qaddpoly my, 12, x,y,0,3,3
+		if my>=0 {
+			qmat my, mat_spr, 3, 3
+			left--
+		}
+	}
+
+	redraw 1
+	await 16
+	frame++
+	if left>0 : goto *main
+
+*main2
+	gosub *gameloop
+	color 255,255,255
+	pos 200,400:mes "GAME OVER"
+
+	redraw 1
+	await 16
+	if (key&$30)=0 : goto *main2
+
+	goto *start
+
+*gameloop
+	stick key,15
+	if key&128 : end
+	if key&1 : px-=0.01
+	if key&4 : px+=0.01
+	qspeed goal, px,py,pr
+	px=0.0
+
+	redraw 0
+	color 64,64,64:boxf
+	gradf bx,by,wx-bx*2,wy-by*2,1,0,128	; 画面クリア
+
+	color 0,128,255:x=left*wx/100:boxf 0,0,x,20
+	color 255,255,255
+	pos 0,0:mes "SCORE:"+score
+
+	qexec
+	qdraw 1
+
+	;	GOALとの接触判定
+	repeat goals
+	qcollision id_goal(cnt)
+	qgetcol i,colx,coly
+	if i>=0 {
+		qdel i	; GOALに触れた玉は消す
+		score++
+	}
+	loop
+	return
+
