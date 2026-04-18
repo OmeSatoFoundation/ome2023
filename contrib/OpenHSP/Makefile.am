@@ -41,8 +41,8 @@ install-openhsp-helpmes: $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX) $(addprefix $(OPE
 # Do not use -D, which makes required parent directories, since those parent directories
 # are supposed to exist by the previous commands. Errors will help if they are not exist.
 	for hsphelpdir in $(OPENHSPHELPDIR); do \
-		echo $(INSTALL) -m 666 /dev/null "$(DESTDIR)$(bindir)/$$hsphelpdir/$(OPENHSPHELP_INDEX)" \;
-		$(INSTALL) -m 666 /dev/null "$(DESTDIR)$(bindir)/$$hsphelpdir/$(OPENHSPHELP_INDEX)" \;
+		echo $(INSTALL) -m 666 /dev/null "$(DESTDIR)$(bindir)/$$hsphelpdir/$(OPENHSPHELP_INDEX)" &&\
+		$(INSTALL) -m 666 /dev/null "$(DESTDIR)$(bindir)/$$hsphelpdir/$(OPENHSPHELP_INDEX)"  ;\
 	done
 
 
