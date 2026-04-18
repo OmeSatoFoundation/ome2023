@@ -35,14 +35,14 @@ install-openhsp-helpmes: $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX) $(addprefix $(OPE
 	list=$$(find $(OPENHSPHELPMESDATA) -type f) ;\
 	for file in $$list; do echo $(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)/$$file";\
 	$(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)/$$file"; done
-	# Make empty and writable files at $(DESTDIR)$(bindir)/hsphelp{,_en}/hsphelp.idx,
-	# otherwise the command help (hspsdk/hsphelp/helpmes.hsp) in hsed cannot write
-	# those index files, resulting in "not found" errors.
-	# Do not use -D, which makes required parent directories, since those parent directories
-	# are supposed to exist by the previous commands. Errors will help if they are not exist.
+# Make empty and writable files at $(DESTDIR)$(bindir)/hsphelp{,_en}/hsphelp.idx,
+# otherwise the command help (hspsdk/hsphelp/helpmes.hsp) in hsed cannot write
+# those index files, resulting in "not found" errors.
+# Do not use -D, which makes required parent directories, since those parent directories
+# are supposed to exist by the previous commands. Errors will help if they are not exist.
 	for hsphelpdir in $(OPENHSPHELPDIR); do \
-		echo $(INSTALL) -m 666 /dev/null $$hsphelpdir \;
-		$(INSTALL) -m 666 /dev/null $$hsphelpdir \;
+		echo $(INSTALL) -m 666 /dev/null "$(DESTDIR)$(bindir)/$$hsphelpdir/$(OPENHSPHELP_INDEX)" \;
+		$(INSTALL) -m 666 /dev/null "$(DESTDIR)$(bindir)/$$hsphelpdir/$(OPENHSPHELP_INDEX)" \;
 	done
 
 
