@@ -15,4 +15,4 @@ www/cgi-bin/querystring.hsp \
 www/cgi-bin/sensors.hsp \
 www/cgi-bin/sensors_table.hsp \
 www/ir.html \
-www/jtalk.html
+www/jtalk.html \
