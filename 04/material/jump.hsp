@@ -217,7 +217,6 @@
 	if key&16 : myjmp=1 : mygrv=-grav : mmplay 3 : goto *mymove3
 
 	i=mysizey : gosub *myarea
-	if a=3 : gosub *chkitem : a=0
 	if a=0 : myjmp=1 : mygrv=8 : goto *mymove3
 
 	goto *mymove2
@@ -232,12 +231,10 @@
 
 	i=mysizey : gosub *myarea
 	if a>0 {
+		mmplay 2
 		gosub *chkitem
-		if a!=3 {
-			mmplay 2
-			y=(mapy*sy)-mysizey : myjmp=0
-			;mydir=0
-		}
+		y=(mapy*sy)-mysizey : myjmp=0
+		mydir=0
 	}
 	if y>=vmaxy : gosub *mydead
 
