@@ -11,9 +11,7 @@ OPENHSPHELPMES_SRC = hspsdk/hsphelp/helpmes.hsp
 # TODO: use a primary of _SCRIPTS to build helpmes.hsp and use that of _DATA
 # to install $(OPENHSPHELPMESDATA).
 OPENHSPHELPMES_AX = $(OPENHSPHELPMES_SRC:.hsp=.ax)
-OPENHSPHELP_INDEX = hsphelp.idx
-OPENHSPHELPDIR = hsphelp hsphelp_en
-OPENHSPHELPMESDATA = $(OPENHSPHELPDIR) hsp3gp
+OPENHSPHELPMESDATA = hsphelp hsphelp_en hsp3gp
 
 # Build helpmes.hsp to enable `hsed` to run helpmes.ax.
 # CAUTION: when cross-compiled, the binary format of `hspcmp` is that of the target.
@@ -35,15 +33,6 @@ install-openhsp-helpmes: $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX) $(addprefix $(OPE
 	list=$$(find $(OPENHSPHELPMESDATA) -type f) ;\
 	for file in $$list; do echo $(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)/$$file";\
 	$(INSTALL) -D "$$file" "$(DESTDIR)$(bindir)/$$file"; done
-	# Make empty and writable files at $(DESTDIR)$(bindir)/hsphelp{,_en}/hsphelp.idx,
-	# otherwise the command help (hspsdk/hsphelp/helpmes.hsp) in hsed cannot write
-	# those index files, resulting in "not found" errors.
-	# Do not use -D, which makes required parent directories, since those parent directories
-	# are supposed to exist by the previous commands. Errors will help if they are not exist.
-	for hsphelpdir in $(OPENHSPHELPDIR); do \
-		echo $(INSTALL) -m 666 /dev/null $$hsphelpdir \;
-		$(INSTALL) -m 666 /dev/null $$hsphelpdir \;
-	done
 
 
 install-openhsp-manual: $(shell find $(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPMANUALTARGETS)) -type f)
