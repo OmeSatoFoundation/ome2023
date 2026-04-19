@@ -4,18 +4,16 @@
 # files.
 omedatadir = $(datadir)/ome
 nobase_dist_omedata_DATA = \
-anain.hsp \
-angle2.hsp \
-angle.hsp \
-block3_angle.hsp \
-digin.hsp \
-digout.hsp \
-How_To_Register_IR.txt \
-How_To_Use_register_ir.md \
-hyou.png \
-ir.hsp \
-kyori.hsp \
-oled.hsp \
-pwm.hsp \
-README.md \
-template.lircd.conf
+face.png \
+food.png \
+joyman.png \
+kondo.png \
+links.html \
+ps.png \
+sample1.html \
+sample2.html \
+sample3.html \
+school.jpg \
+self_intro.html \
+template.html \
+tomo.png

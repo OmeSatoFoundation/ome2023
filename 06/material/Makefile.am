@@ -4,19 +4,16 @@
 # files.
 omedatadir = $(datadir)/ome
 nobase_dist_omedata_DATA = \
-htsvoice-tohoku-f01/COPYRIGHT.txt \
-htsvoice-tohoku-f01/README.md \
-htsvoice-tohoku-f01/tohoku-f01-angry.htsvoice \
-htsvoice-tohoku-f01/tohoku-f01-happy.htsvoice \
-htsvoice-tohoku-f01/tohoku-f01-neutral.htsvoice \
-htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice \
-julius.hsp \
-kudamono.dic \
-kudamono.yomi \
-ledbyvoice.hsp \
-onoff.dic \
-onoff.yomi \
-openjtalk.hsp \
-readcalc.hsp \
-readdate.hsp \
-voice.hsp
+face.png \
+food.png \
+joyman.png \
+kondo.png \
+links.html \
+ps.png \
+sample1.html \
+sample2.html \
+sample3.html \
+school.jpg \
+self_intro.html \
+template.html \
+tomo.png

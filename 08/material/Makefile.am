@@ -4,18 +4,16 @@
 # files.
 omedatadir = $(datadir)/ome
 nobase_dist_omedata_DATA = \
-amedas.hsp \
-amedas_led.hsp \
-ascii_table.html \
-eki.hsp \
-friend.hsp \
+face.png \
+food.png \
+joyman.png \
+kondo.png \
 links.html \
+ps.png \
+sample1.html \
+sample2.html \
+sample3.html \
+school.jpg \
+self_intro.html \
 template.html \
-title.hsp \
-tv.hsp \
-weblio.hsp \
-wikipedia.hsp \
-www/cgi-bin/ascii_table.hsp \
-www/index.html \
-www/webserver.py \
-zipcode.hsp
+tomo.png

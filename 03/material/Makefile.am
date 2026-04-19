@@ -4,20 +4,16 @@
 # files.
 omedatadir = $(datadir)/ome
 nobase_dist_omedata_DATA = \
-button.hsp \
-button_led2.hsp \
-button_led3.hsp \
-button_led.hsp \
-led.hsp \
-Ltika.hsp \
-README.md \
-rensyu/kanji.txt \
-rensyu/kokugo/syousetu.txt \
-rensyu/oda.jpg \
-rensyu/rika/mokei.png \
-rensyu/rika/rika.png \
-rensyu/sansu/nihon.png \
-rensyu/sansu/sansu.txt \
-rensyu/syakai/sekai.png \
-rensyu.tar.gz \
-sensors.hsp
+face.png \
+food.png \
+joyman.png \
+kondo.png \
+links.html \
+ps.png \
+sample1.html \
+sample2.html \
+sample3.html \
+school.jpg \
+self_intro.html \
+template.html \
+tomo.png
