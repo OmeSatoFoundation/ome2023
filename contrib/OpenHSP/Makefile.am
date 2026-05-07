@@ -25,7 +25,7 @@ $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX): $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_SRC) $(
 
 # Call the original makefile recursively to build OpenHSP.
 $(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPTARGETS)):
-	cd $(OPENHSPSRCDIR) && $(MAKE) PKG_CONFIG=$(PKG_CONFIG) CC=$(CC) CXX=$(CXX) $(AM_MAKEFLAGS) all
+	cd $(OPENHSPSRCDIR) && $(MAKE) PKG_CONFIG=$(PKG_CONFIG) CC=$(CC) CXX=$(CXX) AR=$(AR) $(AM_MAKEFLAGS) all
 
 install-openhsp-helpmes: $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX) $(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPHELPMESDATA))
 	$(INSTALL) -d "$(DESTDIR)$(bindir)"
