@@ -23,7 +23,7 @@ OPENHSPHELPMESDATA = $(OPENHSPHELPDIR) hsp3gp
 $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX): $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_SRC) $(OPENHSPSRCDIR)/hspcmp
 	$(OPENHSPSRCDIR)/hspcmp -i -u --syspath=$(OPENHSPSRCDIR) --compath=$(OPENHSPSRCDIR)/common/ -o$@ $<
 
-$(warning AR in OpenHSP/Makefile.am is $(AR))
+$(warning AR in OpenHSP/Makefile.am is $(AR) AR=$(AR), origin=$(origin AR), flavor=$(flavor AR))
 # Call the original makefile recursively to build OpenHSP.
 $(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPTARGETS)):
 	cd $(OPENHSPSRCDIR) && $(MAKE) PKG_CONFIG=$(PKG_CONFIG) CC=$(CC) CXX=$(CXX) AR=$(AR) $(AM_MAKEFLAGS) all
