@@ -15,6 +15,12 @@ OPENHSPHELP_INDEX = hsphelp.idx
 OPENHSPHELPDIR = hsphelp hsphelp_en
 OPENHSPHELPMESDATA = $(OPENHSPHELPDIR) hsp3gp
 
+.PHONY: openhsp-all
+openhsp-all:
+	$(MAKE) -C $(OPENHSPSRCDIR) PKG_CONFIG=$(PKG_CONFIG) CC=$(CC) CXX=$(CXX) AR=$(AR) $(AM_MAKEFLAGS) all
+
+$(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPTARGETS)): openhsp-all
+
 # Build helpmes.hsp to enable `hsed` to run helpmes.ax.
 # CAUTION: when cross-compiled, the binary format of `hspcmp` is that of the target.
 # The host requires well-configured binfmt to run hetero-binary-format executable.
@@ -22,11 +28,6 @@ OPENHSPHELPMESDATA = $(OPENHSPHELPDIR) hsp3gp
 # chroot at `install.bash`.
 $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX): $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_SRC) $(OPENHSPSRCDIR)/hspcmp
 	$(OPENHSPSRCDIR)/hspcmp -i -u --syspath=$(OPENHSPSRCDIR) --compath=$(OPENHSPSRCDIR)/common/ -o$@ $<
-
-$(warning AR in OpenHSP/Makefile.am is $(AR) AR=$(AR), origin=$(origin AR), flavor=$(flavor AR))
-# Call the original makefile recursively to build OpenHSP.
-$(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPTARGETS)):
-	cd $(OPENHSPSRCDIR) && $(MAKE) PKG_CONFIG=$(PKG_CONFIG) CC=$(CC) CXX=$(CXX) AR=$(AR) $(AM_MAKEFLAGS) all
 
 install-openhsp-helpmes: $(OPENHSPSRCDIR)/$(OPENHSPHELPMES_AX) $(addprefix $(OPENHSPSRCDIR)/, $(OPENHSPHELPMESDATA))
 	$(INSTALL) -d "$(DESTDIR)$(bindir)"
