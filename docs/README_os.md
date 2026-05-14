@@ -45,6 +45,7 @@ ssh 鍵の登録をし，コンテナでスクリプトを実行することで 
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa  # or any key you registers in github.com.
 IMG_NAME=itschool-raspberrypi-os-$(date -Is | sed s/:/_/g).img  # For example
+mkdir -p obj/
 docker run --rm -ti --privileged \
   -v /dev/:/dev \
   -v "$(pwd):/work" \
