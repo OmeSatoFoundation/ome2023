@@ -64,7 +64,7 @@ echo "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH
 
 # Check if git-lfs installed
 set +e
-git lfs install
+git lfs install --force
 retVal=$?
 if [ $retVal -ne 0 ]; then
     echo "git-lfs is required but not installed. Visit https://git-lfs.com/ and install git-lfs."
