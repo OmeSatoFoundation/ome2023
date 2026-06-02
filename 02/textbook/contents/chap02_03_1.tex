@@ -7,7 +7,7 @@
 \subsection{センサーボードって何だろう}
 
 プログラムによって、画面の上でゲームが遊べることがわかりました。
-これはちょうどスマートフォンや家庭用ゲーム機でゲームを遊ぶのと似ています。
+これはちょうどスマートフォンや\ruby{家庭用}{か|てい|よう}ゲーム機でゲームを遊ぶのと似ています。
 
 今回、みなさんが使うRaspberryPiは、ゲームだけでなく明るさや温度などさまざまな情報を調べることのできるセンサーボードを\ruby{接続}{せつ|ぞく}することができます。
 
@@ -19,38 +19,42 @@
     \label{fig:folder_icon}
 \end{figure}
 
-まず最初にRaspberryPiとセンサーボードを接続しましょう。
+まず\ruby{最初}{さい|しょ}にRaspberryPiとセンサーボードを接続しましょう。
 \ruby{普通}{ふ|つう}の電気製品は、ケースや\ruby{保護}{ほ|ご}がありますが、センサーボードやRaspberryPiは、\ruby{回路}{かい|ろ}の\ruby{基板}{き|ばん}そのままの\ruby{状態}{じょう|たい}です。
-触っても\ruby{感電}{かん|でん}することはありませんが、静電気によってこわれたりケガをすることがあるので、回路部分を触らないように注意しましょう。
+触っても\ruby{感電}{かん|でん}することはありませんが、\ruby{静電気}{せい|でん|き}によってこわれたりケガをすることがあるので、\ruby{回路部分}{かい|ろ|ぶ|ぶん}を\ruby{触}{さわ}らないように注意しましょう。
 
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[keepaspectratio,width=9.79cm,height=7.955cm]{../../asset/image/sensor2.jpg}
-        \caption{接続コネクタと拡張ケーブル}
+        \includegraphics[keepaspectratio,width=9.79cm,height=7.955cm]{../../asset/image/pi5_sensor1.jpg}
+        \caption{RaspberryPiとセンサーボード}
     \end{center}
 \end{figure}
 
-RaspberryPiの\ruby{裏}{うら}がわに、\ruby{拡張}{かく|ちょう}ケーブルを差し込むための接続コネクタがあるのを確認してください。
+RaspberryPiの\ruby{本体}{ほん|たい}に、ピンが並んでいる\ruby{所}{ところ}を探してみましょう。これが\ruby{接続}{せつ|ぞく}コネクタになります。
 
-拡張ケーブルにセンサーボードをつなげます。ピンの位置がずれたり、さかさまに差さないように注意してください。
+接続コネクタにセンサーボードをつなげます。ピンの位置がずれたり、さかさまに差さないように注意してください。
 正しく差し込まれたことを先生やTAに必ず見てもらってください。
 
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[keepaspectratio,width=9.79cm,height=7.955cm]{../../asset/image/sensor3.jpg}
-        \caption{拡張ケーブルを差し込んだところ}
+        \includegraphics[keepaspectratio,width=9.79cm,height=7.955cm]{../../asset/image/pi5_sensor2.jpg}
+        \caption{センサーボードをつなげたところ}
     \end{center}
 \end{figure}
 
-次にRaspberryPi本体に、拡張ケーブルを差し込みます。
+\ruby{拡張}{かく|ちょう}のためのケーブルがある人は、最初にケーブルをセンサーボードに差し込んでから、次にRaspberryPi本体に、拡張ケーブルを差し込みます。
+
 きちんと奥まで差し込まれていることを確認しましょう。
 
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[keepaspectratio,width=9.79cm,height=7.955cm]{../../asset/image/sensor4.jpg}
-        \caption{Raspberry Piとセンサーボード}
+        \includegraphics[keepaspectratio,width=9.79cm,height=7.955cm]{../../asset/image/sensor3r.jpg}
+        \caption{拡張ケーブルを差し込んだところ}
     \end{center}
 \end{figure}
+
+RaspberryPiの接続コネクタとに拡張ケーブルを差し込む時は、\ruby{向}{む}きに注意してください。
+\ruby{必}{かなら}ず、正しく差し込まれたことを先生やTAに必ず見てもらってください。
 
 これで、接続されたセンサーボードを使ったプログラムが動くようになります。
 プログラミングは、画面を動かすだけでなく、RaspberryPiが持つすべての機能を自由に組み合わせて使うことができるのです。

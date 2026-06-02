@@ -12,7 +12,7 @@
     \begin{center}
       \includegraphics[keepaspectratio,width=5.898cm,height=1.242cm]{../../asset/image/s_filemanager.png}
       \caption{ファイルマネージャーを開くアイコン}
-    \end{center} .
+    \end{center}
 \end{figure}
 
 これからHSPで使うことのできるサンプルプログラムをコピーしてもらいます。「/home/ユーザー名」のフォルダに、「sample」フォルダをコピーすることから始めます。
@@ -104,7 +104,7 @@ title "HGIMG4 Test"
     \begin{center}
       \includegraphics[keepaspectratio,width=10.971cm,height=8.229cm]{../../asset/image/s_lighttest3.png}
       \caption{light\_test3.hspの実行画面}
-    \end{center} .
+    \end{center}
 \end{figure}
 
 
@@ -132,12 +132,18 @@ title "HGIMG4 Test"
 
 応用によって\ruby{本格的}{ほん|かく|てき}なゲームも遊べますし、それを作りだすこともできることを覚えておいてください。
 
+ファイル→「開く」メニューからホームディレクトリ下の「04」フォルダにある「3dsnake.hsp」を読み込んでください。
+
+[F5]キーで実行すると「3Dスネークゲーム」が始まります。自分は\ruby{体}{からだ}をどんどん伸ばしながら進んでいく\ruby{緑色}{みどり|いろ}のスネーク(ヘビ)です。カーソルキーで好きな\ruby{方向}{ほう|こう}に\ruby{曲}{ま}がることができますが、自分の体や\ruby{壁}{かべ}に当たってしまうとゲームオーバーになってしまいます。
+
+自分の体をうまく\ruby{伸}{の}ばして、赤く光っている\ruby{箱}{はこ}(\ruby{食料}{しょく|りょう})を食べることがゲームの\ruby{目的}{もく|てき}です。一定の\ruby{回数}{かい|すう}食料を食べると、次のレベルに\ruby{進}{すす}むことができます。どのレベルまで行けるか、\ruby{周}{まわ}りの人たちと\ruby{競争}{きょう|そう}してみましょう。
+
 
 \begin{figure}[H]
     \begin{center}
-      \includegraphics[keepaspectratio,width=10.834cm,height=7.514cm]{../../asset/image/s_pronamabox.png}
-      \caption{背景とキャラクターを同時に出した画面}
-    \end{center} .
+      \includegraphics[keepaspectratio,width=10.834cm,height=7.514cm]{../../asset/image/s_3dsnake.png}
+      \caption{3dsnake.hspの実行画面}
+    \end{center}
 \end{figure}
 
 %2250
@@ -197,7 +203,7 @@ x(a) = 500
     \begin{center}
       \includegraphics[keepaspectratio,width=8.811cm,height=6.946cm]{../../asset/image/s_array.png}
       \caption{array.hspの実行画面}
-    \end{center} .
+    \end{center}
 \end{figure}
 
 ここでは、10個の絵を同時に動かしています。
@@ -338,6 +344,8 @@ if a=1 : x=x-4
 
 ゲームが遊べた人は、以下の例題にも挑戦してみよう。
 
+・コイン落としゲームを遊んでみよう
+
 ・センサーボードのボタンを使ってみよう
 
 ・照度センサーの値をもとに絵を動かそう
@@ -350,6 +358,64 @@ if a=1 : x=x-4
 例題の考え方がわからない時は、近くのTAか先生に聞いてください。
 
 わからない所は、そのままにせず、必ず答えを見つけてから先に進みましょう。
+
+%2586
+%2586
+\newpage
+\subsection{\useOmetoiExample　コイン\ruby{落}{お}としゲームを遊んでみよう}
+
+
+\exampleinduction
+
+たくさんの絵を一度に動かす例として、コイン落としゲームを遊んでみましょう。
+
+スクリプトエディタの、ファイル→「開く」メニューから「tamafall.hsp」を読み込んで実行してみてください。
+
+[F5]キーで実行すると、ゲーム画面が表示されます。
+
+キャラクター(\ruby{珠音}{たま|ね}ちゃん)が、コインをどんどん落とすのでカーソルキーで左右に動かしてください。コインがゴール(\ruby{緑色}{みどり|いろ}の\ruby{四角}{し|かく})に入るとスコアが\ruby{加算}{か|さん}されます。
+
+\begin{figure}[H]
+    \begin{center}
+      \includegraphics[keepaspectratio,width=10cm,height=10cm]{../../asset/image/s_tamafall.png}
+      \caption{tamafall.hspの実行画面}
+    \end{center}
+\end{figure}
+
+100個のコインが落とされるとゲームが終わります。たくさんのコインをゴールに入れるほどスコアが高くなります。うまく操作して高いスコアを\ruby{目指}{め|ざ}しましょう。ゲームを遊ぶだけではなく、改造できる場所も探してみましょう。
+
+
+\newpage
+\exampleanswer
+
+プログラムを改造することで、面のデータを自分で変えることができます。
+
+以下の場所を探して修正します。
+
+
+\begin{lstlisting}[caption=tamafall.hspのプログラムの一部]
+	mapd+="  0   0  "+cr
+	mapd+="0   0   0"+cr
+	mapd+=" 0 0 0 0 "+cr
+	mapd+="0   0   0"+cr
+	mapd+="  0   0  "+cr
+	mapd+="0 0 0 0 0"+cr
+	mapd+=" 0 0 0 0 "+cr
+	mapd+="  0   0  "+cr
+	mapd+=" 1 1 1 1 "+cr
+	mapd+="         "+cr
+	mapd+="   0 0   "+cr
+\end{lstlisting}
+
+このマップデータを修正することで、面の形が\ruby{変化}{へん|か}します。
+
+\begin{itembox}[c]{マップデータの意味}
+    「0」は▲(\ruby{釘}{くぎ})になります。「1」はゴールになります。空白部分は何もでません。自分だけの面を作ってみましょう。
+\end{itembox}
+
+文字は「”」で囲み、最後に「+cr」を入れるようにしてください。
+改造ができたらTAや周りの友達にも見せてあげましょう。
+
 
 %2586
 %2586
@@ -401,7 +467,7 @@ move.hspのプログラムを改造して、センサーボードのボタンで
 \begin{figure}[H]
     \begin{center}
       \includegraphics[keepaspectratio,width=10.372cm,height=6.89cm]{../../asset/image/s_gpio.png}
-    \end{center} .
+    \end{center}
 \end{figure}
 
 スイッチの状態などを知る場合は、gpioinという関数を使います。
@@ -584,19 +650,6 @@ if a=1 : y=y+4
 %2879
 
 %2879
-\newpage
-\subsection{\useOmetoiExample　センサーボードの応用例をもっと考えてみよう(1)}
-
-\exampleanswer
-
-%2909
-%2909
-\newpage
-\subsection{\useOmetoiExample　センサーボードの応用例をもっと考えてみよう(2)}
-
-\exampleanswer
-
-
 % Last Part:
 %2942
 \end{document}
