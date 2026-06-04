@@ -469,14 +469,13 @@
 ; arguments, and return value are the same with gpio, gpioin
 #deffunc cgpio int _p1, int _p2
     if (_p2 = 0){
-        exec "raspi-gpio set " + _p1 + " op pn dl"
+        exec "pinctrl set " + _p1 + " op pn dl"
     }else{
-        exec "raspi-gpio set " + _p1 + " op pn dh"
+        exec "pinctrl set " + _p1 + " op pn dh"
     }
     return
 #defcfunc cgpioin int _p1
-    exec "raspi-gpio set " + _p1 + "pu"
-    cmdexec "raspi-gpio get " + _p1 + " | grep -o 'level=[01]' | sed 's/level=//g'", s
+    cmdexec "pinctrl lev " + _p1, s
     return int(s)
 
 #global
