@@ -62,7 +62,8 @@ AC_CONFIG_FILES([
                  contrib/OpenJTalk/Makefile
                  contrib/WebServer/Makefile
                  contrib/Dictationkit/Makefile
-                 contrib/Dictationkit/src/Makefile])
+                 contrib/Dictationkit/src/Makefile
+                 contrib/VLC/Makefile])
 AX_SUBDIRS_CONFIGURE([contrib/Julius],
                      [[--with-mictype=alsa]],
                      [], [], [])
