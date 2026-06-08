@@ -4,8 +4,8 @@
 # files.
 omedatadir = $(datadir)/ome/04
 nobase_dist_omedata_DATA = \
+3dsnake.hsp \
 apple.hsp \
-apple.png \
 array.hsp \
 catch.hsp \
 celput.hsp \
@@ -14,21 +14,57 @@ gcube.hsp \
 hsp3dish.ini \
 jump.hsp \
 kick.hsp \
-led_test2.hsp \
 led_test.hsp \
+led_test2.hsp \
 luxmove.hsp \
 minitama.png \
 moji.hsp \
 move.hsp \
 parts.png \
+res/qbox.png \
+res/shaders/colored.frag \
+res/shaders/colored.vert \
+res/shaders/font.frag \
+res/shaders/font.vert \
+res/shaders/lighting.frag \
+res/shaders/lighting.vert \
+res/shaders/p_blur.frag \
+res/shaders/p_blur2.frag \
+res/shaders/p_blur2.vert \
+res/shaders/p_bright.frag \
+res/shaders/p_contrast.frag \
+res/shaders/p_crtmonitor.frag \
+res/shaders/p_crtmonitor2.frag \
+res/shaders/p_cutoff.frag \
+res/shaders/p_grayscale.frag \
+res/shaders/p_mosaic.frag \
+res/shaders/p_oldfilm.frag \
+res/shaders/p_sepia.frag \
+res/shaders/p_sobel.frag \
+res/shaders/simpletex.frag \
+res/shaders/simpletex.vert \
+res/shaders/skinning-none.vert \
+res/shaders/skinning.vert \
+res/shaders/skybox.frag \
+res/shaders/skybox.vert \
+res/shaders/sprite.frag \
+res/shaders/sprite.vert \
+res/shaders/spritecol.frag \
+res/shaders/spritecol.vert \
+res/shaders/terrain.frag \
+res/shaders/terrain.vert \
+res/shaders/textured.frag \
+res/shaders/textured.vert \
+res/shaders/textured_gray.frag \
 rndfall.hsp \
 rndmove.hsp \
 se_block2.wav \
 se_break3.wav \
 se_foot.wav \
 se_jump2.wav \
-sel.wav \
 se_puyo.wav \
+sel.wav \
+sozai1.jpg \
 sozai10.jpg \
 sozai11.jpg \
 sozai12.jpg \
@@ -39,9 +75,8 @@ sozai16.jpg \
 sozai17.jpg \
 sozai18.jpg \
 sozai19.jpg \
-sozai1.jpg \
-sozai20.jpg \
 sozai2.jpg \
+sozai20.jpg \
 sozai3.jpg \
 sozai4.jpg \
 sozai5.jpg \
@@ -51,6 +86,7 @@ sozai8.jpg \
 sozai9.jpg \
 swhandan.hsp \
 tamadot.png \
+tamafall.hsp \
 tamane_s1.png \
 tamane_s2.png \
 tamane_s3.png \
@@ -59,5 +95,5 @@ tamane_s5.png \
 tamane_s6.png \
 tamane_s7.png \
 tamane_s8.png \
-yama2.jpg \
-yama.jpg
+yama.jpg \
+yama2.jpg
