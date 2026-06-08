@@ -6,6 +6,7 @@ omedatadir = $(datadir)/ome/04
 nobase_dist_omedata_DATA = \
 3dsnake.hsp \
 apple.hsp \
+apple.png \
 array.hsp \
 catch.hsp \
 celput.hsp \
