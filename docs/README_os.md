@@ -45,7 +45,7 @@ ssh 鍵の登録をし，コンテナでスクリプトを実行することで 
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa  # or any key you registers in github.com.
 IMG_NAME=itschool-raspberrypi-os-$(date -Is | sed s/:/_/g).img  # For example
-mkdir -p obj/
+mkdir -p artifacts/
 docker run --rm -ti --privileged \
   -v /dev/:/dev \
   -v "$(pwd):/work" \
@@ -59,10 +59,10 @@ docker run --rm -ti --privileged \
     autoconf &&
     ./configure --build=x86_64-linux-gnu --host=aarch64-linux-gnu --prefix=/usr/local &&
     make -j"$(nproc)" &&
-    ./contrib/scripts/install.bash -f -o "obj/${IMG_NAME}"
+    ./contrib/scripts/install.bash -f -o "artifacts/${IMG_NAME}"
   ' &&
-( cd "obj/" && 7z a "${IMG_NAME}.7z" "${IMG_NAME}" ; ) &&  # Optionally you can make a compressed archive
-md5sum "obj/${IMG_NAME}" > "obj/${IMG_NAME}.md5" # Optionally you can make a verification hash
+( cd "artifacts/" && 7z a "${IMG_NAME}.7z" "${IMG_NAME}" ; ) &&  # Optionally you can make a compressed archive
+md5sum "artifacts/${IMG_NAME}" > "artifacts/${IMG_NAME}.md5" # Optionally you can make a verification hash
 ```
 
 作成された `.img` ファイルは、元の Raspberry Pi と同じ用に SD カード等に書き込んで使用する。
