@@ -3,7 +3,7 @@
 # to fill the entry below of nobase_dist_omedata_DATA when you add or remove
 # files.
 omedatadir = $(datadir)/ome/02
-nobase_dist_omedata_SCRIPT = install_yolov8.sh
+nobase_dist_omedata_SCRIPTS = install_yolov8.sh
 nobase_dist_omedata_DATA = \
 80font.png \
 bg.png \
