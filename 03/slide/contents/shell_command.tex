@@ -1,19 +1,18 @@
 \documentclass[slide03.tex]{subfiles}
 \begin{document}
 \begin{frame}
-    \frametitle{今日の目標} 
+    \frametitle{今日の目標}
     \begin{itemize}
-        \item 1時間目\\
-        {\footnotesize ファイルとディレクトリ：コンピュータでデータを管理しよう\\
-        コマンドを使ってみよう：テキストでコンピュータに命令しよう\\}
-        \item 2時間目\\
-        {\footnotesize センサーボードを使ってみる：センサーを使ってみよう 
-        スイッチとLED：プログラムでLEDをそうさしてみよう\\}
-        \item 3時間目\\
-        {\footnotesize パイプライン：コマンドをつなげよう\\
-        フィルタコマンド：テキストを加工してみよう\\}
-        \item 4時間目\\
-        {\footnotesize コマンドのいろいろな使い方：文字の置き換えやファイルの検索をやってみよう\\}
+        \item 1時間目: ターミナルを使ってみよう\\
+        {\footnotesize ターミナルの使い方と、ファイル・ディレクトリの考え方を学びます\\}
+        \item 2時間目: ファイルを操作してみよう\\
+        {\footnotesize　コマンドを使って、ファイルを表示したり、コピーしたり、移動したりする方法を学びます\\}
+        \item 3時間目: センサーボードとLEDを使ってみよう\\
+        {\footnotesize センサーボードを使って温度・湿度・明るさを測り、ボタンでLEDを操作するプログラムを作ります\\}
+        \item 4時間目: ボタンで光るLEDを作ってみよう\\
+        {\footnotesize ボタンを押すたびにLEDの状態を変えたり、光るLEDを切り替えたりするプログラムに挑戦します\\}
+        \item　自習: コマンドをもっと使ってみよう\\
+        {\footnotesize パイプライン、フィルタコマンド、文字の置き換え、ファイルの検索など、コマンドをもっと使ってみたい人のための内容があります。興味がある人は自分のペースで試してみましょう。\\}
     \end{itemize}
 \end{frame}
 
@@ -128,7 +127,7 @@
         \begin{itemize}
             \item 教科書5ページ 問題3-1(5問)
         \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{5}
 \end{frame}
 
@@ -146,7 +145,7 @@
             \item データの名前.拡張子 で名前をつけるよ
         \end{itemize}
     \end{itemize}
-    
+
     \begin{figure}[h]
     \centering
     \begin{minipage}[b]{0.19\columnwidth}
@@ -191,7 +190,7 @@
 \begin{frame}
     \frametitle{ラズパイの主なディレクトリ}
     \begin{minipage}{0.3\hsize}
-        {\footnotesize 
+        {\footnotesize
         \begin{forest}
           for tree={grow'=0,folder, scale=0.7}
           [/
@@ -320,12 +319,12 @@
             \begin{tabular}{ll}
                 絶対パス & /からの相対パス \\ \hline
                 / & . \\ \hline
-                /home\quad/home/ & \begin{tabular}{l} home\quad./home  \\ home/\quad./home/ \end{tabular} \\ \hline 
+                /home\quad/home/ & \begin{tabular}{l} home\quad./home  \\ home/\quad./home/ \end{tabular} \\ \hline
                 /home/pi\quad/home/pi/ & \begin{tabular}{l} home/pi\quad./home/pi  \\ home/pi/\quad./home/pi/ \end{tabular} \\ \hline
             \end{tabular}
         \end{minipage}
     \end{figure}
-      
+
     \begin{figure}[H]
         \begin{minipage}{0.2\hsize}
             \begin{forest}
@@ -340,7 +339,7 @@
             \begin{tabular}{ll}
                 絶対パス & /home/からの相対パス \\ \hline
                 / & \begin{tabular}{l} ..\quad../ \\\quad./..\quad./../ \end{tabular} \\ \hline
-                /home\quad/home/ & \begin{tabular}{l} . \\./  \end{tabular} \\ \hline 
+                /home\quad/home/ & \begin{tabular}{l} . \\./  \end{tabular} \\ \hline
                 /home/pi\quad/home/pi/ & \begin{tabular}{l} pi\quad./pi \\ pi/\quad./pi/ \end{tabular} \\ \hline
             \end{tabular}
         \end{minipage}
@@ -349,7 +348,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{パスを指定しよう}   
+    \frametitle{パスを指定しよう}
     \begin{figure}[H]
         \begin{minipage}{0.2\hsize}
             \begin{forest}
@@ -364,7 +363,7 @@
             \begin{tabular}{ll}
                 絶対パス & /home/pi/からの相対パス \\ \hline
                 / & \begin{tabular}{l} ../..\quad../../ \\ ./../..\quad./../../ \end{tabular} \\ \hline
-                /home\quad/home/ & \begin{tabular}{l} ..\quad../ \\ ./..\quad./../ \end{tabular} \\ \hline 
+                /home\quad/home/ & \begin{tabular}{l} ..\quad../ \\ ./..\quad./../ \end{tabular} \\ \hline
                 /home/pi\quad/home/pi/ & \begin{tabular}{l} . \\ ./ \end{tabular} \\ \hline
             \end{tabular}
         \end{minipage}
@@ -378,7 +377,7 @@
         \begin{itemize}
             \item 教科書9\textasciitilde10ページ 問題3-2(5問)
         \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{9-10}
 \end{frame}
 
@@ -442,7 +441,7 @@
             \item 教科書14ページ 問題3-3(5問)
             \item 教科書15ページ 問題3-4(5問)
             \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{14-15}
 \end{frame}
 
@@ -496,6 +495,6 @@
         \begin{itemize}
             \item 教科書18ページ 問題3-5(6問)
             \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{18}
 \end{frame}\end{document}
