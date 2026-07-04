@@ -73,13 +73,17 @@ mousepad を使って\underline{ファイル}を作成または\ruby{編集}{へ
 <#green#pi@raspberrypi#>:<#blue#~ $#> mkdir my
 <#green#pi@raspberrypi#>:<#blue#~ $#> ls -F
 <#blue#01/  03/         Desktop/    Downloads/  Pictures/  Templates/   my/   rika/#>
-<#blue#02/  Bookshelf/  Documents/  Music/      Public/    Viodeos/#>     my.txt
+<#blue#02/  Bookshelf/  Documents/  Music/      Public/    Videos/#>     my.txt
 \end{lstlisting}
 
 \subsection{ファイルやディレクトリを消してみよう}
 \begin{description}
 \item[● \texttt{rm}\textvisiblespace \underline{ファイル}$\ldots$]\mbox{}\\
 \underline{ファイル}$\ldots$を\ruby{消去}{しょう|きょ}します。ファイルやディレクトリは一度消すと\textbf{元には\ruby{戻}{もど}りません}。
+\ruby{注意}{ちゅう|い}：rm はファイルを\ruby{消}{け}すコマンドです。
+\ruby{講座}{こう|ざ}では、\ruby{教科書}{きょう|か|しょ}に\ruby{書}{か}かれているファイルやディレクトリ\ruby{以外}{い|がい}は\ruby{消}{け}さないでください。
+わからないときは、\ruby{実行}{じっ|こう}する\ruby{前}{まえ}に\ruby{先生}{せん|せい}かTAに\ruby{見}{み}せましょう。
+
 \end{description}
 \begin{itemize}
 \item[<例>]my.txt を消します。
@@ -87,11 +91,11 @@ mousepad を使って\underline{ファイル}を作成または\ruby{編集}{へ
 \begin{lstlisting}[caption=rmの例, label=rm]
 <#green#pi@raspberrypi#>:<#blue#~ $#> ls -F
 <#blue#01/  03/         Desktop/    Downloads/  Pictures/  Templates/   my/   rika/#>
-<#blue#02/  Bookshelf/  Documents/  Music/      Public/    Viodeos/#>     my.txt
+<#blue#02/  Bookshelf/  Documents/  Music/      Public/    Videos/#>     my.txt
 <#green#pi@raspberrypi#>:<#blue#~ $#> rm my.txt
 <#green#pi@raspberrypi#>:<#blue#~ $#> ls -F
 <#blue#01/  03/         Desktop/    Downloads/  Pictures/  Templates/   my/#>
-<#blue#02/  Bookshelf/  Documents/  Music/      Public/    Viodeos/     rika/#>     
+<#blue#02/  Bookshelf/  Documents/  Music/      Public/    Viodeos/     rika/#>
 \end{lstlisting}
 \begin{description}
 \item[● \texttt{rm}\textvisiblespace \texttt{-r}\textvisiblespace \underline{ディレクトリ}$\ldots$]\mbox{}\\
@@ -104,7 +108,7 @@ mousepad を使って\underline{ファイル}を作成または\ruby{編集}{へ
 \begin{lstlisting}[caption=rm -rの例, label=rm-R]
 <#green#pi@raspberrypi#>:<#blue#~ $#> ls -F
 <#blue#01/  03/         Desktop/    Downloads/  Pictures/  Templates/   my/#>
-<#blue#02/  Bookshelf/  Documents/  Music/      Public/    Viodeos/     rika/#>     
+<#blue#02/  Bookshelf/  Documents/  Music/      Public/    Viodeos/     rika/#>
 <#green#pi@raspberrypi#>:<#blue#~ $#> rm -r my
 <#green#pi@raspberrypi#>:<#blue#~ $#> ls -F
 <#blue#01/  03/         Desktop/    Downloads/  Pictures/  Templates/   rika/#>
