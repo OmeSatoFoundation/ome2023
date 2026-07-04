@@ -30,7 +30,7 @@
       \end{figure}
     \end{column}
   \end{columns}
-  \textpageref{19} 
+  \textpageref{19}
 \end{frame}
 
 \begin{frame}
@@ -114,19 +114,19 @@
 \begin{frame}[fragile]
   \frametitle{温湿度/気圧/明るさを調べる-1}
   \begin{lstlisting}[title=\sim/03/sensors.hsp 前半, label=sensors.hsp-1]
-   #include "hsp3dish.as"    
-   #include "rpz-gpio.as"    
+   #include "hsp3dish.as"
+   #include "rpz-gpio.as"
 
    init_bme               <#blue#; 温湿度気圧センサ#>
    if stat {              <#blue#; 初期化成功チェック#>
-     redraw 0          
+     redraw 0
      mes "failed to init bme: " + stat
      redraw 1
      stop
    }
 
    geti2c_lux_init     <#blue#; 照度センサ tsl2572 を初期化する#>
-  
+
   \end{lstlisting}
   \textpageref{21}
 \end{frame}
@@ -138,9 +138,9 @@
     redraw 0              <#blue#; 仮想画面に描画#>
     pos 60, 60            <#blue#; 表示位置を設定#>
     get_temp              <#blue#; rpz_tempに温度取得#>
-    temp = rpz_temp       
+    temp = rpz_temp
     get_humidity          <#blue#; rpz_humに湿度取得#>
-    hum = rpz_hum       
+    hum = rpz_hum
     get_pressure          <#blue#; rpz_pressに気圧取得#>
     press = rpz_press
     geti2c_lux_als         <#blue#; rpz_luxに照度取得#>
@@ -149,7 +149,7 @@
     mes "湿度: " + hum + " [%]"
     mes "気圧: " + press + "[hPa]"
     mes "照度: " + lux + " [lx]"
-    redraw 1              
+    redraw 1
     wait 100
     goto *main
   \end{lstlisting}
@@ -162,7 +162,7 @@
       \item \sim/03/sensors.hspを実行しよう
       \item 教科書23ページ 問題3-6(8問)
     \end{itemize}
-  \end{exampleblock} 
+  \end{exampleblock}
   \textpageref{23}
 \end{frame}
 
@@ -191,7 +191,7 @@
       \item \sim/03/Ltika.hspを実行しよう
       \item 教科書25ページ 問題3-7(6問)
     \end{itemize}
-  \end{exampleblock} 
+  \end{exampleblock}
   \textpageref{25}
 \end{frame}
 
@@ -200,7 +200,7 @@
   \begin{lstlisting}[title=\sim/03/button\_led.hsp, label=button_led.hsp]
   #include "hsp3dish.as"
   #include "rpz-gpio.as"
-  
+
           gpio 17, 0
           gpio 18, 0
           gpio 22, 0
@@ -212,7 +212,7 @@
           mes "ボタンを押している間 LED が光るよ"
           redraw 1
   *led
-          bnt1 = gpioin(5)        <#blue#;ボタンの状態を調べる#>
+          btn1 = gpioin(5)        <#blue#;ボタンの状態を調べる#>
           if btn1=0 : gpio 18, 1 : else : gpio 18, 0 <#blue#;ボタンでLEDを操作#>
           wait 10                 <#blue#;0.1秒待つ#>
           goto *led               <#blue#;*ledに戻る#>
@@ -243,7 +243,7 @@
       \item \sim/03/button\_led.hspを実行しよう
       \item 教科書27ページ 問題3-8(4問)
     \end{itemize}
-  \end{exampleblock} 
+  \end{exampleblock}
   \textpageref{27}
 \end{frame}
 
@@ -252,12 +252,12 @@
   \begin{lstlisting}[title=\sim/03/button\_led2.hsp 前半, label=button_led2.hsp-1]
   #include "hsp3dish.as"
   #include "rpz-gpio.as"
-  
+
           gpio 17, 0
           gpio 18, 0
           gpio 22, 0
           gpio 27, 0
-        
+
           redraw 0
           font "", 30
           pos 20, 20
@@ -313,7 +313,7 @@
       \item \sim/03/button\_led2.hspを実行しよう
       \item 教科書30ページ 問題3-9(3問)
     \end{itemize}
-  \end{exampleblock} 
+  \end{exampleblock}
   \textpageref{30}
 \end{frame}
 
@@ -322,8 +322,8 @@
   \begin{lstlisting}[title=\sim/03/button\_led3.hsp 前半, label=button_led3.hsp-1]
   #include "hsp3dish.as"
   #include "rpz-gpio.as"
-  
-          gpio 17, 0   
+
+          gpio 17, 0
           gpio 18, 0
           gpio 22, 0
           gpio 27, 0
@@ -334,7 +334,7 @@
           mes "赤いボタンを押して、LED をつけたり消したりできるよ"
           redraw 1
 
-          ima_btn = 1 
+          ima_btn = 1
           ledidx = 0  <#blue#;ledidxを初期化#>
   \end{lstlisting}
   \textpageref{31}
@@ -346,10 +346,10 @@
   *hata
           ima_btn = gpioin(5)
           if ima_btn = 0{           <#blue#;今押されているとき#>
-           iedidx = (ledidx+1) \ 4  <#blue#;ledidxで何番目のLEDを光らせるか決める#>
+           ledidx = (ledidx+1) \ 4  <#blue#;ledidxで何番目のLEDを光らせるか決める#>
            if ledidx=1 {            <#blue#;1番目の時はGPIO17のLEDを光らせる#>
              gpio 17, 1             <#blue#;(0+1)\4 = 1#>
-             gpio 18, 0 
+             gpio 18, 0
              gpio 22, 0
              gpio 27, 0
            }
@@ -398,15 +398,15 @@
       \begin{itemize}
         \item 計算すると$1\div4$ = 0あまり1なので次のledidx = 1になる
       \end{itemize}
-      \item ledidx = 1のときledidx = $(1+1)\backslash4$ 
+      \item ledidx = 1のときledidx = $(1+1)\backslash4$
       \begin{itemize}
-        \item 計算すると$2\div4$ = 0あまり2なので次のledidx = 2になる 
+        \item 計算すると$2\div4$ = 0あまり2なので次のledidx = 2になる
       \end{itemize}
-      \item ledidx = 2のときledidx = $(2+1)\backslash4$ 
+      \item ledidx = 2のときledidx = $(2+1)\backslash4$
       \begin{itemize}
         \item 計算すると$3\div4$ = 0あまり3なので次のledidx = 3になる
       \end{itemize}
-      \item ledidx = 3のときledidx = $(3+1)\backslash4$ 
+      \item ledidx = 3のときledidx = $(3+1)\backslash4$
       \begin{itemize}
         \item 計算すると$4\div4$ = 1あまり0なので次のledidx = 0になる
       \end{itemize}
@@ -421,6 +421,6 @@
       \item \sim/03/button\_led3.hspを実行しよう
       \item 教科書32ページ 問題3-10(3問)
     \end{itemize}
-  \end{exampleblock} 
+  \end{exampleblock}
   \textpageref{32}
 \end{frame}\end{document}
