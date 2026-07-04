@@ -1,5 +1,14 @@
 \documentclass[slide03.tex]{subfiles}
 \begin{document}
+
+\begin{frame}
+\center
+ここから先は自習用です
+
+時間のある時にどんどん進めましょう
+
+\end{frame}
+
 \begin{frame}
     \frametitle{出力を作るコマンド}
     ラズパイの中のことを報告したり、出力を作ったりするコマンドを学ぶよ\\
@@ -10,7 +19,7 @@
         du       & ディレクトリ中のファイルの大きさを報告 \\
         wc       & 入力の文字数・単語数・行数を出力      \\
         seq      & 数字の列を出力                        \\
-        echo     & 文字をそのまま出力                    \\ 
+        echo     & 文字をそのまま出力                    \\
         touch    & 空のファイルを作成                    \\\hline
     \end{tabular}
     \textpageref{33}
@@ -116,7 +125,7 @@ hello
         \begin{itemize}
             \item 教科書36ページ 問題3-11(5問)
         \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{36}
 \end{frame}
 
@@ -151,7 +160,7 @@ hello
         \end{itemize}
     \end{itemize}
     \begin{lstlisting}[title=catの標準入力・標準出力, label=stdioCat]
-<#green#pi@raspberrypi#>:<#blue#~ $#> cat 
+<#green#pi@raspberrypi#>:<#blue#~ $#> cat
 sansu <Enter> <- 標準入力（キーボード）からの入力
 sansu         <- 標準出力（ディスプレイ）への出力
 <Ctrl+D>      <- 標準入力からEOFを入力し、入力が終了したことを伝える
@@ -176,7 +185,7 @@ sansu         <- 標準出力（ディスプレイ）への出力
 \begin{frame}[fragile]
     \frametitle{リダイレクトの例}
     \begin{lstlisting}[title=lsの出力をリダイレクトする, label=redirectLs]
-<#green#pi@raspberrypi#>:<#blue#~ $#> ls 
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls
 <#blue#01  03         Desktop    Downloads  Pictures  Templates
 02  Bookshelf  Documents  Music      Public    Videos#>
 <#green#pi@raspberrypi#>:<#blue#~ $#> ls > lsfile
@@ -237,7 +246,7 @@ lsfile
         \begin{itemize}
             \item 教科書40ページ 問題3-12(3問)
         \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{40}
 \end{frame}
 
@@ -281,7 +290,7 @@ Desktop
 Bookshelf
 03
 02
-01 
+01
     \end{lstlisting}
     \textpageref{41}
 \end{frame}
@@ -325,7 +334,7 @@ Downloads
         \end{itemize}
     \end{itemize}
     \begin{lstlisting}[title=headコマンドの実行例, label=head_example]
-<#green#pi@raspberrypi#>:<#blue#~ $#> head -n 2 ~/lsfile 
+<#green#pi@raspberrypi#>:<#blue#~ $#> head -n 2 ~/lsfile
 01
 02
     \end{lstlisting}
@@ -437,7 +446,7 @@ Videos
             \end{itemize}
             \item 教科書46ページ 問題3-14(3問)
         \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{45-46}
 \end{frame}
 
@@ -484,7 +493,7 @@ Desktop
 .jp/）で作られました。入力、校正、制作にあたったのは、ボランティアの皆さんです。
 
 
-                
+
 https:／／www.aozora.gr.jp/cards/000121/files/628_14895.html<#green#pi@raspberr
 ypi#>:<#blue#~/03/rensyu/xargs $#>
     \end{lstlisting}
@@ -520,7 +529,7 @@ ypi#>:<#blue#~/03/rensyu/xargs $#>
         \begin{itemize}
             \item 教科書49ページ 問題3-15(2問)
         \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -562,7 +571,7 @@ hello, world!
         \begin{tabular}{c}
         H $\rightarrow$ h \\
         L $\rightarrow$ l \\
-        W $\rightarrow$ w \\ 
+        W $\rightarrow$ w \\
         \end{tabular}\\
         と置きかえる
     \end{center}
@@ -591,7 +600,7 @@ Hi, World!
         \begin{itemize}
             \item 教科書52ページ 問題3-16(4問)
         \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{52}
 \end{frame}
 
@@ -603,7 +612,7 @@ Hi, World!
         \begin{itemize}
             \small
             \item \underline{数式}を計算するよ
-            \item $+$, $-$, $/$, $*$, が使えるよ 
+            \item $+$, $-$, $/$, $*$, が使えるよ
             \item 結果は整数で計算されるよ
         \end{itemize}
     \end{itemize}
@@ -641,7 +650,7 @@ alias name='command'
             \item 教科書53ページ 問題3-17(2問)
             \item 教科書55ページ 問題3-18(2問)
         \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{53,55}
 \end{frame}
 
@@ -685,7 +694,7 @@ alias name='command'
     \begin{lstlisting}[title=ワイルドカードの使い方の例]
 <#green#pi@raspberrypi#>:<#blue#~ $#> ls -F P*
 Pictures:
-            
+
 Public:
 <#green#pi@raspberrypi#>:<#blue#~ $#>
     \end{lstlisting}
@@ -710,7 +719,7 @@ Public:
         \begin{itemize}
             \item 教科書58ページ 問題3-19(3問)
         \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \textpageref{58}
 \end{frame}
 
@@ -720,7 +729,7 @@ Public:
     \begin{lstlisting}
 <#green#pi@raspberrypi#>:<#blue#~ $#> pwb
 bash: pwb: コマンドが見つかりません
-<#green#pi@raspberrypi#>:<#blue#~ $#> 
+<#green#pi@raspberrypi#>:<#blue#~ $#>
         \end{lstlisting}
     \begin{itemize}
         \item コマンドのスペル(アルファベット)を確かめよう
@@ -728,7 +737,7 @@ bash: pwb: コマンドが見つかりません
     \begin{lstlisting}
 <#green#pi@raspberrypi#>:<#blue#~ $#> cd AAA
 bash: cd: AAA: そのようなファイルやディレクトリはありません
-<#green#pi@raspberrypi#>:<#blue#~ $#> 
+<#green#pi@raspberrypi#>:<#blue#~ $#>
         \end{lstlisting}
     \begin{itemize}
         \item ファイルやディレクトリのスペルを確かめよう
@@ -778,12 +787,12 @@ bash: cd: AAA: そのようなファイルやディレクトリはありませ�
             \item 教科書63ページ 問題3-21(8問)
             \item 教科書64ページ 問題3-22(5問)
             \end{itemize}
-    \end{exampleblock} 
+    \end{exampleblock}
     \begin{block}{できるところまでやろう}
         \begin{itemize}
             \item 教科書65ページ 闇夜を照らすLED
             \item 教科書67ページ GIFアニメーションの作成
         \end{itemize}
-    \end{block} 
+    \end{block}
     \textpageref{62-67}
 \end{frame}\end{document}
