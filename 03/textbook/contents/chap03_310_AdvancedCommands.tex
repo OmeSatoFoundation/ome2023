@@ -2,6 +2,10 @@
 \begin{document}
 \newpage
 \section{出力をつくるいろいろなコマンド}
+ここから先は発展です。授業ではここまでを扱います。ここから先は、コマンドをもっと使ってみたい人のための内容です。パイプライン、フィルタコマンド、文字の置き換え、ファイルの検索などを学びます。
+
+自習用のコマンドを試すときは、教材用のファイルで試しましょう。大事なファイルを使って試さないようにしましょう。\code{rm} や \code{rm -r} を使うときは特に注意してください。
+
 この節では、下の表に書かれた出力を作るコマンドを\ruby{紹介}{しょう|かい}します。
 
 \begin{figure}[h]
@@ -11,8 +15,8 @@
     ls      & ファイルやディレクトリのいちらんを出力する（紹介ずみ）             \\
     du      & ディレクトリの中のファイルの大きさを\ruby{報告}{ほう|こく}する \\
     wc      & 入力の文字数・単語数・行数を出力する         \\
-    seq     & 数字の列を出力する                       \\ 
-    echo    & 文字をそのまま出力する                       \\ 
+    seq     & 数字の列を出力する                       \\
+    echo    & 文字をそのまま出力する                       \\
     touch   & 空のファイルを作成する(出力はありません)                       \\ \hline
     \end{tabular}
 \end{figure}
@@ -93,7 +97,7 @@
 <#green#pi@raspberrypi#>:<#blue#~ $#> wc ~/03/rensyu/kokugo/syousetu.txt
   118    99 16061 /home/pi/03/rensyu/kokugo/syousetu.txt
 \end{lstlisting}
-この例では、\textasciitilde/lsfileの中身の文字数・単語数・行数を表示しています。
+この例では、\textasciitilde/03/rensyu/kokugo/syousetu.txtの中身の文字数・単語数・行数を表示しています。
 左から順に、行数、単語数、文字数、ファイルのパスを表しています。
 ただし、単語数は英単語の数え方で数えますので、日本語の文章では正しい数にならないことがあります。
 
@@ -135,7 +139,7 @@ echoコマンドを使うことでhelloと出力できました。
 
 \begin{description}
     \item[● \texttt{touch} \underline{ファイル名}$\cdots$]\mbox{}\\
-    名前が\underline{ファイル名}$\cdots$の空のファイルを作成します。ファイルがすでにある場合は、ファイルの更新日時とアクセス日時を更新します。 
+    名前が\underline{ファイル名}$\cdots$の空のファイルを作成します。ファイルがすでにある場合は、ファイルの更新日時とアクセス日時を更新します。
 \end{description}
 
 ファイルの更新日時とアクセス日時とは、それぞれ最後にファイルを保存した日時と、最後にファイルを読んだ日時になります。 ls -l で確認することができます。
@@ -178,7 +182,7 @@ echoコマンドを使うことでhelloと出力できました。
 catコマンドは、"cat ファイル名"と実行することで、ファイルの内容を\ruby{標準}{ひょう|じゅん}出力に表示するコマンドでした。cat にファイル名を指定しないと、\ruby{標準}{ひょう|じゅん}入力、つまりキーボードからデータを受け取ります。このように、コマンドによっては入力するデータをコマンドの引数として与えるか、\ruby{標準}{ひょう|じゅん}入力から与えるかを選ぶことができるものがあります。
 
 \begin{lstlisting}[caption=catの標準入力・標準出力, label=stdioCat]
-<#green#pi@raspberrypi#>:<#blue#~ $#> cat 
+<#green#pi@raspberrypi#>:<#blue#~ $#> cat
 sansu <Enter> <- 標準入力（キーボード）からの入力
 sansu         <- 標準出力（ディスプレイ）への出力
 <Ctrl+D>      <- 標準入力からEOFを入力し、入力が終了したことを伝える
@@ -196,7 +200,7 @@ EOFはファイルがここで終ることを示す記号です。End Of File(�
     \label{ch03:redirect}
 \end{figure}
 \begin{lstlisting}[caption=lsの出力をリダイレクトする, label=redirectLs]
-<#green#pi@raspberrypi#>:<#blue#~ $#> ls 
+<#green#pi@raspberrypi#>:<#blue#~ $#> ls
 <#blue#01  03         Desktop    Downloads  Pictures  Templates   rika#>
 <#blue#02  Bookshelf  Documents  Music      Public    Videos#>
 <#green#pi@raspberrypi#>:<#blue#~ $#> ls > lsfile
@@ -296,7 +300,7 @@ lessコマンドにlsコマンドの\ruby{標準}{ひょう|じゅん}出力を�
     \end{enumerate}
 \end{tcolorbox}
 
-\newpage 
+\newpage
 \section{フィルタコマンド}
 フィルタコマンドは、入力ファイルの内容を操作して、出力をするコマンドです。
 以下のようなコマンドがあります。
@@ -336,7 +340,7 @@ Desktop
 Bookshelf
 03
 02
-01 
+01
 \end{lstlisting}
 この例では、リスト\ref{redirectLs}で使用したlsfileの中身を逆順に表示してみました。
 ちなみにtacコマンドは、catコマンドの逆のことをすることから、catを逆さにした名前になっています。
@@ -484,7 +488,7 @@ lsfileをsortコマンドに渡した\ruby{際}{さい}と同じ結果が表示�
         \addex{\textasciitilde/03/rensyu/kokugo/syousetu.txtの行をランダムに入れ替えて表示してみましょう。}
         \addex{\textasciitilde/03/rensyu/kokugo/syousetu.txtの先頭の5行を表示してみましょう。}
         \addex{\textasciitilde/03/rensyu/kokugo/syousetu.txtの末尾の5行を表示してみましょう。}
-        \addex{\textasciitilde/03ディレクトリの中のファイルとディレクトリのリストをsortコマンドを使って並べ替えて表示してみましょう。 \\ 
+        \addex{\textasciitilde/03ディレクトリの中のファイルとディレクトリのリストをsortコマンドを使って並べ替えて表示してみましょう。 \\
         ヒント:まず、03の中身を表示するコマンドの出力をリダイレクトでファイルに書き込もう。次にsortコマンドを使ってファイルの中身を並べ替えよう。}
         \addex{\textasciitilde/03/rensyu/kokugo/syousetu.txtの中身から"ごん"という文字列に一致する行を表示してみましょう。}
     \end{enumerate}

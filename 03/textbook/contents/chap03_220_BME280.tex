@@ -30,7 +30,7 @@ geti2c_lux_init 		<#blue#; 照度センサ tsl2572 を初期化する#>
 	geti2c_lux_als		<#blue#; rpz_lux に照度取得#>
 	lux = rpz_lux
 
-	mes "温度: " + temp + " [ ]" ℃		<#blue#; ↓取得したデータの表示#>
+	mes "温度: " + temp + " [℃]" 		<#blue#; ↓取得したデータの表示#>
 	mes "湿度: " + hum + " [%]"
 	mes "気圧: " + press+ " [hPa]"
 	mes "照度: " + lux + " [lx]"
@@ -41,7 +41,7 @@ geti2c_lux_init 		<#blue#; 照度センサ tsl2572 を初期化する#>
 
 まずは BME280 に関する行について説明します。\\
 \code{init\_bme}\\
-という命令で BME280 を初期化しています。この命令の\ruby{実行結果}{じっ|こう|けっ|か}が変数 stat に代入されています。初期化に失敗すると success に 0 以外の値が入るので、次の if 文で初期化が成功したかどうかを\ruby{確認}{かく|にん}しています。\\
+という命令で BME280 を初期化しています。この命令の\ruby{実行結果}{じっ|こう|けっ|か}が変数 \code{stat} に代入されています。初期化に失敗すると \code{stat} に 0 以外の値が入るので、次の if 文で初期化が成功したかどうかを\ruby{確認}{かく|にん}しています。\\
 \code{init\_bme} によって、\code{get\_temp}, \code{get\_humidity}, \code{get\_pressure} が使えるようになりました。\\
 \code{get\_temp}	; rpz\_temp に温度取得\\
 \code{get\_humidity}	; rpz\_hum に湿度取得\\
