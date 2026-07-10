@@ -18,6 +18,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+    strategy:
+      matrix:
+        chapter: ['01', '02', '03', '04', '05', '06', '07', '08']
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -42,21 +45,20 @@ jobs:
         echo "REPOSITORY_NAME_LC=${REPOSITORY_NAME,,}" >>"${GITHUB_ENV}"
       env:
         REPOSITORY_NAME: '${{ github.repository }}'
-    # TODO: Use loops instead of listing up all the chapters.
-    - name: Build Chapter 01
+    - name: Build Chapter ${{ matrix.chapter }}
       uses: docker/build-push-action@v5
       with:
         context: .
         push: false
         target: "final"
-        outputs: "type=local,dest=./artifact/01"
+        outputs: "type=local,dest=./artifact/${{matrix.chapter }}"
         file: "./docker/text.Dockerfile"
         build-args: |
-          TARGET=01/textbook/
-    - name: Upload Chapter 01
+          TARGET=${{ matrix.chapter }}/textbook/
+    - name: Upload Chapter ${{ matrix.chapter }}
       uses: actions/upload-artifact@v6
       with:
-        name: "itm01"
-        path: "./artifact/01/text01.pdf"
+        name: "itmtext${{ matrix.chapter }}"
+        path: "./artifact/${{ matrix.chapter }}/text${{ matrix.chapter }}.pdf"
 
 # Inherited by https://qiita.com/Jazuma/items/aca397e081a7825d0dec
