@@ -14,7 +14,7 @@
 
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}
-\addex{これは宿題です。自分の家にある家電をRaspberry Piで制御してみましょう。エアコン、\ruby{扇風機}{せん|ぷう|き}、テレビなど赤外線を使って\ruby{操作}{そう|さ}する家電を選びましょう。}
+\addex{これは宿題です。自分の家にある家電をRaspberry Piで制御してみましょう。エアコン、\ruby{扇風機}{せん|ぷう|き}、テレビなど赤外線を使って\ruby{操作}{そう|さ}する家電を選びましょう。作業は必ず家の人と一緒に行い、電子レンジや IH コンロ、ストーブなどの\ruby{発熱}{はつ|ねつ}する家電や\ruby{調理器具}{ちょう|り|き|ぐ}には使用しないようにしてください。対象は安全に\ruby{扱}{あつか}える家電に限定しましょう。}
 \end{enumerate}
 \end{tcolorbox}
 
@@ -22,7 +22,7 @@
 \subsection{おまけ：信号を２つ以上登録する}
 \ruby{複数}{ふく|すう}の動作を\ruby{制御}{せい|ぎょ}したい場合は、動作ごとに信号を登録します。template.lircd.confの中の“begin raw\_codes” と “end raw\_codes”の間にname <名前>と信号を\ruby{並}{なら}べて複数の信号を登録できます。ただし、ひとつのファイルの中にあるすべての信号の数の合計は1023\ruby{個}{こ}以下でなければなりません。このファイルの場合、onoffに\ruby{記述}{き|じゅつ}される数字の数と、powerに記述される数字の数の合計が1023以下でなければなりません。\\
 
-\begin{lstlisting}[caption=２つの信号を登録するときのtemplate.lircd.comf,label=２つの信号を登録するときのtemplate.lircd.comf]
+\begin{lstlisting}[caption=２つの信号を登録するときのtemplate.lircd.conf,label=２つの信号を登録するときのtemplate.lircd.conf]
 begin remote
   name fan
   flags RAW_CODES
