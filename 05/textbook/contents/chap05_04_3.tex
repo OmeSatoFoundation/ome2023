@@ -39,7 +39,7 @@ Raspberry Piをリモコンにするには、リモコンの信号を記録し�
  \begin{enumerate}[1]
   \item \textasciitilde /05に\ruby{移動}{い|どう}します。\\ \code{cd \textasciitilde /05}
   \item \ruby{違}{ちが}う信号を受け取らないように、赤外線受信を止めます。\ruby{警告}{けい|こく}が表示される場合がありますが、気にしなくても良いです。 \\ \code{sudo service lircd stop}
-  \item 赤外線を受信し、onoff.txtに記録します。コマンドを実行してから、赤外線受信ユニットに向かって、リモコンのボタンを\ruby{押}{お}しましょう。この際、センサーボードの赤外線LEDはリモコンから10cmくらい離し、間をさえぎるものが無いようにしましょう。記録が終わったらCtrl+c（Ctrlキーを押しながらcを押す）で終了します。\\ \code{mode2 -d /dev/lirc1 | tee onoff.txt}\\信号を記録するときは、ボタンは短く一回押すようにし、長押ししないように注意してください。
+  \item 赤外線を受信し、onoff.txtに記録します。コマンドを実行してから、赤外線受信ユニットに向かって、リモコンのボタンを\ruby{押}{お}しましょう。この際、リモコンはセンサーボードの赤外線受信ユニットから10cmくらい離し、間をさえぎるものが無いようにしましょう。記録が終わったらCtrl+c（Ctrlキーを押しながらcを押す）で終了します。\\ \code{mode2 -d /dev/lirc1 | tee onoff.txt}\\信号を記録するときは、ボタンは短く一回押すようにし、長押ししないように注意してください。
   \item 記録した信号を、convert\_pattern コマンドを使って送信用に変換します。\\ \code{convert\_pattern onoff.txt > onoff.pattern}
   \item \ruby{設定}{せっ|てい}ファイルを作ります。\textasciitilde /05/template.lircd.confを元に作ります。まずはこのテンプレートを05.lircd.confという名前でコピーします。そのあと、mousepadで開きましょう。\\ \code{cp template.lircd.conf 05.lircd.conf\\mousepad 05.lircd.conf}
   \item \pageref{template.lircd.conf}ページにあるリスト \ref{template.lircd.conf}の赤字の部分を書き換えます。
