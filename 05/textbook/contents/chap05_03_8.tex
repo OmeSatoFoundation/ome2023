@@ -22,12 +22,12 @@ HSPスクリプトエディタで\textasciitilde /05/pwm.hspを開いて実行�
     redraw 1
     
     repeat
-    gpio 27,1
+    gpio 27,1  <#blue#;ずっとつけている#>
     
     <#red#repeat 200
-    if cnt < 10 : gpio 17,1 : else : gpio 17,0
-    if cnt < 50 : gpio 18,1 : else : gpio 18,0
-    if cnt < 100 : gpio 22,1 : else : gpio 22,0
+    if cnt < 10 : gpio 17,1 : else : gpio 17,0  <#blue#;200回のうち10回つけている#>
+    if cnt < 50 : gpio 18,1 : else : gpio 18,0  <#blue#;200回のうち50回つけている#>
+    if cnt < 100 : gpio 22,1 : else : gpio 22,0  <#blue#;200回のうち100回つけている#>
     loop#>
     
     await 1
