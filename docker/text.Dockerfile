@@ -28,7 +28,7 @@
 # If remote name fails, use local name (buildenv).
 # Find the remote image name and tags at
 # https://github.com/OmeSatoFoundation/ome-doc/pkgs/container/ome-doc%2Ftypesetenv
-ARG BASE_IMAGE=ghcr.io/omesatofoundation/ome-doc/texlive:latest
+ARG BASE_IMAGE=ghcr.io/omesatofoundation/ome2023/texlive:latest
 
 FROM ubuntu:25.10 AS texlive
 # Install packages being dependent on texlive installation.
