@@ -14,6 +14,17 @@
   {\renewcommand\arraystretch{#1}}
   {}
 
+% Shared column widths for the sensor introduction tables and figures.
+% These are defined here so they remain available across all subfiles.
+\newlength{\colF}
+\setlength{\colF}{0.25\columnwidth}
+\newlength{\colG}
+\setlength{\colG}{0.65\columnwidth}
+\newlength{\colH}
+\setlength{\colH}{0.1\columnwidth}
+\newlength{\colI}
+\setlength{\colI}{0.35\columnwidth}
+
 % Chapter-dependent Macros
 \newcommand{\ADC}{ADC}
 \newcommand{\adcget}{adcget}
