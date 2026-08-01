@@ -3,7 +3,7 @@
 %%左から始めたい
 \newpage
 \section{デジタル入力\ruby{装置}{そう|ち}を使ってみよう}
-デジタル入力装置をHSPで使ってみましょう。GPIO24にボタン(\#103)をつけてください。HSPスクリプトエディタで\textasciitilde /05/digin.hspを開いて実行してみましょう。\\
+デジタル入力\ruby{装置}{そう|ち}をHSPで使ってみましょう。GPIO24にボタン(\#103)をつけてください。HSPスクリプトエディタで\textasciitilde /05/digin.hspを開いて実行してみましょう。\\
 \begin{figure}[H]
   \begin{minipage}[t]{0.3\columnwidth}
     \centering
@@ -45,14 +45,14 @@ digin.hspはデジタル入力用のプログラムです。ボタン、スイ�
 
 \code{gpioin(GPIOピン番号)}でデジタル入力を受け取ることができます。\\
 
-\code{if gpioin(24)=1 : goto *digital\_on}でデジタル入力があったとき\code{*digital\_on}に\ruby{移動}{い|どう}します。\code{*digital\_on}では \code{gpio 23, 1}でLEDを光らせています。デジタル入力がないときは \code{goto *digital\_off}で\code{*digital\_off}に移動します。\code{*digital\_off}では \code{gpio 23, 0}でLEDを消しています。
+\code{if gpioin(24)=1 : goto *digital\_on}でデジタル入力があったとき\code{*digital\_on}に\ruby{移動}{い|どう}します。\code{*digital\_on}では \code{gpio 23, 1}でLEDを光らせています。デジタル入力がないときは \code{goto *digital\_off}で\code{*digital\_off}に\ruby{移動}{い|どう}します。\code{*digital\_off}では \code{gpio 23, 0}でLEDを消しています。
 
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}
 \addex{ボタン(\#103)をGPIO24につなげて上記のプログラムdigin.hspを実行してみましょう。}
 \addex{スイッチ(\#117)をGPIO24につなげてdigin.hspを実行してみましょう。}
 \addex{リミットスイッチ(\#107)をGPIO24につなげてdigin.hspを実行してみましょう。}
-\addex{傾斜センサー(\#110)をGPIO24につなげてdigin.hspを実行してみましょう。}
+\addex{\ruby{傾斜}{けい|しゃ}センサー(\#110)をGPIO24につなげてdigin.hspを実行してみましょう。}
 \addex{ボタンをつなげるピンを変えてみましょう。GPIO20にボタン(\#103)をつけましょう。gpioin(24)をgpioin(20)に変えましょう。digin.hspを実行してみましょう。}
 \end{enumerate}
 \end{tcolorbox}
@@ -60,7 +60,7 @@ digin.hspはデジタル入力用のプログラムです。ボタン、スイ�
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}
 \addex{時間があまったら\ruby{挑戦}{ちょう|せん}してみましょう。\\ボタン(\#103)をGPIO26、LED(\#101)をGPIO20につなげます。ボタンを\ruby{押}{お}している間LEDが光るようにdigin.hspを書きかえましょう。}
-\addex{時間があまったら挑戦してみましょう。\\ボタンを押して、LEDのONとOFFが切りかわるように、digin.hspを書きかえましょう。}
+\addex{時間があまったら\ruby{挑戦}{ちょう|せん}してみましょう。\\ボタンを\ruby{押}{お}して、LEDのONとOFFが切りかわるように、digin.hspを書きかえましょう。}
 \end{enumerate}
 \end{tcolorbox}
 \end{document}
