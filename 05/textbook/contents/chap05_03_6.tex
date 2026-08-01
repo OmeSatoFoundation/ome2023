@@ -3,21 +3,19 @@
 \newpage
 \section{有機ELディスプレイを使ってみよう}
 有機ELディスプレイをHSPで使ってみましょう。I2Cに有機ELディスプレイ(\#214)をつないでみましょう。HSPスクリプトエディタで\textasciitilde /05/oled.hspを開いて実行してください。
-  \begin{minipage}[t]{0.3\columnwidth}
-    \begin{figure}[H]
-      \centering
+\begin{figure}[H]
+ \begin{minipage}[t]{0.3\columnwidth}
+ \centering
  \includegraphics[width=\linewidth]{../../asset/image/text05-img032.png}
-    \caption{有機ELディスプレイ}
-  \end{figure}
-\end{minipage}
-  %\hspace{0.01\columnwidth} % ここで隙間作成
-  \begin{minipage}[t]{0.5\columnwidth}
-    \begin{figure}[H]
-      \centering
-    \includegraphics[width=\linewidth]{../../asset/image/text05-img033.png}
-    \caption{I2C}
-  \end{figure}
-\end{minipage}
+ \caption{有機ELディスプレイ}
+ \end{minipage}
+%\hspace{0.01\columnwidth} % ここで隙間作成
+ \begin{minipage}[t]{0.5\columnwidth}
+ \centering
+ \includegraphics[width=\linewidth]{../../asset/image/text05-img033.png}
+ \caption{I2C}
+ \end{minipage}
+\end{figure}
 
 \begin{lstlisting}[caption=oled.hsp,label=oled.hsp]
 #include "hsp3dish.as"

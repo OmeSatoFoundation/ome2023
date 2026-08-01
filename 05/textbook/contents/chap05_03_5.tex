@@ -3,23 +3,20 @@
 \newpage
 \section{\ruby{距離}{きょ|り}センサーを使ってみよう}
 距離センサーをHSPで使ってみましょう。距離センサー(番号は書いてありません。\pageref{distance}ページを参考にしてください)をA0につなげましょう。HSPスクリプトエディタで、\textasciitilde /05/kyori.hspを開いて実行してください。
-\begin{center}
-  \begin{minipage}[t]{.3\columnwidth}
-    \begin{figure}[H]
-      \centering
-      \includegraphics[width=.8\linewidth]{../../asset/image/text05-img031.png}
-      \caption{距離センサー}
-    \end{figure}
-  \end{minipage}
-  %\hspace{0.01\columnwidth} % ここで隙間作成
-  \begin{minipage}[t]{.5\columnwidth}
-    \begin{figure}[H]
-    \centering
-    \includegraphics[width=.8\linewidth]{../../asset/image/text05-img030.png}
-    \caption{A0}
-    \end{figure}
-  \end{minipage}
-\end{center}
+
+\begin{figure}[H]
+ \begin{minipage}[t]{0.3\columnwidth}
+ \centering
+ \includegraphics[width=\linewidth]{../../asset/image/text05-img031.png}
+ \caption{距離センサー}
+ \end{minipage}
+%\hspace{0.01\columnwidth} % ここで隙間作成
+ \begin{minipage}[t]{0.5\columnwidth}
+ \centering
+ \includegraphics[width=\linewidth]{../../asset/image/text05-img054.png}
+ \caption{アナログ入力A0}
+ \end{minipage}
+\end{figure}
 \begin{lstlisting}[caption=kyori.hsp,label=kyori.hsp]
 #include "hsp3dish.as"
 #include "rpz-gpio.as"

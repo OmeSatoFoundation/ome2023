@@ -2,12 +2,19 @@
 \begin{document}
 \newpage
 \section{アナログ入力\ruby{装置}{そう|ち}を使ってみよう}
-アナログ入力装置をHSPで使ってみましょう。A0にボタン(\#103)をつけてください。HSPスクリプトエディタで\textasciitilde /05/anain.hspを開いて実行してみましょう。\\
-
+アナログ入力装置をHSPで使ってみましょう。A0に感圧センサー(\#106)をつけてください。HSPスクリプトエディタで\textasciitilde /05/anain.hspを開いて実行してみましょう。\\
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.6]{../../asset/image/text05-img030.png}
-    \caption{アナログ入力A0}
+ \begin{minipage}[t]{0.3\columnwidth}
+ \centering
+ \includegraphics[width=\linewidth]{../../asset/image/text05-img021.jpg}
+ \caption{感圧センサー}
+ \end{minipage}
+%\hspace{0.01\columnwidth} % ここで隙間作成
+ \begin{minipage}[t]{0.5\columnwidth}
+ \centering
+ \includegraphics[width=\linewidth]{../../asset/image/text05-img030.png}
+ \caption{アナログ入力A0}
+ \end{minipage}
 \end{figure}
 
 \begin{lstlisting}[caption=anain.hsp,label=anain.hsp]
@@ -34,7 +41,7 @@ spiclose 0	<#blue#;SPIチャンネルを閉じる#>
 
 anain.hspはアナログ入力装置用のプログラムです。アナログ入力にはA0,A1,A2,A3のピンを使います。このプログラムは\ruby{感圧}{かん|あつ}センサー、ボリューム、\ruby{距離}{きょ|り}センサー、照度センサーに使うことができます。
 
-ラズベリーパイは一般にデジタル信号しか受け付けることができません。アナログ信号をラズベリーパイが読み取れるようなデジタル信号に変換する必要があります。その\ruby{変換}{へん|かん}のために、FaBo にはアナログ/デジタル\ruby{変換器}{へん|かん|き} (\ADC) の一種である回路が\ruby{搭載}{とう|さい}されています。搭載されている \ADC は受け取ったアナログ信号をデジタル信号に\ruby{変換}{へん|かん}し、SPI (シリアルペリフェラルインターフェース) と呼ばれる\ruby{通信方式}{つう|しん|ほう|しき}を介して出力ます。ラズベリーパイはこのデジタル信号を\ruby{解釈}{かい|しゃく}することでアナログ信号の状態を読み取ることができるようになります。
+ラズベリーパイは一般にデジタル信号しか受け付けることができません。アナログ信号をラズベリーパイが読み取れるようなデジタル信号に変換する必要があります。その\ruby{変換}{へん|かん}のために、FaBo にはアナログ/デジタル\ruby{変換器}{へん|かん|き} (\ADC) の一種である回路が\ruby{搭載}{とう|さい}されています。搭載されている \ADC は受け取ったアナログ信号をデジタル信号に\ruby{変換}{へん|かん}し、SPI (シリアルペリフェラルインターフェース) と呼ばれる\ruby{通信方式}{つう|しん|ほう|しき}を介して出力します。ラズベリーパイはこのデジタル信号を\ruby{解釈}{かい|しゃく}することでアナログ信号の状態を読み取ることができるようになります。
 
 ラズベリーパイと HSP でアナログ信号を入力するには、まず SPI で通信するための準備をします。
 \code{spiopen} を使います。
@@ -54,7 +61,7 @@ anain.hspはアナログ入力装置用のプログラムです。アナログ�
 授業内の演習では \ADC だけが SPI 通信を行うので、<通信経路番号> は常に 0 を設定しておいて構いません。
 課外で他の SPI 通信をする回路を複数同時に使用したい場合は、<通信経路番号> が\ruby{重複}{ちょう|ふく} しないように設定しましょう。
 
-アナログ入力装置には、ボリュームや感圧センサなどいくつか種類があります。それぞれの具体的なな使い方は\pageref{analog_in}ページを見てみましょう。\\
+アナログ入力装置には、ボリュームや感圧センサなどいくつか種類があります。それぞれの具体的な使い方は\pageref{analog_in}ページを見てみましょう。\\
 
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}
