@@ -2,12 +2,12 @@
 \begin{document}
 \newpage
 \section{アナログ入力\ruby{装置}{そう|ち}を使ってみよう}
-アナログ入力\ruby{装置}{そう|ち}をHSPで使ってみましょう。A0に\ruby{感圧}{かん|あつ}センサー(\#106)をつけてください。HSPスクリプトエディタで\textasciitilde /05/anain.hspを開いて実行してみましょう。\\
+アナログ入力\ruby{装置}{そう|ち}をHSPで使ってみましょう。A0にボリュームセンサー(\#104)をつけてください。HSPスクリプトエディタで\textasciitilde /05/anain.hspを開いて実行してみましょう。\\
 \begin{figure}[H]
  \begin{minipage}[t]{0.3\columnwidth}
  \centering
- \includegraphics[width=\linewidth]{../../asset/image/text05-img021.jpg}
- \caption{\ruby{感圧}{かん|あつ}センサー}
+ \includegraphics[width=\linewidth]{../../asset/image/text05-img022.jpg}
+ \caption{ボリュームセンサー}
  \end{minipage}
 %\hspace{0.01\columnwidth} % ここで隙間作成
  \begin{minipage}[t]{0.5\columnwidth}
@@ -39,7 +39,7 @@ spiopen 0	<#blue#;SPIチャンネルを開く#>
 spiclose 0	<#blue#;SPIチャンネルを閉じる#>
 \end{lstlisting}
 
-anain.hspはアナログ入力\ruby{装置}{そう|ち}用のプログラムです。アナログ入力にはA0,A1,A2,A3のピンを使います。このプログラムは\ruby{感圧}{かん|あつ}センサー、ボリューム、\ruby{距離}{きょ|り}センサー、照度センサーに使うことができます。
+anain.hspはアナログ入力\ruby{装置}{そう|ち}用のプログラムです。アナログ入力にはA0,A1,A2,A3のピンを使います。このプログラムは\ruby{感圧}{かん|あつ}センサー、ボリューム、\ruby{距離}{きょ|り}センサー、\ruby{照度}{しょう|ど}センサーに使うことができます。
 
 ラズベリーパイは\ruby{一般}{いっ|ぱん}にデジタル信号しか受け付けることができません。アナログ信号をラズベリーパイが読み取れるようなデジタル信号に\ruby{変換}{へん|かん}する必要があります。その\ruby{変換}{へん|かん}のために、FaBo にはアナログ/デジタル\ruby{変換器}{へん|かん|き} (\ADC) の一種である回路が\ruby{搭載}{とう|さい}されています。\ruby{搭載}{とう|さい}されている \ADC は受け取ったアナログ信号をデジタル信号に\ruby{変換}{へん|かん}し、SPI (シリアルペリフェラルインターフェース) と\ruby{呼}{よ}ばれる\ruby{通信方式}{つう|しん|ほう|しき}を\ruby{介}{かい}して出力します。ラズベリーパイはこのデジタル信号を\ruby{解釈}{かい|しゃく}することでアナログ信号の\ruby{状態}{じょう|たい}を読み取ることができるようになります。
 
@@ -65,8 +65,8 @@ anain.hspはアナログ入力\ruby{装置}{そう|ち}用のプログラムで�
 
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}
-\addex{\ruby{感圧}{かん|あつ}センサー(\#106)をA0につなげて上記のanain.hspを実行してみましょう。\ruby{感圧}{かん|あつ}センサーにさわる強さによって、画面の数字が変わります。}
 \addex{ボリューム(\#104)をA0につなげてanain.hspを実行してみましょう。ボリュームを動かすと、画面の数字が変わります。}
+\addex{\ruby{感圧}{かん|あつ}センサー(\#106)をA0につなげて上記のanain.hspを実行してみましょう。\ruby{感圧}{かん|あつ}センサーにさわる強さによって、画面の数字が変わります。}
 \addex{照度センサー(\#109)をA0につなげてanain.hspを実行してみましょう。明るさによって、画面の数字が変わります。}
 \addex{\code{\adcget(0,0)}を\code{\adcget(1,0)}に変えましょう。A1にアナログ入力そうちをつなぎましょう。anain.hspを実行してみましょう。}
 \end{enumerate}
