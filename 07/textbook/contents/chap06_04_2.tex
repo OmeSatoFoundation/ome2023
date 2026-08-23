@@ -1,19 +1,19 @@
 \documentclass[text06.tex]{subfiles}
 \begin{document}
 \newpage
-\section{OpenJtalkの\ruby{声音}{こわ|ね}を変えてみる}
-ところで、人間の声は人によって高い声だったり低い声だったり\ruby{違}{ちが}いますよね。このような声の調子を\ruby{声音}{こわ|ね}といいます。OpenJTalkでは文章を読ませるときの声音を指定することができます。声音はhtsvoiceというファイルフォーマットによって定められおり、setvoice 命令で指定することができます。\\
+\section{Open JTalkの声の\ruby{種類}{しゅ|るい}を変えてみる}
+Open JTalkでは、声の種類や話し方を変えることができます。このような声の調子を\ruby{声音}{こわ|ね}といいます。普通の話し方、怒った話し方、うれしい話し方、悲しい話し方などから選ぶことができます。声の種類はhtsvoiceというファイルによって決められており、setvoice 命令で指定することができます。\\
 \code{setvoice <声音ファイル>}
 
 % TODO: relative or absolute path
 <声音ファイル>には、 \ruby{拡張子}{かく|ちょう|し}が .htsvoice であるようなファイルへのパスを指定します。\\
-みなさんのRaspberry Piにはいくつかの声音ファイルがすでにダウンロードされています。  \textasciitilde /07/htsvoice-tohoku-f01を見てみてください。
+みなさんの\mbox{Raspberry Pi}にはいくつかの声音ファイルがすでにダウンロードされています。  \textasciitilde /07/htsvoice-tohoku-f01を見てみてください。
 
 \begin{itemize}
-\item htsvoice-tohoku-f01/tohoku-f01-neutral.htsvoice
-\item htsvoice-tohoku-f01/tohoku-f01-angry.htsvoice
-\item htsvoice-tohoku-f01/tohoku-f01-happy.htsvoice
-\item htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice
+\item {\ttfamily htsvoice-tohoku-f01/\allowbreak tohoku-f01-neutral.htsvoice}（普通の話し方）
+\item {\ttfamily htsvoice-tohoku-f01/\allowbreak tohoku-f01-angry.htsvoice}（怒った話し方）
+\item {\ttfamily htsvoice-tohoku-f01/\allowbreak tohoku-f01-happy.htsvoice}（うれしい話し方）
+\item {\ttfamily htsvoice-tohoku-f01/\allowbreak tohoku-f01-sad.htsvoice}（悲しい話し方）
 \end{itemize}
 
 が利用できます。例を示します。 \textasciitilde /07/voice.hsp をHSPスクリプトエディタで開いてみましょう。\\
@@ -34,12 +34,12 @@ stop
 \end{lstlisting}
 
 8行目までは前と同じです。9行目でsetvoiceが使用されています\\
-\code{setvoice "htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice"}\\
+\code{setvoice "htsvoice-tohoku-f01/\allowbreak tohoku-f01-sad.htsvoice"}\\
 \code{voice.hsp} は \code{\textasciitilde /07} にあるので、
-\code{voice.hsp} 内に書かれた \code{htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice}
+\code{voice.hsp} 内に書かれた {\ttfamily htsvoice-tohoku-f01/\allowbreak tohoku-f01-sad.htsvoice}
 は \code{\textasciitilde /07} から\ruby{探}{さが}されます。
-この行\ruby{以降}{い|こう}、jtloadが\ruby{呼}{よ}び出されると \code{\textasciitilde /07/htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice}
-という声音が使用されます。ダブルクォーテーションで囲われている部分を\ruby{変更}{へん|こう}することで、別の声音にすることができます。\\
+この行\ruby{以降}{い|こう}、jtloadが\ruby{呼}{よ}び出されると {\ttfamily \textasciitilde /07/htsvoice-tohoku-f01/\allowbreak tohoku-f01-sad.htsvoice}
+という声音が使用されます。ダブルクォーテーションで囲まれている部分を\ruby{変更}{へん|こう}することで、別の声の種類にすることができます。\\
 
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}

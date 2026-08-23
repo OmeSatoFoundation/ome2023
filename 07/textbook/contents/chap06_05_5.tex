@@ -4,12 +4,15 @@
 \newpage
 \section{音声でLEDのON OFFをする}
 
-\begin{lstlisting}[caption=onoff.yomi,label=onoff.yomi]
+認識した言葉でLEDを動かしてみましょう。「ON」「OFF」と話しかけると、LEDがついたり消えたりします。
+
+\begin{lstlisting}[caption=onoff.yomi,label=onoff.yomi,aboveskip=0.4em,belowskip=0.3em]
 ON おん
 OFF おふ
 \end{lstlisting}
 
-\begin{lstlisting}[caption=ledbyvoice.hsp,label=ledbyvoice.hsp]
+\enlargethispage{3\baselineskip}
+\begin{lstlisting}[caption=ledbyvoice.hsp,label=ledbyvoice.hsp,aboveskip=0.4em,belowskip=0.2em]
 #include "hsp3dish.as"
 #include "julius.as"
 
@@ -57,17 +60,26 @@ repeat -1
 loop
 \end{lstlisting}
 
-HSPプログラムから、音声を使ってLEDをつけたり消したりしてみましょう。 \textasciitilde /07にonoff.yomiファイルがあります。これは音声でLEDのON/OFFをするための辞書ファイルです。この辞書ファイルはリスト\ref{onoff.yomi}のように書いてあります。ONとOFFが表示する文字、おんとおふが読み方です。これを\code{convert\_yomi.sh}を使って変換したものがonoff.dicです。onoff.dicを使って、音声からLEDを\ruby{制御}{せい|ぎょ}してみましょう。 \textasciitilde /07/ledbyvoice.hsp を開いてください。\\
+ \textasciitilde /07に\mbox{onoff.yomi}ファイルがあります。これは音声でLEDのON/OFFをするための辞書のもとになるファイルです。このファイルはリスト\ref{onoff.yomi}のように書いてあります。ONとOFFがコンピュータの使うラベル、おんとおふが読み方です。これを\mbox{\code{convert\_yomi.sh}}で変換したものが\mbox{onoff.dic}です。 \textasciitilde /07/\mbox{ledbyvoice.hsp} を開いてください。
 
-\code{words}(\code{cnt})に認識された文字が代入されています。認識された文字がONなのかOFFか\code{if}文（条件分岐）を使って、LEDを制御しています。\\
+このプログラムでおさえるのは、次の4つです。
+
+\begin{itemize}
+\item \code{words(cnt)} に、認識した言葉が入る
+\item \code{"ON"} ならLEDをつける
+\item \code{"OFF"} ならLEDを消す
+\item \code{cm} が一定以上の結果だけ使う
+\end{itemize}
+
+\code{cm(cnt) > 0.7} の 0.7 は、これ以上なら使う、と決める\ruby{境目}{さかい|め}の値です。このような境目の値を「しきい値」といいます。しきい値を変えると、LEDの反応のしやすさが変わります。
 
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}
 \addex{ターミナルを開いて、 \textasciitilde /07/に移動しましょう。}
-\addex{ledbyvoice.hspをHSPスクリプトエディタで実行しましょう。}
+\addex{\mbox{ledbyvoice.hsp}をHSPスクリプトエディタで実行しましょう。「ON」「OFF」と話しかけて、LEDがつく・消えることを確かめましょう。}
 \addex{点灯させるLEDを変\ruby{更}{こう}しましょう。}
-\addex{時間があったらやりましょう。\\点灯させるための言葉を「つける」と「けす」に変更しましょう。}
-\addex{時間があったらやりましょう。\\センサーボードには4色のLEDが点いています。色ONでその色のLEDがつき、色OFFでその色のLEDが消えるようなプログラムを書きましょう。（オレンジONでオレンジ色のLEDがつき、オレンジOFFでオレンジ色のLEDが消えるなど）}
+\addquiz{\mbox{ledbyvoice.hsp}の \code{cm(cnt) > 0.7} を、0.3、0.7、0.9 に変えて実行し、ちがいを\ruby{観察}{かん|さつ}しましょう。\\それぞれの値で「ON」「OFF」と、辞書にない言葉（例えば「こんにちは」）を話しかけてみましょう。\\値を小さくするとLEDは反応しやすくなりましたか。関係のない言葉でも反応することがありましたか。値を大きくするとどうなりましたか。}
+\addex{時間があったらやりましょう。\\LEDを\ruby{操作}{そう|さ}する言葉を「つける」と「けす」に変更しましょう。\\ヒント：\mbox{onoff.yomi} の読み方を変え、\mbox{\code{convert\_yomi.sh}} で \mbox{onoff.dic} を作り直します。}
 \end{enumerate}
 \end{tcolorbox}
 \end{document}
