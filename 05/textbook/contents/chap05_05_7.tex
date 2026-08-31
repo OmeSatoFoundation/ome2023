@@ -1,13 +1,13 @@
 \documentclass[text05.tex]{subfiles}
 \begin{document}
 \subsection{アナログ入力そうち}\label{analog_in}
-\subsubsection{感圧センサー}\label{touch}
+\subsubsection{\ruby{感圧}{かん|あつ}センサー}\label{touch}
 \begin{table}[H]
   \begin{widerrows}
     \begin{tabular}{|p{\colF}|p{\colG}|}	\hline
-    名称 & 感圧センサー（かんあつせんさー）\\ \hline
-    接続箇所 & アナログコネクタ (3pin)\\ \hline
-    機能概要 & 圧力を測定する\\ \hline
+    \ruby{名称}{めい|しょう} & \ruby{感圧}{かん|あつ}センサー（かんあつせんさー）\\ \hline
+    \ruby{接続箇所}{せつ|ぞく|か|しょ} & アナログコネクタ (3pin)\\ \hline
+    \ruby{機能概要}{き|のう|がい|よう} & \ruby{圧力}{あつ|りょく}を\ruby{測定}{そく|てい}する\\ \hline
     \end{tabular}
   \end{widerrows} 
 \end{table}
@@ -16,7 +16,7 @@
   \begin{widerrows}
     \begin{tabular}{|p{\colF}|p{\colG}|}	\hline
     サンプルコードの場所 & 05/anain.hsp\\ \hline
-    raspiへの入力 & 0～1023の値で圧力を測定します。圧力がかかるほど値が小さくなります。\\ \hline
+    raspiへの入力 & 0～1023の\ruby{値}{あたい}で\ruby{圧力}{あつ|りょく}を\ruby{測定}{そく|てい}します。\ruby{圧力}{あつ|りょく}がかかるほど\ruby{値}{あたい}が小さくなります。\\ \hline
     raspiへの入力方法 & val = \adcget(ピン番号, チャンネル番号)\\ \hline
     raspiからの出力 & なし\\ \hline
     raspiからの出力方法 & なし\\ \hline
@@ -27,9 +27,9 @@
 \begin{table}[H]
   \begin{widerrows}
     \begin{tabular}{|p{\colF}|p{\colG}|} \hline
-    使い道 & 圧力を調べる、重さをはかる\\ \hline
-    注意事項 & 圧力を感知する部分が壊れやすいです。\\ \hline
-    補足 & なし\\ \hline
+    使い道 & \ruby{圧力}{あつ|りょく}を調べる、重さをはかる。\\ \hline
+    \ruby{注意事項}{ちゅう|い|じ|こう} & \ruby{圧力}{あつ|りょく}を感知する部分を折り曲げないように注意。\\ \hline
+    \ruby{補足}{ほ|そく} & なし\\ \hline
     \end{tabular}
   \end{widerrows} 
 \end{table}
@@ -42,7 +42,7 @@
       \smallskip
         \centering
         \includegraphics[width=0.5\linewidth]{../../asset/image/text05-img021.jpg}
-        \caption{感圧センサー}
+        \caption{\ruby{感圧}{かん|あつ}センサー}
         \smallskip
       \end{minipage} &
       回路記号 & 
@@ -50,7 +50,7 @@
       \smallskip
         \centering
         \includegraphics[width=0.5\linewidth]{../../asset/image/text05-img049.png}
-        \caption{感圧センサーの回路図}
+        \caption{\ruby{感圧}{かん|あつ}センサーの回路図}
         \smallskip
       \end{minipage}\\ \hline
     \end{tabular}

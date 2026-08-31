@@ -1,7 +1,7 @@
 \documentclass[text05.tex]{subfiles}
 \begin{document}
 \section{FaBoで使うことのできるブリック}
-子どもIT\ruby{未来塾}{み|らい|じゅく}で使うブリックについて\ruby{紹介}{しょう|かい}します。ブリックには番号が書いてあるので、表で\ruby{確認}{かく|にん}しながら\ruby{間違}{ま|ちが}えて使わないように注意しましょう。\ref{sensor_intr}章の「\ruby{付録}{ふ|ろく}：センサー紹介」にはブリックについての\ruby{詳}{くわ}しい説明が書いてあります。問題を\ruby{解}{と}くときや自分で使ってみるときに参考にしましょう。\\
+子どもIT\ruby{未来塾}{み|らい|じゅく}で使うブリックについて\ruby{紹介}{しょう|かい}します。ブリックには番号が書いてあるので、表で\ruby{確認}{かく|にん}しながら\ruby{間違}{ま|ちが}えて使わないように注意しましょう。\ref{sensor_intr}章の「\ruby{付録}{ふ|ろく}：センサー\ruby{紹介}{しょう|かい}」にはブリックについての\ruby{詳}{くわ}しい説明が書いてあります。問題を\ruby{解}{と}くときや自分で使ってみるときに参考にしましょう。\\
 
 % 入出力
 \newlength{\colA}
@@ -23,13 +23,13 @@
   \begin{widerrows}
 		\begin{tabular}{|p{\colA}|p{\colB}|p{\colC}|p{\colD}|p{\colE}|}
 			\hline
-		入出力 &ブリック / \par ブリック番号 & \ruby{機能}{き|のう} & \ruby{画像}{が|ぞう} & 紹介 \par ページ\\ \hline
+		入出力 &ブリック / \par ブリック番号 & \ruby{機能}{き|のう} & \ruby{画像}{が|ぞう} & \ruby{紹介}{しょう|かい} \par ページ\\ \hline
 		デジタル出力\ruby{装置}{そう|ち} & LED / \#101 & 
 		\begin{minipage}[t]{\linewidth}
 		%\smallskip
 		\begin{itemize}
 		\item 順方向に\ruby{電圧}{でん|あつ}を加えると発光する
-		\item プログラムでは\ruby{値}{あたい}が1のとき光り、値が0のとき消える
+		\item プログラムでは\ruby{値}{あたい}が1のとき光り、\ruby{値}{あたい}が0のとき消える
 		\end{itemize}
 		\smallskip
 		\end{minipage} & 
@@ -44,8 +44,8 @@
 		\begin{minipage}[t]{\linewidth}
 		%\smallskip
 		\begin{itemize}
-		\item 電圧が加わると振動する
-		\item プログラムでは値が1のとき振動し、値が0のとき止まる
+		\item \ruby{電圧}{でん|あつ}が加わると\ruby{振動}{しん|どう}する
+		\item プログラムでは\ruby{値}{あたい}が1のとき\ruby{振動}{しん|どう}し、\ruby{値}{あたい}が0のとき止まる
 		\end{itemize}
 		\smallskip
 		\end{minipage} & 
@@ -57,12 +57,12 @@
 			\end{minipage} &
 			\pageref{vibrator}\\ \hline
 			
-			デジタル入力装置 & ボタン / \#103 & 
+			デジタル入力\ruby{装置}{そう|ち} & ボタン / \#103 &
 		\begin{minipage}[t]{\linewidth}
 		%\smallskip
 		\begin{itemize}
 		\item \ruby{押}{お}したり\ruby{離}{はな}したりしてONとOFFを切り\ruby{替}{か}える。写真はボタンが黄色だが青や黒などの色もある。
-		\item プログラムではボタンが押されている間1、ボタンが押されていないと0が入力される
+		\item プログラムではボタンが\ruby{押}{お}されている間1、ボタンが\ruby{押}{お}されていないと0が入力される
 		\end{itemize}
 		\smallskip
 		\end{minipage} & 
@@ -77,8 +77,8 @@
 		\begin{minipage}[t]{\linewidth}
 		%\smallskip
 		\begin{itemize}
-		\item 傾いているかを調べることができる
-		\item 傾くと1，傾いていないと0の値が入力される
+		\item \ruby{傾}{かたむ}いているかを調べることができる
+		\item \ruby{傾}{かたむ}くと1，\ruby{傾}{かたむ}いていないと0の\ruby{値}{あたい}が入力される
 		\end{itemize}
 		\smallskip
 		\end{minipage} & 
@@ -98,8 +98,8 @@
   \begin{widerrows}
 		\begin{tabular}{|p{\colA}|p{\colB}|p{\colC}|p{\colD}|p{\colE}|}
 			\hline
-			入出力 &ブリック/ \par ブリック番号 & 機能 & 画像 & 紹介ページ\\ \hline
-			デジタル入力装置 & スイッチ / \#117 & 
+			入出力 &ブリック/ \par ブリック番号 & \ruby{機能}{き|のう} & \ruby{画像}{が|ぞう} & \ruby{紹介}{しょう|かい}ページ\\ \hline
+			デジタル入力\ruby{装置}{そう|ち} & スイッチ / \#117 &
 			\begin{minipage}[t]{\linewidth}
 				%\smallskip
 				\begin{itemize}
@@ -120,7 +120,7 @@
 			\begin{minipage}[t]{\linewidth}
 				%\smallskip
 				\begin{itemize}
-					\item ボタンに似ている。銀の部分が押されているとON、押されていないとOFFになる
+					\item ボタンに\ruby{似}{に}ている。銀の部分が\ruby{押}{お}されているとON、\ruby{押}{お}されていないとOFFになる
 					\item スイッチはONのときは1，OFFのときは0が入力される
 				\end{itemize}
 				\smallskip
@@ -132,12 +132,12 @@
 				\smallskip
 			\end{minipage} &
 			\pageref{lmswitch}\\ \hline   
-			アナログ入力装置 & 感圧センサー / \#106 & 
+			アナログ入力\ruby{装置}{そう|ち} & \ruby{感圧}{かん|あつ}センサー / \#106 &
 			\begin{minipage}[t]{\linewidth}
 				%\smallskip
 				\begin{itemize}
 					\item 加えた力の大きさを調べることができる
-					\item 0〜1023の値が入力される。圧力が小さい時は値が大きく、圧力が大きい時は値が小さくなる。
+					\item 0〜1023の\ruby{値}{あたい}が入力される。\ruby{圧力}{あつ|りょく}が小さい時は\ruby{値}{あたい}が大きく、\ruby{圧力}{あつ|りょく}が大きい時は\ruby{値}{あたい}が小さくなる。
 				\end{itemize}
 				\smallskip
 			\end{minipage} & 
@@ -152,8 +152,8 @@
 			\begin{minipage}[t]{\linewidth}
 				%\smallskip
 				\begin{itemize}
-					\item \ruby{軸}{じく}をひねると電圧の大きさを変えることができる
-					\item 0〜1023の値が入力される。右に回すほど値が大きくなる。
+					\item \ruby{軸}{じく}をひねると\ruby{電圧}{でん|あつ}の大きさを変えることができる
+					\item 0〜1023の\ruby{値}{あたい}が入力される。右に回すほど\ruby{値}{あたい}が大きくなる。
 				\end{itemize}
 				\smallskip
 			\end{minipage} & 
@@ -172,13 +172,13 @@
   \begin{widerrows}
 		\begin{tabular}{|p{\colA}|p{\colB}|p{\colC}|p{\colD}|p{\colE}|}
 			\hline
-			入出力 &ブリック/ \par ブリック番号 & 機能 & 画像 & 紹介ページ\\ \hline
-			アナログ入力装置 & 距離センサー / \#116（番号は書いてありません） &
+			入出力 &ブリック/ \par ブリック番号 & \ruby{機能}{き|のう} & \ruby{画像}{が|ぞう} & \ruby{紹介}{しょう|かい}ページ\\ \hline
+			アナログ入力\ruby{装置}{そう|ち} & \ruby{距離}{きょ|り}センサー / \#116（番号は書いてありません） &
 			\begin{minipage}[t]{\linewidth}
 				%\smallskip
 				\begin{itemize}
-				\item \ruby{距離}{きょ|り}を測ることができる
-				\item 0〜1023の値が入力される。計算でcm(センチメートル)に\ruby{変換}{へん|かん}する。
+				\item \ruby{距離}{きょ|り}を\ruby{測}{はか}ることができる
+				\item 0〜1023の\ruby{値}{あたい}が入力される。計算でcm(センチメートル)に\ruby{変換}{へん|かん}する。
 				\end{itemize}
 				\smallskip
 			\end{minipage} & 
@@ -190,12 +190,12 @@
 			\end{minipage} &
 			\pageref{distance}\\ \hline
 
-			デジタル入力装置 & 照度センサー / \#109 & 
+			アナログ入力\ruby{装置}{そう|ち} & 照度センサー / \#109 &
 			\begin{minipage}[t]{\linewidth}
 			%\smallskip
 				\begin{itemize}
-					\item 明るさの変化を測ることができる
-					\item 0〜1023の値が入力される。暗いほど値が大きくなる。
+					\item 明るさの変化を\ruby{測}{はか}ることができる
+					\item 0〜1023の\ruby{値}{あたい}が入力される。暗いほど\ruby{値}{あたい}が大きくなる。
 				\end{itemize}
 				\smallskip
 			\end{minipage} & 
@@ -212,7 +212,7 @@
 				%\smallskip
 				\begin{itemize}
 					\item 文字を画面に\ruby{表示}{ひょう|じ}させることができる（アルファベットと記号のみ）
-					\item oled “文字”で表示する
+					\item oled “文字”で\ruby{表示}{ひょう|じ}する
 				\end{itemize}
 				\smallskip
 			\end{minipage} & 

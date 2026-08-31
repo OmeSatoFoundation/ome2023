@@ -1,12 +1,12 @@
 \documentclass[text05.tex]{subfiles}
 \begin{document}
-\subsubsection{距離センサー}\label{distance}
+\subsubsection{\ruby{距離}{きょ|り}センサー}\label{distance}
 \begin{table}[H]
 	\begin{widerrows}
 		\begin{tabular}{|p{\colF}|p{\colG}|} \hline
-		名称 & 距離センサー（きょりせんさー）\\ \hline
-		接続箇所 & アナログコネクタ (3pin)\\ \hline
-		機能概要 & センサーから障害物までの距離を計測\\ \hline
+		\ruby{名称}{めい|しょう} & \ruby{距離}{きょ|り}センサー（きょりせんさー）\\ \hline
+		\ruby{接続箇所}{せつ|ぞく|か|しょ} & アナログコネクタ (3pin)\\ \hline
+		\ruby{機能概要}{き|のう|がい|よう} & センサーから\ruby{障害物}{しょう|がい|ぶつ}までの\ruby{距離}{きょ|り}を\ruby{計測}{けい|そく}\\ \hline
 		\end{tabular}
   \end{widerrows}	
 \end{table}
@@ -15,7 +15,7 @@
 	\begin{widerrows}
 		\begin{tabular}{|p{\colF}|p{\colG}|}	\hline
 		サンプルコードの場所 & 05/anain.hsp\\ \hline
-		raspiへの入力 & 距離をあらわす0から1023の値。測定可能な距離は10cmから80cm。\\ \hline
+		raspiへの入力 & \ruby{距離}{きょ|り}をあらわす0から1023の\ruby{値}{あたい}。\ruby{測定可能}{そく|てい|か|のう}な\ruby{距離}{きょ|り}は10cmから80cm。\\ \hline
 		raspiへの入力方法 & val = \adcget(ピン番号, チャンネル番号)\\ \hline
 		raspiからの出力 & なし\\ \hline
 		raspiからの出力方法 & なし\\ \hline
@@ -26,14 +26,14 @@
 \begin{table}[H]
 	\begin{widerrows}
 		\begin{tabular}{|p{\colF}|p{\colG}|} \hline
-		使い道 & 距離計測、障害物センサーとして。\\ \hline
-		注意事項 & レンズを\ruby{覗}{のぞ}き\ruby{込}{こ}むと目に\ruby{影響}{えい|きょう}を\ruby{及}{およ}ぼすことがあるため覗き込まないこと。\\ \hline
-		補足 & 入力の単位はセンチメートルではないため、変換が必要です。出力は0から1023で出力されるので、これを数式\ref{eq:distance}で変換しますする必要があります。数式\ref{eq:distance}の$x$にセンサーからの数値を代入することでセンチメートルへ変換します。
+		使い道 & \ruby{距離}{きょ|り}\ruby{計測}{けい|そく}、\ruby{障害物}{しょう|がい|ぶつ}センサーとして。\\ \hline
+		\ruby{注意事項}{ちゅう|い|じ|こう} & レンズを\ruby{覗}{のぞ}き\ruby{込}{こ}むと目に\ruby{影響}{えい|きょう}を\ruby{及}{およ}ぼすことがあるため\ruby{覗}{のぞ}き\ruby{込}{こ}まないこと。\\ \hline
+		\ruby{補足}{ほ|そく} & センサーからの入力はセンチメートルではなく、ADCが読み取った0から1023までの\ruby{値}{あたい}です。ここでは、使用している\ruby{距離}{きょ|り}センサーとADCに合わせて実験的に求めた\ruby{近似式}{きん|じ|しき}を使い、\ruby{入力値}{にゅう|りょく|ち}を\ruby{距離}{きょ|り}（センチメートル）に\ruby{換算}{かん|さん}します。数式\ref{eq:distance}の$x$にセンサーからの\ruby{値}{あたい}を代入すると、10cmから80cm\ruby{程度}{てい|ど}の\ruby{範囲}{はん|い}でおよその\ruby{距離}{きょ|り}を求めることができます。この式は、\ruby{異}{こと}なるセンサーやADCにはそのまま使えません。
 		\begin{equation}
 		\frac{3952640}{875 \times x + 22272}
 		\label{eq:distance}
 		\end{equation}
-	三角測量の原理により、ある三角形があったとき一辺の長さとそれに対する角の角度がわかれば三角形が決定します（\ruby{余弦}{よ|げん}定理）。距離センサーは\ruby{光源}{こう|げん}と受光器で成っています。受光器は光源から出た光が対象にぶつかって\ruby{反射}{はん|しゃ}してきた光の角度を計測することが出来ます。光源と受光器は固定されているので、その間の距離と対する角の角度がわかり、これと三角関数を使うと対象との距離が求まります\\ \hline
+	この\ruby{距離}{きょ|り}センサーは、赤外線を出す\ruby{光源}{こう|げん}と、\ruby{反射}{はん|しゃ}して\ruby{戻}{もど}ってきた光を受ける受光器でできています。物体までの\ruby{距離}{きょ|り}が変わると、受光器に光が\ruby{届}{とど}く位置も変わります。\ruby{光源}{こう|げん}と受光器の位置は固定されているため、この位置の変化を利用して、\ruby{三角測量}{さん|かく|そく|りょう}の原理で物体までの\ruby{距離}{きょ|り}を求めます。\\ \hline
 		\end{tabular}
   \end{widerrows}	
 \end{table}
@@ -46,7 +46,7 @@
 			\smallskip
 				\centering
 				\includegraphics[width=0.5\linewidth]{../../asset/image/text05-img031.png}
-				\caption{距離センサー}
+				\caption{\ruby{距離}{きょ|り}センサー}
 				\smallskip
 			\end{minipage} &
 			回路記号 & 回路記号はありません。\\ \hline

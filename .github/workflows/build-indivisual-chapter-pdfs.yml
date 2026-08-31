@@ -7,6 +7,7 @@ on:
       - "buildenv-**"
     branches:
       - "workflow-dev"
+      - "master"
 
 env:
   REGISTRY: ghcr.io

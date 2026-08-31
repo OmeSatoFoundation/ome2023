@@ -1,12 +1,12 @@
 \documentclass[text05.tex]{subfiles}
 \begin{document}
-\subsubsection{傾斜センサー}\label{tilt}
+\subsubsection{\ruby{傾斜}{けい|しゃ}センサー}\label{tilt}
 \begin{table}[H]
   \begin{widerrows}
     \begin{tabular}{|p{\colF}|p{\colG}|}	\hline
-    名称 & 傾斜センサー（けいしゃせんさー）\\ \hline
-    接続箇所 & デジタルコネクタ (3pin)\\ \hline
-    機能概要 & 中のボールの転がりで、傾きを検知する\\ \hline
+    \ruby{名称}{めい|しょう} & \ruby{傾斜}{けい|しゃ}センサー（けいしゃせんさー）\\ \hline
+    \ruby{接続箇所}{せつ|ぞく|か|しょ} & デジタルコネクタ (3pin)\\ \hline
+    \ruby{機能概要}{き|のう|がい|よう} & 中のボールの転がりで、\ruby{傾}{かたむ}きを\ruby{検知}{けん|ち}する\\ \hline
     \end{tabular}
   \end{widerrows} 
 \end{table}
@@ -15,7 +15,7 @@
   \begin{widerrows}
     \begin{tabular}{|p{\colF}|p{\colG}|}	\hline
     サンプルコードの場所 & 05/digin.hsp\\ \hline
-    raspiへの入力 & センサーが傾くと1、傾いていないと0の値を入力します。\\ \hline
+    raspiへの入力 & センサーの向きによって中のボールが\ruby{端子}{たん|し}に\ruby{触}{ふ}れると1、\ruby{触}{ふ}れないと0の\ruby{値}{あたい}を入力します。\\ \hline
     raspiへの入力方法 & val = gpioin(GPIO番号)\\ \hline
     raspiからの出力 & なし\\ \hline
     raspiからの出力方法 & なし\\ \hline
@@ -26,15 +26,15 @@
 \begin{figure}[H]
   \begin{widerrows}
     \begin{tabular}{|p{\colF}|p{\colG}|} \hline
-    使い道 & ストーブの安全装置\\ \hline
-    注意事項 & なし\\ \hline
-    補足 & 黒い箱のなかにボールが入っていて、ボールが転がり\ruby{端子}{たん|し}に\ruby{触}{ふ}れるとONになります。傾いていないときはOFFになります。
+    使い道 & ストーブの安全\ruby{装置}{そう|ち}\\ \hline
+    \ruby{注意事項}{ちゅう|い|じ|こう} & なし\\ \hline
+    \ruby{補足}{ほ|そく} & 黒い箱のなかにボールが入っていて、ボールが転がり\ruby{端子}{たん|し}に\ruby{触}{ふ}れるとONになります。\ruby{傾}{かたむ}いていないときはOFFになります。
     \par
     \begin{minipage}[t]{\linewidth}
       \smallskip
         \centering
         \includegraphics[width=0.7\linewidth]{../../asset/image/text05-img046.png}
-        \caption{傾斜センサーの内部}
+        \caption{\ruby{傾斜}{けい|しゃ}センサーの内部}
         \smallskip
       \end{minipage}
     \\ \hline
@@ -50,7 +50,7 @@
       \smallskip
         \centering
         \includegraphics[width=0.5\linewidth]{../../asset/image/text05-img018.png}
-        \caption{傾斜センサー}
+        \caption{\ruby{傾斜}{けい|しゃ}センサー}
         \smallskip
       \end{minipage} &
       回路記号 & 
@@ -58,7 +58,7 @@
       \smallskip
         \centering
         \includegraphics[width=0.5\linewidth]{../../asset/image/text05-img047.png}
-        \caption{傾斜センサーの回路図}
+        \caption{\ruby{傾斜}{けい|しゃ}センサーの回路図}
         \smallskip
       \end{minipage}\\ \hline
     \end{tabular}

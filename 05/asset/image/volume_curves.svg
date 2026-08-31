@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="833"
+   height="345.93414"
+   viewBox="0 0 833 345.93414"
+   version="1.1"
+   id="svg372"
+   sodipodi:docname="volume_curves.svg"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs376" />
+  <sodipodi:namedview
+     id="namedview374"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.87602673"
+     inkscape:cx="482.86198"
+     inkscape:cy="155.2464"
+     inkscape:window-width="1680"
+     inkscape:window-height="1026"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg372" />
+  <g
+     id="g1504"
+     transform="translate(-33.5,-138.966)">
+    <rect
+       width="260"
+       height="342.93399"
+       rx="18"
+       fill="#f3f9ed"
+       stroke="#83b74c"
+       stroke-width="3"
+       id="rect318"
+       x="320"
+       y="140.466"
+       style="font-family:sans-serif"
+       ry="18" />
+    <circle
+       cx="358"
+       cy="167"
+       r="22"
+       fill="#83b74c"
+       id="circle320"
+       style="font-family:sans-serif" />
+    <text
+       x="392"
+       y="174"
+       font-size="27px"
+       font-weight="bold"
+       fill="#568b27"
+       id="text324"
+       style="font-family:sans-serif">Bカーブ</text>
+    <text
+       x="345"
+       y="209"
+       font-size="17px"
+       fill="#546e7a"
+       id="text326"
+       style="font-family:sans-serif">一定の割合で変化</text>
+    <path
+       d="M 375,420 V 250 m 0,170 h 165"
+       fill="none"
+       stroke="#78909c"
+       stroke-width="3"
+       id="path328"
+       style="font-family:sans-serif" />
+    <path
+       d="M 375,420 540,250"
+       fill="none"
+       stroke="#73aa38"
+       stroke-width="7"
+       stroke-linecap="round"
+       id="path330"
+       style="font-family:sans-serif" />
+    <text
+       x="332.57999"
+       y="260.61749"
+       font-size="15px"
+       fill="#546e7a"
+       id="text332"
+       style="font-family:sans-serif">抵抗</text>
+    <text
+       x="480.58508"
+       y="435.91736"
+       font-size="15px"
+       fill="#546e7a"
+       id="text334"
+       style="font-family:sans-serif">回転角度</text>
+    <text
+       x="450"
+       y="477"
+       text-anchor="middle"
+       font-size="16px"
+       font-weight="bold"
+       id="text336"
+       style="font-family:sans-serif;fill:#263238">数値入力向き</text>
+  </g>
+  <g
+     id="g1482"
+     transform="translate(536.5,-138.966)">
+    <rect
+       width="260"
+       height="342.93399"
+       rx="18"
+       fill="#eef8fc"
+       stroke="#42a5c6"
+       stroke-width="3"
+       id="rect292"
+       x="35"
+       y="140.466"
+       style="font-family:sans-serif"
+       ry="18" />
+    <circle
+       cx="73"
+       cy="167"
+       r="22"
+       fill="#42a5c6"
+       id="circle294"
+       style="font-family:sans-serif" />
+    <text
+       x="107"
+       y="174"
+       font-size="27px"
+       font-weight="bold"
+       fill="#197697"
+       id="text298"
+       style="font-family:sans-serif">Cカーブ</text>
+    <text
+       x="60"
+       y="209"
+       font-size="17px"
+       fill="#546e7a"
+       id="text300"
+       style="font-family:sans-serif">前半で大きく変化</text>
+    <path
+       d="M 90,420 V 250 m 0,170 h 165"
+       fill="none"
+       stroke="#78909c"
+       stroke-width="3"
+       id="path302"
+       style="font-family:sans-serif" />
+    <path
+       d="m 90,420 c 8,-75 37,-130 80,-155 30,-17 60,-15 85,-15"
+       fill="none"
+       stroke="#2196d2"
+       stroke-width="7"
+       stroke-linecap="round"
+       id="path304"
+       style="font-family:sans-serif" />
+    <text
+       x="165"
+       y="477"
+       text-anchor="middle"
+       font-size="16px"
+       font-weight="bold"
+       id="text310"
+       style="font-family:sans-serif;fill:#263238">微調整向き</text>
+    <text
+       x="48.080002"
+       y="260.61749"
+       font-size="15px"
+       fill="#546e7a"
+       id="text332-5"
+       style="font-family:sans-serif">抵抗</text>
+    <text
+       x="195.58508"
+       y="435.91736"
+       font-size="15px"
+       fill="#546e7a"
+       id="text334-7"
+       style="font-family:sans-serif">回転角度</text>
+  </g>
+  <g
+     id="g1493"
+     transform="translate(-603.5,-138.96625)">
+    <rect
+       width="260"
+       height="342.93414"
+       rx="18"
+       fill="#fff7eb"
+       stroke="#ef9a3b"
+       stroke-width="3"
+       id="rect344"
+       x="605"
+       y="140.46625"
+       style="font-family:sans-serif"
+       ry="18" />
+    <text
+       x="618.08002"
+       y="260.61749"
+       font-size="15px"
+       fill="#546e7a"
+       id="text332-3"
+       style="font-family:sans-serif">抵抗</text>
+    <text
+       x="765.43127"
+       y="435.91736"
+       font-size="15px"
+       fill="#546e7a"
+       id="text334-3"
+       style="font-family:sans-serif">回転角度</text>
+    <circle
+       cx="643"
+       cy="167"
+       r="22"
+       fill="#ef9a3b"
+       id="circle346"
+       style="font-family:sans-serif" />
+    <text
+       x="677"
+       y="174"
+       font-size="27px"
+       font-weight="bold"
+       fill="#c76d0c"
+       id="text350"
+       style="font-family:sans-serif">Aカーブ</text>
+    <text
+       x="630"
+       y="209"
+       font-size="17px"
+       fill="#546e7a"
+       id="text352"
+       style="font-family:sans-serif">後半で大きく変化</text>
+    <path
+       d="M 660,420 V 250 m 0,170 h 165"
+       fill="none"
+       stroke="#78909c"
+       stroke-width="3"
+       id="path354"
+       style="font-family:sans-serif" />
+    <path
+       d="m 660,420 c 50,0 95,-15 125,-50 25,-30 37,-75 40,-120"
+       fill="none"
+       stroke="#ef8b17"
+       stroke-width="7"
+       stroke-linecap="round"
+       id="path356"
+       style="font-family:sans-serif" />
+    <text
+       x="735"
+       y="477"
+       text-anchor="middle"
+       font-size="16px"
+       font-weight="bold"
+       id="text362"
+       style="font-family:sans-serif;fill:#263238">音量調整向き</text>
+  </g>
+</svg>

@@ -13,7 +13,7 @@
     \begin{center}
         \includesvg[width=\linewidth]{../../asset/image/electromagnetic_wave.svg}
     \end{center}
-    \textpageref{26}
+    \textpageref{28}
 \end{frame}
 
 \begin{frame}
@@ -27,7 +27,7 @@
         \end{itemize}
     \end{itemize}
     % \note{画像を入れる}
-    \textpageref{26}
+    \textpageref{29}
 \end{frame}
 
 \begin{frame}
@@ -46,20 +46,19 @@
             \item \dots
         \end{itemize}
    \end{itemize}
-   \textpageref{26}
+   \textpageref{29}
 \end{frame}
 
 \begin{frame}
     \frametitle{リモコンの原理} 
     \vspace{15pt}
     \begin{itemize}
-        \item 1秒点いて2秒消えてまた2秒点いたら歩く
-        \item 2秒点いて3秒消えたらジャンプ
+        \item 赤外線を短い時間で点けたり消したりして、点滅のパターンで命令を表す
     \end{itemize}
     \begin{center}
         \includesvg[width=0.8\linewidth]{../../asset/image/text05-img037.svg}
     \end{center}
-    \textpageref{27}
+    \textpageref{29}
 \end{frame}
 
 \begin{frame}
@@ -82,7 +81,7 @@
         \caption{扇風機}
     \end{minipage}
     \end{figure}
-    \textpageref{27}
+    \textpageref{30}
 \end{frame}
 
 \begin{frame}
@@ -96,7 +95,7 @@
             \item 音声でテレビのチャンネルを変える
         \end{itemize}
     \end{itemize}
-    \textpageref{28}
+    \textpageref{31}
 \end{frame}
 
 \begin{frame}
@@ -110,7 +109,7 @@
             \node[rectangle,fill=cyan!10,text width=4cm, text centered,rounded corners]{赤外線の\ruby{点滅}{てん|めつ}で\\情報を伝える};
         \end{tikzpicture}
     \end{textblock*}
-    \textpageref{28}
+    \textpageref{31}
 \end{frame}
 
 \begin{frame}
@@ -120,7 +119,7 @@
         \item リモコンの信号を受信してファイルに記録する
         \item ファイルに記録された信号を赤外線LEDから出力する
     \end{enumerate}
-    \textpageref{29}
+    \textpageref{31}
 \end{frame}
 
 \begin{frame}
@@ -141,23 +140,26 @@
         \item mode2 -d /dev/lirc1 \textbar tee onoff.txt
         \begin{itemize}
             \item 受信機に向かってリモコンのボタンを押そう
+            \item 受信機から10cmくらい離してボタンを押そう
+            \item ボタンは短く1回押そう
+            \item 長押ししないようにしよう
             \item onoff.txtに受信した信号が記録される
             \item Ctrl+cキーで終了！
         \end{itemize}
         \item convert\_pattern onoff.txt \textgreater \space onoff.pattern
     \end{enumerate}
-    \textpageref{29}
+    \textpageref{32}
 \end{frame}
 
 \begin{frame}
     \frametitle{ラズパイをリモコンにする -2} 
-    onnoff.patternを使って設定ファイルを作る
+    onoff.patternを使って設定ファイルを作る
     \begin{enumerate}
         \item cp template.lircd.conf 05.lircd.conf
         \item mousepad 05.lircd.conf
         \item mousepad onoff.pattern
     \end{enumerate}
-    \textpageref{29}
+    \textpageref{32}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -179,7 +181,7 @@
         end raw_codes
     end remote
     \end{lstlisting}
-    \textpageref{29}
+    \textpageref{31--32}
 \end{frame}
 
 \begin{frame}
@@ -195,13 +197,13 @@
         \end{itemize}
         \item irsend SEND\_ONCE \color{red}fan onoff\color{black}
     \end{itemize}
-    \textpageref{29-30}
+    \textpageref{32--33}
 \end{frame}
 
 \begin{frame}
     \begin{exampleblock}{問題をといてみよう}
     \begin{itemize}
-        \item 教科書30ページ 例題5-12(1問)
+        \item 教科書33ページ 問題5-12(1問)
         \begin{itemize}
             \item 手順を読みながら、赤外線を入力・出力してみよう
         \end{itemize}
@@ -217,7 +219,7 @@
             \item exec "irsend SEND\_ONCE fan onoff" 
         \end{itemize}
     \end{itemize}
-    \textpageref{31}
+    \textpageref{34}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -246,20 +248,20 @@
         wait 1
         goto *edge
     \end{lstlisting}
-    \textpageref{31}
+    \textpageref{34}
 \end{frame}
 
 \begin{frame}
     \begin{exampleblock}{問題を解いてみよう}
     \begin{itemize}
-        \item 教科書31ページ 問題5-13(1問)
+        \item 教科書34ページ 問題5-13(1問)
     \end{itemize}
     \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{信号を二つ以上登録したいとき}
-    \begin{lstlisting}[title=２つの信号を登録するときのtemplate.lircd.comf,label=２つの信号を登録するときのtemplate.lircd.comf]
+    \begin{lstlisting}[title=２つの信号を登録するときのtemplate.lircd.conf,label=２つの信号を登録するときのtemplate.lircd.conf]
     begin remote
     name fan
     flags RAW_CODES
@@ -281,24 +283,26 @@
 
     end remote
     \end{lstlisting}
-    \textpageref{33}
+    \textpageref{36}
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{赤外線受信のまとめ}
+    \frametitle{赤外線送受信のまとめ}
     \begin{lstlisting}
-    mode2 -d /dev/lirc1 | tee <filename1>
-    convert_pattern <filename1> > <filename2>
-    <filename3>.confを<filename2>を使って作成
-    sudo cp <filename3>.conf /etc/lirc/lircd.d/
+    sudo service lircd stop
+    mode2 -d /dev/lirc1 | tee <filename1>.txt
+    convert_pattern <filename1>.txt > <filename2>.pattern
+    template.lircd.conf を書きかえて <filename3>.lircd.conf を作成
+    sudo cp <filename3>.lircd.conf /etc/lirc/lircd.conf.d/
     sudo service lircd restart
+    irsend SEND_ONCE <リモコンの名前> <信号の名前>
     \end{lstlisting}
-    \textpageref{32}
+    \textpageref{35}
 \end{frame}
 
 \begin{frame}
     \frametitle{赤外線を送るコマンド}
-    irsend \textless 送り方\textgreater \textless リモコンの名前\textgreater \textless 信号の名前\textgreater
+    irsend \textless 送り方\textgreater\ \textless リモコンの名前\textgreater\ \textless 信号の名前\textgreater
 
     \begin{itemize}
         \item \textless 送り方\textgreater
@@ -313,20 +317,23 @@
         \end{itemize}
         \item \textless 信号の名前\textgreater
         \begin{itemize}
-            \item なんとか.lircd.confファイルの"begin codes"または"begin codes\_raw"の直後の"name"
+            \item なんとか.lircd.confファイルの"begin raw\_codes"の直後の"name"
         \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{センサー紹介}
-    教科書34ページから46ページに詳しいセンサーの紹介があります。
+    教科書37ページから51ページに詳しいセンサーの紹介があります。
 \end{frame}
 
 \begin{frame}
     \frametitle{宿題}
-    教科書32ページ 問題 5-14
+    教科書35ページ 問題 5-14
     \begin{itemize}
+        \item \textcolor{red}{必ず家の人と一緒に行いましょう}
+        \item \textcolor{red}{電子レンジ、IHコンロ、ストーブなどの発熱する家電や調理器具には使用しないでください}
+        \item \textcolor{red}{安全に扱える家電だけを使いましょう}
         \item 自分の家にある家電をRaspberry Piで制御してみましょう。
         \item エアコン、扇風機、テレビなど赤外線を使って操作する家電を選びましょう。
         \item 赤外線で動かない家電もあります。宿題の結果が動かなかった、でもOKです。
