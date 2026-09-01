@@ -2,17 +2,15 @@
 \begin{document}
 \newpage
 \section{単語\ruby{辞書}{じ|しょ}を使った音声\ruby{認識}{にん|しき}を体験する}
-さきほど書いたように、日本語の全ての言葉を認識させるのはとても\ruby{難}{むずか}しいことです。しかし、多くの場合、認識させたい単語はいくつかに\ruby{限}{かぎ}られることが多いです。たとえば、声で\ruby{操作}{そう|さ}する照明の場合、「つけて」と「けして」の単語を登録しておけば十分でしょう。認識させる単語を\ruby{減}{へ}らすと、\ruby{似}{に}た発音の単語を聞き\ruby{間違}{ま|ちが}えることが減ります。また、\ruby{探}{さが}すべき言葉の量も減ります。この結果、認識の正\ruby{確}{かく}さと速度が向上します。ここではJuliusに単語辞書を登録し、その辞書に登録されている単語だけを認識させる方法を\ruby{紹介}{しょう|かい}します。
+今度は、認識する言葉を果物の名前だけにしぼってみます。\ruby{候補}{こう|ほ}を少なくすると、認識結果がどう変わるか比べてみましょう。
 
-少ない単語を登録した単語辞書をJuliusに読み\ruby{込}{こ}ませたときの動作を確認しましょう。juliusで辞書ファイルを使うには、辞書ファイルを引数にして、\code{julius.sh}命令を使います。\\
+この教材で用意している \code{julius.sh} を使うと、辞書に登録した言葉の中から探す音声認識を試せます。\\
 \code{julius.sh <辞書ファイル名.dic>}
 
-例えば \textasciitilde /07/に果物の単語を登録した辞書ファイル、kudamono.dicを用意しています。kudamono.dicに下の単語が登録されています。
+例えば \textasciitilde /07/に果物の単語を登録した辞書ファイル \mbox{kudamono.dic} を用意しています。\mbox{kudamono.dic} に下の単語が登録されています。
 \begin{center}
 	りんご　みかん　ぶどう　もも　あけび　あんず　いちご　いちじく　かき　スイカ\\すもも　	なし　メロン
 \end{center}
-
-単語辞書を使うと、単語辞書なしで音声認識させたときよりも正確で高速に動作していると思います。これが単語の種類を\ruby{制限}{せい|げん}する\ruby{効果}{こう|か}です。みなさんがjuliusを使って何か作りたいと思ったときは単語辞書を作り、必要な言葉だけを認識させる方法を使うのがおすすめです。\\
 
 \begin{itembox}[c]{ディレクトリの移動}
         Juliusを使ったサンプルプログラムや必要なファイルは \textasciitilde /07/に用意してあります。入力する引数を短くするためにディレクトリを移動しておきましょう。\\
@@ -21,18 +19,29 @@
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}
         \addex{ターミナルを開いて、 \textasciitilde /07/に移動しましょう。\\ヒント：cd  \textasciitilde /07/}
-        \addquiz{ターミナルにjulius.sh kudamono.dicと入力して、果物の名前を5\ruby{個}{こ}話しかけてみましょう。単語は何個認識されましたか？}
+        \addquiz{ターミナルに\mbox{julius.sh kudamono.dic}と入力します。問題7-7で話したのと同じ5つの果物を、同じ順番で話しかけてみましょう。5個中、何個正しく認識できましたか？}
+        \addquiz{果物の名前だけに候補をしぼると、認識結果はどう変わりましたか。なぜだと思いますか。}
 \end{enumerate}
 \end{tcolorbox}
 
+たくさんの候補の中から探すより、候補を少なくした方が選びやすくなることがあります。Juliusで何か作りたいときは、単語辞書を作り、必要な言葉だけを認識させる方法がおすすめです。
+
 \newpage
 \section{自分の単語辞書を作成する}
-それでは、実際に自分で単語辞書を作成・登録しましょう。大まかな流れは、まず人間が読める形式で辞書を作成します。次に、辞書をJuliusが読める形式に変換します。最後に、\ruby{変換}{へん|かん}した辞書をjuliusに読み込ませます。辞書は\ruby{識別子}{しき|べつ|し}と読み方のペアでできています。識別子とは、コンピュータが使うラベル（名前）です。辞書ファイルの例として \textasciitilde /07/kudamono.yomiがあります。\\
+それでは、実際に自分で単語辞書を作成・登録しましょう。この教材では、次の流れで辞書を使います。
+
+\begin{enumerate}
+\item 人が編集しやすい \code{.yomi} ファイルを作る
+\item この教材で用意している \mbox{\code{convert\_yomi.sh}} で、Juliusが利用する \code{.dic} ファイルに変換する
+\item この教材で用意している \code{julius.sh} に \code{.dic} ファイルを渡してJuliusを動かす
+\end{enumerate}
+
+\code{.yomi} ファイルは、\ruby{識別子}{しき|べつ|し}と読み方のペアでできています。識別子とは、コンピュータが使うラベル（名前）です。\code{.yomi} ファイルの例として \textasciitilde /07/\mbox{kudamono.yomi}があります。\\
 
 （識別子（コンピュータが使うラベル）と読み方のペア）
 
 
-\begin{lstlisting}[caption=kudamino.yomi,label=kudamino.yomi]
+\begin{lstlisting}[caption=kudamono.yomi,label=kudamono.yomi]
 りんご りんご
 みかん みかん
 ぶどう ぶどう
@@ -48,27 +57,26 @@
 メロン  めろん
 \end{lstlisting}
 
-このファイルのように、辞書ファイルは\\
+このファイルのように、\code{.yomi} ファイルは\\
 \textbf{「<コンピュータが使うラベル> (半角スペース) <読み方（ひらがな)> (改行)」}\\
-という形式である必要があります。mousepadなどで新しいファイルを開き、この形式で辞書ファイルを作成・\ruby{保存}{ほ|ぞん}してください。次に、この.yomiファイルをJuliusが読めるように.dicファイルに変換します。このために、\code{convert\_yomi.sh}コマンドが用意してあります。使いかたは\\
-\code{convert\_yomi.sh (辞書ファイルの名前 .yomiファイル) > (辞書ファイルの名前.dicファイル)}
+という形式で書きます。mousepadなどで新しいファイルを開き、この形式で\code{.yomi} ファイルを作成・\ruby{保存}{ほ|ぞん}してください。次に、この\code{.yomi} ファイルをJuliusが利用する \code{.dic} ファイルに変換します。このために、この教材では \mbox{\code{convert\_yomi.sh}} コマンドを用意してあります。使いかたは\\
+\mbox{\code{convert\_yomi.sh}} (辞書ファイルの名前 .yomiファイル) > (辞書ファイルの名前.dicファイル)
 です。これをターミナルに打ち込みます。例えば、\\
-\code{convert\_yomi.sh kudamono.yomi > kudamono.dic}\\
+\mbox{\code{convert\_yomi.sh kudamono.yomi > kudamono.dic}}\\
 のように使います。
 
-.dicファイルができたら、これをJuliusから使ってみましょう。Juliusを起動するためのコマンド \code{julius.sh} が用意してあります。\\
-\code{julius.sh <.dicファイル>}\\
-のように使います。たとえば、\\
-\code{julius.sh kudamono.dic}\\
-のように使います。これを実行したら、またマイクに向かって話しかけてみて、言葉が認識されるかを確認してください。\ruby{終了}{しゅう|りょう}するときは\pageref{Julius}ページで説明したように、Ctrl+c(コントロールキーを\ruby{押}{お}しながらcを押す)を使います。
+\enlargethispage{2\baselineskip}
+\code{.dic} ファイルができたら、前の節と同じく \mbox{\code{julius.sh kudamono.dic}} でJuliusを起動し、マイクに向かって話しかけてみましょう。\ruby{終了}{しゅう|りょう}するときは、\pageref{Julius}ページと同じく Ctrl+c を使います。
 
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}
 \addex{ターミナルを開いて、 \textasciitilde /07/に移動しましょう。}
-\addex{kudamono.yomiに好きな果物を3つ追加してみましょう。}
-\addex{辞書ファイルを変換しましょう。\\ターミナルに\code{convert\_yomi.sh kudamono.yomi > kudamono.dic}と入力します。}
-\addex{果物を追加したkudamono.dicで音声認識をしてみましょう。\\ターミナルに\code{julius.sh kudamono.dic}と入力します。}
-\addex{時間があったらやりましょう。\\3単語以上からなるオリジナル辞書を作成し、juliusに認識させてみましょう。}
+\addex{\mbox{kudamono.yomi}に好きな果物を3つ追加してみましょう。}
+\addex{辞書ファイルを変換しましょう。\\ターミナルに次のように入力します。\\
+\mbox{\code{convert\_yomi.sh kudamono.yomi > kudamono.dic}}}
+\addex{果物を追加した\mbox{kudamono.dic}で音声認識をしてみましょう。\\ターミナルに次のように入力します。\\
+\mbox{\code{julius.sh kudamono.dic}}}
+\addex{時間があったらやりましょう。\\3単語以上からなるオリジナル辞書を作成し、Juliusに認識させてみましょう。}
 \end{enumerate}
 \end{tcolorbox}
 \end{document}

@@ -1,10 +1,11 @@
 \documentclass[text06.tex]{subfiles}
 \begin{document}
 \newpage
-\section{OpenJTalkが読み上げる文字列に変数を使う (2)}
- \textasciitilde /07/readcalc.hsp をhspスクリプトエディタで開き、見てみてください。
+\section{Open JTalkが読み上げる文字列に変数を使う (2)}
+ \textasciitilde /07/\mbox{readcalc.hsp} をHSPスクリプトエディタで開き、見てみてください。
 
-このプログラムは、足し算の結果を読み上げます。15行目の\code{wait}命令に注目してください。\code{mmplay}は音声を\ruby{再生}{さい|せい}した\ruby{瞬間}{しゅん|かん}に次の命令を実行し始めるので、この\code{wait}命令がないと直ちに「こたえはご」を読み上げ始めてしまい、2つの音声が重なって聞き取りづらくなってしまいます。これを\ruby{避}{さ}けるため、\code{wait}命令で1つめの読み上げが終わるまで待っています。\\
+このプログラムは、足し算の結果を読み上げます。15行目の\code{wait}命令に注目してください。\code{mmplay}は音声を\ruby{再生}{さい|せい}した\ruby{瞬間}{しゅん|かん}に次の命令を実行し始めるので、この\code{wait}命令がないと直ちに「こたえはご」を読み上げ始めてしまい、2つの音声が重なって聞き取りづらくなってしまいます。
+\code{wait}は音声が終わるのを自動で待っているわけではありません。第3回で習ったように、\code{wait}命令は渡した\ruby{値}{あたい}$\times 10$ミリ秒だけ処理を止めます。ここでは \code{wait 100} を使って約1秒待っています。読み上げる文章が長い場合は、待つ時間も長くする必要があります。\\
 
 \begin{lstlisting}[caption=readcalc.hsp,label=readcalc.hsp]
 #include "hsp3dish.as"
@@ -42,7 +43,7 @@ stop
 
 \begin{tcolorbox}[title=\useOmetoi]
 \begin{enumerate}
-\addex{readcalc.hspをHSPスクリプトエディタで実行してみましょう。}
+\addex{\mbox{readcalc.hsp}をHSPスクリプトエディタで実行してみましょう。}
 \addex{時間があったらやりましょう。\\引き算を計算し、答えを読み上げるようにプログラムを変えましょう。}
 \end{enumerate}
 \end{tcolorbox}
