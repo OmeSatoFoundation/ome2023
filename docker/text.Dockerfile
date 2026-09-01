@@ -150,15 +150,17 @@ FROM buildenv_pre as buildenv
 COPY --from=copy_llmk_object_build --link /artifacts/copy_llmk_object /usr/bin/copy_llmk_object
 
 FROM ${BASE_IMAGE} AS build
-# Specify which source to be built. Default is one at project root.
-# For example: --build-arg TARGET=05/
+# Specify the source directory and, optionally, one configured source file.
+# For example: --build-arg TARGET=05/textbook/ --build-arg SOURCE=text05.tex
+# When SOURCE is empty, llmk retains its default all-sources behavior.
 # TODO: make a top-level tex source that includes all chapters as one book.
 ARG TARGET=.
+ARG SOURCE
 WORKDIR /build/tex
 RUN --mount=type=bind,source=.,target=.,rw=true \
     mkdir /artifacts && \
-    cd ${TARGET} && \
-    llmk && \
+    cd "${TARGET}" && \
+    if [ -n "${SOURCE}" ]; then llmk --source="${SOURCE}"; else llmk; fi && \
     # export intermediate/object files \
     # file list inherits https://github.com/wtsnjp/llmk/blob/e9949790d4acd007b58aa80d60aa2b4c18953134/llmk.lua#L58 \
     /usr/bin/copy_llmk_object /artifacts
