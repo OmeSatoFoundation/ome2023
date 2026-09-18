@@ -120,7 +120,7 @@
     \vspace{24pt}
     \large{奥山 祐市}\\
     \vspace{10pt}
-    \large{\the\year 年 9月21日}
+    \large{2026年9月26日}
   \end{center}
 }
 
@@ -130,12 +130,11 @@
         \item 下のコマンドを実行しよう
         \item 「\textasciitilde(チルダ)」記号とスペースに気をつけよう
     \end{itemize}
-    \begin{lstlisting}[title=使うファイルのコピー,label=workfilecopy]
-<#green#pi@raspberrypi#>:<#blue#~ $#> cp -r /usr/local/share/ome/06 ~/07
+    \begin{lstlisting}[title=使うファイルのコピー,label=workfilecopy-part1]
+<#green#pi@raspberrypi#>:<#blue#~ $#> cp -r /usr/local/share/ome/07 ~/07/
 <#green#pi@raspberrypi#>:<#blue#~ $#>
     \end{lstlisting}
-    % TODO: check the corresponding page to the textbool.
-    % \textpageref{2}
+    \textpageref{1}
 \end{frame}
 
 \begin{frame}
@@ -171,7 +170,7 @@
   \frametitle{Open JTalk}
   \begin{itemize}
     \item 音声合成のためのソフトウェア
-    \item 文字(テキスト)を読み上げる
+    \item 文章と声の特徴データから音声を作る
   \end{itemize}
   \begin{center}
   \includesvg[width=0.8\textwidth]{../asset/image/text06-img011.svg}
@@ -183,9 +182,8 @@
   \frametitle{音声認識}
   \vspace{20pt}
   \begin{itemize}
-    \item 人間の声をコンピュータに認識させること
+    \item 人が話した声を文字に変えること
     \item 話し言葉から文字列への変換
-    \item 音声の特徴を捉える
   \end{itemize}
   \begin{center}
   \begin{figure}[tbp]
@@ -218,8 +216,8 @@
 \begin{frame}
   \begin{exampleblock}{問題を解いてみよう}
     \begin{itemize}
-      \item 教科書3ページ 問題6-1(2問)
-      \item 教科書3ページ 問題6-2(1問)
+      \item 教科書3ページ 問題7-1(2問)
+      \item 教科書3ページ 問題7-2(1問)
     \end{itemize}
   \end{exampleblock}
   \textpageref{3}
@@ -232,47 +230,71 @@
 
 \begin{frame}
   \frametitle{ヘッドフォンをつけよう}
+  電源を入れる前にヘッドセットを接続しよう。
   \begin{center}
-  \includegraphics[width=0.8\textwidth]{../asset/image/how_to_connect_headset.jpg}
+  \includegraphics[width=0.65\textwidth]{../asset/image/how_to_connect_headset.jpg}
   \end{center}
+  \textpageref{4}
+\end{frame}
+
+\begin{frame}
+  \frametitle{音声出力の選択}
+  \begin{itemize}
+    \item スピーカーアイコンを右クリック
+    \item USB PnP Sound Deviceを選ぶ
+  \end{itemize}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{../asset/image/select_sink.png}
+\end{center}
   \textpageref{4}
 \end{frame}
 
 \begin{frame}
   \frametitle{マイクミュートについて}
-  \vspace{20pt}
+
   \begin{itemize}
     \item ヘッドセットのコントローラに赤いランプが点いていると「マイクミュート」
     \item マイクを使うときはマイクミュートを解除しておこう
   \end{itemize}
   \begin{center}
-  \includegraphics[width=0.8\textwidth]{../asset/image/text06-img004.png}
-  \end{center}
-  \textpageref{4}
-\end{frame}
-
-\begin{frame}
-  \frametitle{マイク音量の設定}
-  \begin{center}
-  \begin{figure}
-    \includegraphics[width=0.5\textwidth]{../asset/image/select_sink.png}
-    \caption{音声デバイスの選択と設定}
-    \includegraphics[width=0.5\textwidth]{../asset/image/microphone_volume.png}
-    \caption{マイクの入力音量の調整}
-  \end{figure}
+  \includegraphics[width=0.65\textwidth]{../asset/image/text06-img004.png}
   \end{center}
   \textpageref{5}
 \end{frame}
 
 \begin{frame}
+  \frametitle{マイク音量の設定}
+  \begin{itemize}
+    \item マイクアイコンを左クリック
+    \item 教室では入力音量を最大にする
+  \end{itemize}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../asset/image/microphone_volume.png}
+\end{center}
+  \textpageref{5}
+\end{frame}
+
+\begin{frame}
+  \frametitle{困ったとき：マイクの復旧}
+  \begin{itemize}
+    \item マイクアイコンは音量調整のときだけ左クリック
+    \item 右クリックのUSB PnP Sound Deviceは押さない
+    \item 使えなくなったら、スピーカーを右クリック\\「デバイスプロファイル…」を開く
+    \item USBの「アナログステレオ 出力」を選ぶ\\すでに選ばれていたら、一度「オフ」を選ぶ
+    \item 「アナログステレオ 出力 + モノ 入力」\\を選んで「OK」
+  \end{itemize}
+  \textpageref{6～7}
+\end{frame}
+
+\begin{frame}
   \centering
-  {\Large OpenJTalk}
+  {\Large Open JTalk}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{文章を読み上げてもらう -1}
-  
-  \begin{lstlisting}[title=\textasciitilde/07/openjtalk.hsp,label=openjtalk.hsp]
+
+  \begin{lstlisting}[title=\textasciitilde/07/openjtalk.hsp,label=openjtalk.hsp-part1]
   #include "hsp3dish.as"
   #include "jtalk.as"
 
@@ -280,12 +302,12 @@
   mes "発話開始"
   mes "「子どもIT未来塾」"
   redraw 1
-  
+
   <#red#jtload "子どもIT未来塾", 0	;音声ファイルを出力し、読み込む#>
   mmplay 0			<#blue#;音声ファイルを再生する#>
   stop
   \end{lstlisting}
-  \textpageref{6}
+  \textpageref{8}
 \end{frame}
 
 \begin{frame}
@@ -295,12 +317,23 @@
     \item jtload "読ませたい文字列", <バッファ番号>
     \item ""の中の文字列を変えると、好きな言葉を読ませられるよ！
   \end{itemize}
-  \textpageref{6}
+  \textpageref{8}
+\end{frame}
+
+\begin{frame}
+  \frametitle{問題7-3を解いてみよう}
+\begin{exampleblock}{教科書9ページ 問題7-3（2問）}
+  \begin{itemize}
+    \item 「本日は晴天なり」と読むように変更し、\\sunny.hspとして07フォルダに保存・実行しよう
+    \item 時間があれば、好きな言葉を読み上げさせよう
+  \end{itemize}
+\end{exampleblock}
+  \textpageref{9}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{声音を変えてみる -1}
-  \begin{lstlisting}[title=\textasciitilde/07/voice.hsp,label=voice.hsp]
+  \begin{lstlisting}[title=\textasciitilde/07/voice.hsp,label=voice.hsp-part1]
   #include "hsp3dish.as"
   #include "jtalk.as"
 
@@ -308,74 +341,91 @@
   mes "発話開始"
   mes "「子どもIT未来塾」"
   redraw 1
- 
+
   <#red#setvoice "htsvoice-tohoku-f01/tohoku-f01-sad.htsvoice" #>
-                             <#red#;音声ファイルを指定#>
+                             <#red#;声音ファイルを指定#>
   jtload "子どもIT未来塾", 0	<#blue#;音声ファイルを出力し、読み込む#>
   mmplay 0			<#blue#;音声ファイルを再生する#>
   stop
   \end{lstlisting}
-  \textpageref{8}
+  \textpageref{10}
 \end{frame}
 
 \begin{frame}
   \frametitle{声音を変えてみる -2}
   \begin{itemize}
-    \item プログラムの中で音声ファイルを指定している部分を見てみよう
-    \item setvoiceの右にある""の中を他のファイルに書き換えると、声音が変わるよ
-    \item 他にどんな声音のファイルがあるか教科書を確認してみよう
+    \item 声音（こわね）は、声の種類や話し方のこと
+    \item setvoiceで.htsvoiceファイルを指定する
+    \item voice.hspと同じ07フォルダの中にある\\htsvoice-tohoku-f01からファイルを探す
+    \item 普通・怒った・うれしい・悲しい声を試そう
   \end{itemize}
-  \textpageref{8}
+  \textpageref{10}
+\end{frame}
+
+\begin{frame}
+  \frametitle{問題7-4を解いてみよう}
+\begin{exampleblock}{教科書11ページ 問題7-4（2問）}
+  \begin{itemize}
+    \item voice.hspを実行してみよう
+    \item 時間があれば、好きな声音を使ってみよう
+  \end{itemize}
+\end{exampleblock}
+  \textpageref{11}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{読み上げる文字列に変数を使う -1}
-  \begin{lstlisting}[title=\textasciitilde/07/readdate.hsp,label=readdate.hsp]
-    #include "hsp3dish.as"
-    #include "jtalk.as"
+  \frametitle{日付を読み上げる -1}
+  \begin{lstlisting}[title=\textasciitilde/07/readdate.hsp,label=readdate.hsp-part1,basewidth=0.45em]
+  #include "hsp3dish.as"
+  #include "jtalk.as"
 
-    <#red#date = "" + gettime(0) + "年" + 
-                gettime(1) + "月" + gettime(3) + "日"#>
+<#red#date = "" + gettime(0) + "年" + gettime(1) + "月" + gettime(3) + "日"#>
 
     redraw 0
     mes "日付を読み上げます"
     mes date
     redraw 1
 
-    jtload date, 0 <#blue#;date変数に代入されている文字を
-                          音声ファイルにし、読み込む#>
+    jtload date, 0 <#blue#;dateの文字列から音声を作り、読み込む#>
     mmplay 0 <#blue#;音声ファイルを再生する#>
     stop
   \end{lstlisting}
-  \textpageref{10}
+  \textpageref{12}
 \end{frame}
 
 \begin{frame}
-  \frametitle{読み上げる文字列に変数を使う -2}
+  \frametitle{日付を読み上げる -2}
   \begin{itemize}
-    \item openjtalk は date 変数に代入された文字列を読む
-    \item gettime 関数で今日の日付を取得する
-    \begin{itemize}
-       \item 0 = 年、1 = 月、2 = 曜日、3 = 日
-       \item 4 = 時間、5 = 分、6 = 秒、7 = ミリ秒
-    \end{itemize}
-    \item gettime関数の()の中を変えると、時間や曜日も読ませられるよ!
+    \item Open JTalkはdate変数の文字列を読む
+    \item gettime(0)：年、(1)：月、(3)：日
+    \item gettime(2)：曜日を表す0～6の数\\0=日、1=月、2=火、…、6=土（曜日名ではない）
+    \item gettime(4)：時、(5)：分、(6)：秒、(7)：ミリ秒
   \end{itemize}
-  \textpageref{10}
+  \textpageref{12}
+\end{frame}
+
+\begin{frame}
+  \frametitle{問題7-5を解いてみよう}
+\begin{exampleblock}{教科書13ページ 問題7-5（2問）}
+  \begin{itemize}
+    \item readdate.hspを実行してみよう
+    \item 時間があれば、時刻を読み上げるように変えよう
+  \end{itemize}
+\end{exampleblock}
+  \textpageref{13}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{読み上げる文字列に変数を使う -3}
-  \begin{lstlisting}[title=\textasciitilde/07/readcalc.hsp,label=readcalc.hsp]
+  \frametitle{計算結果を読み上げる -1}
+  \begin{lstlisting}[title=\textasciitilde/07/readcalc.hsp,label=readcalc.hsp-part1]
     #include "hsp3dish.as"
     #include "jtalk.as"
-
     a = 3
     b = 2
 
     <#blue#;問題描画#>
     redraw 0
-    mes = "" + a + " + " + b
+    mes "" + a + " + " + b
     redraw 1
 
     <#blue#;問題読み上げ#>
@@ -383,19 +433,18 @@
     mmplay 0
     <#red#wait 100#>
   \end{lstlisting}
-  \textpageref{12}
+  \textpageref{14}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{読み上げる文字列に変数を使う\\(コード続き)}
-  \begin{lstlisting}[title=\textasciitilde/07/readcalc.hsp,label=readcalc.hsp]
+  \frametitle{計算結果を読み上げる -2}
+  \begin{lstlisting}[title=\textasciitilde/07/readcalc.hsp,label=readcalc.hsp-part2]
     <#blue#;答え計算#>
     kotae = a + b
 
     <#red#;答え読み上げ
     jtload "こたえは" + kotae, 1
     mmplay 1#>
-
     <#blue#;答え描画#>
     redraw 0
     mes "" + a + " + " + b
@@ -405,29 +454,29 @@
     wait 30
     stop
   \end{lstlisting}
-  \textpageref{12}
+  \textpageref{14}
 \end{frame}
 
 \begin{frame}
-  \frametitle{読み上げる文字列に変数を使う -4}
+  \frametitle{計算結果を読み上げる -3}
   \begin{itemize}
-    \item a + b の計算結果を kotae に代入
-    \item openjtalk はkotaeに代入された値を読んでいる
-    \item 問題と答えを読む音声が重ならないように wait 100 で少し待っている
+    \item a + bの計算結果をkotaeに代入する
+    \item Open JTalkで問題と答えを読み上げる
+    \item wait 100は約1秒待つ命令\\音声が終わったかを自動で判定するわけではない
+    \item 長い文章を読むときは待つ時間も長くしよう
   \end{itemize}
-  \textpageref{12}
+  \textpageref{14}
 \end{frame}
 
 \begin{frame}
-  \begin{exampleblock}{問題を解いてみよう}
-    \begin{itemize}
-      \item 教科書7ページ 問題6-3(2問)(1問は宿題)
-      \item 教科書9ページ 問題6-4(2問)(1問は宿題)
-      \item 教科書11ページ 問題6-5(2問)(1問は宿題)
-      \item 教科書13ページ 問題6-6(2問)(1問は宿題)
-    \end{itemize}
+  \frametitle{問題7-6を解いてみよう}
+\begin{exampleblock}{教科書15ページ 問題7-6（2問）}
+  \begin{itemize}
+    \item readcalc.hspを実行してみよう
+    \item 時間があれば、引き算の答えを読み上げよう
+  \end{itemize}
 \end{exampleblock}
-  \textpageref{7,9,11,13}
+  \textpageref{15}
 \end{frame}
 
 \begin{frame}
@@ -444,152 +493,137 @@
   \begin{center}
   \includegraphics[width=0.8\textwidth]{../asset/image/text06-img009.png}
   \end{center}
-  \textpageref{14}
+  \textpageref{16}
+\end{frame}
+
+\begin{frame}
+  \frametitle{辞書なしで比べる準備}
+  \begin{itemize}
+    \item 教科書16ページの果物から5つ選ぼう\\話す順番をメモしよう
+    \item 同じ5語を、あとで辞書ありでも試そう
+    \item 話しかけた言葉と認識結果を見比べよう
+    \item 5個中、正しく認識した数を記録しよう
+  \end{itemize}
+  \textpageref{16}
 \end{frame}
 
 \begin{frame}
   \begin{exampleblock}{問題を解いてみよう}
     \begin{itemize}
-      \item 教科書14ページ 問題6-7(1問)
+      \item 教科書16ページ 問題7-7(1問)
     \end{itemize}
 \end{exampleblock}
-  \textpageref{14}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Juliusを使ってみる -2}
-  \begin{itemize}
-    \item 果物の名前を話かけてみよう
-    \begin{center}
-      {\small りんご　みかん　ぶどう　もも　あけび　あんず　いちご\\いちじく　かき　スイカ　すもも　	なし　メロン}
-    \end{center}
-    \item コンピュータは正しく言葉を認識してくれたかな？
-    \item 話しかけた単語とターミナルに出てくる単語が同じか友達と話合ってみよう
-  \end{itemize}
-  \textpageref{14}
+  \textpageref{16}
 \end{frame}
 
 \begin{frame}
   \frametitle{単語辞書}
   \begin{itemize}
-    \item すべての言葉をコンピュータに理解してもらうのは大変
-    \item そのままのJuliusでは限界がある
-    \item コンピュータに理解してほしい言葉をまとめた辞書を作ると改善される！
+    \item 認識させたい言葉を辞書にまとめる
+    \item 候補を果物の名前にしぼって試そう
+    \item 候補をしぼると認識結果はどう変わるかな？
   \end{itemize}
-  \textpageref{15}
+  \textpageref{17}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{単語辞書を使ってみる}
   \begin{itemize}
-    \item 単語辞書を使ってJuliusをためす
-    \begin{itemize}
-      \item julius.sh kudamono.dic
-      \item 以下の単語が登録されているよ。マイクに話しかけてみよう
-    \end{itemize}
+    \item 実行中のJuliusをCtrl+cで終了する
+    \item 終了して入力待ちに戻ったことを確認する
   \end{itemize}
-  \begin{center}
-    {\small りんご　みかん　ぶどう　もも　あけび　あんず　いちご　いちじく　かき　スイカ　すもも　	なし　メロン}
-  \end{center}
-  \textpageref{15}
+\begin{lstlisting}[title=ターミナル]
+cd ~/07/
+julius.sh kudamono.dic
+\end{lstlisting}
+  \begin{itemize}
+    \item 辞書なしと同じ5語を同じ順番で話す
+    \item 正しく認識した数を比べよう
+  \end{itemize}
+  \textpageref{17}
 \end{frame}
 
 \begin{frame}
   \begin{exampleblock}{問題を解いてみよう}
     \begin{itemize}
-      \item 教科書15ページ 問題6-8(2問)
+      \item 教科書17ページ 問題7-8(3問)
     \end{itemize}
 \end{exampleblock}
-  \textpageref{15}
+  \textpageref{17}
 \end{frame}
 
 \begin{frame}
-\frametitle{結果を見てみよう} 
+\frametitle{結果を見てみよう}
   \begin{center}
   \includegraphics[width=0.8\textwidth]{../asset/image/julius_demo_strawberry.png} \\
   \end{center}
-  話かけた単語とターミナルに表示される単語は一致しているかな？
-  \textpageref{15}
+  話しかけた単語とターミナルに表示される単語は一致しているかな？
+  \textpageref{17}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{単語辞書を作ってみよう -1}
   \begin{itemize}
-    \item 認識させたい単語を登録しよう
-    \begin{itemize}
-      \item kudamono.yomiを参考に…
-      \item \<コンピュータが使う名前\> \<読み方\>
-      \renewcommand{\theenumi}{\roman{enumi}}
-      \begin{enumerate}
-        \item りんご
-        \item ぶどう
-        \item みかん
-      \end{enumerate}
-    \end{itemize}
-    \item \<コンピュータが使う名前\>には日本語も使えるよ
-    \begin{itemize}
-      \item 林檎 りんご
-      \item ブドウ ぶどう
-      \item みかん みかん
-    \end{itemize}
+    \item ラベル（コンピュータが使う名前）と読みを書く
+    \item ラベルと読みは半角スペースで区切る
+    \item 読みはひらがな。1語ずつ改行する
   \end{itemize}
-  \textpageref{16}
+\begin{lstlisting}[title=.yomiの例]
+林檎 りんご
+ブドウ ぶどう
+みかん みかん
+\end{lstlisting}
+  \textpageref{18}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{単語辞書を作ってみよう -2}
   \begin{itemize}
-    \item mousepadで自分だけの辞書を作ってみよう
-    \begin{itemize}
-      \item mousepad jisho.yomi
-    \end{itemize}
-    \item 例えば…
-    \begin{itemize}
-      \item 家電辞書
-      \item 動物辞書
-      \item 植物辞書
-    \end{itemize}
+    \item まず、果物を3語追加しよう
   \end{itemize}
-  \textpageref{16}
+\begin{lstlisting}[title=ターミナル]
+cd ~/07/
+mousepad kudamono.yomi
+\end{lstlisting}
+  \begin{itemize}
+    \item 追加したらファイルを保存する
+    \item 時間があれば、3語以上の独自辞書も作ろう\\例：動物や家電の辞書（jisho.yomi）
+  \end{itemize}
+  \textpageref{18}
 \end{frame}
 
 \begin{frame}
   \frametitle{単語辞書を作ってみよう -3}
   \begin{itemize}
-    \item .yomi : テキストファイル
-    \item .dic : コンピュータが読めるファイル
-    \begin{itemize}
-      \item yomiはコンピュータが読めないので変換する必要がある
-    \end{itemize}
+    \item .yomi：人が編集しやすい、ラベルと読みの一覧
+    \item .dic：Juliusが利用する形式の辞書
+    \item convert\_yomi.shで.yomiを.dicに変換する
+    \item 読みを変えたり語を追加したら、もう一度変換する
   \end{itemize}
-  \textpageref{3}
+  \textpageref{18}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{単語辞書を作ってみよう -4}
+\begin{lstlisting}[title=ターミナル]
+convert_yomi.sh kudamono.yomi > kudamono.dic
+julius.sh kudamono.dic
+\end{lstlisting}
   \begin{itemize}
-    \item convert\_yomi.sh コマンド
-    \begin{itemize}   
-      \item コンピュータ用の辞書へと変換してみよう
-      \item convert\_yomi.sh jisyo.yomi  jisyo.dic
-    \end{itemize}
-    \item julius.sh コマンド
-    \begin{itemize}
-      \item 自分の作った辞書で音声認識をしてみよう
-      \item julius.sh jisyo.dic
-    \end{itemize}
-    \item コンピュータは上手く言葉を理解してくれるかな？
+    \item 「>」で変換結果を.dicファイルに保存する
+    \item 終わるときはCtrl+c。終了を確認して次へ
+    \item 独自辞書ならkudamonoをすべてjishoにする
   \end{itemize}
-  \textpageref{16}
+  \textpageref{18}
 \end{frame}
 
 \begin{frame}
   \begin{exampleblock}{問題を解いてみよう}
     \begin{itemize}
-      \item 教科書17ページ 問題6-9(5問)(1問は宿題)
+      \item 教科書19ページ 問題7-9(5問)\\最後の1問は時間があれば
     \end{itemize}
   \end{exampleblock}
-  \textpageref{17}
+  \textpageref{19}
 \end{frame}
 
 \begin{frame}
@@ -597,12 +631,23 @@
   \begin{figure}
     \includesvg[width=\linewidth]{../asset/image/JuliuswithHSP.svg}
   \end{figure}
-  \textpageref{18}
+  \textpageref{20}
+\end{frame}
+
+\begin{frame}
+  \frametitle{HSPで使う4つのポイント}
+  \begin{itemize}
+    \item init\_julius：辞書を指定して音声認識を準備
+    \item get\_word\_list：認識結果を受け取る
+    \item words(cnt)：認識された言葉
+    \item cm(cnt)：Juliusの自信の目安\\1に近いほど高いが、正解の確率ではない
+  \end{itemize}
+  \textpageref{20～21}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{HSPで\\Juliusの認識結果を使おう -2}
-  \begin{lstlisting}[title=\textasciitilde/07/julius.hsp,label=julius.hsp]
+  \begin{lstlisting}[title=\textasciitilde/07/julius.hsp,label=julius.hsp-part1]
   #include "hsp3dish.as"
   #include "julius.as"
 
@@ -617,34 +662,31 @@
   domain = "127.0.0.1"
   PORT = 10500
   \end{lstlisting}
-  \textpageref{19}
+  \textpageref{21}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{HSPで\\Juliusの認識結果を使おう -3}
-  \begin{lstlisting}[title=\textasciitilde/07/julius.hsp,label=julius.hsp]
+  \begin{lstlisting}[title=\textasciitilde/07/julius.hsp,label=julius.hsp-part2]
   sockopen sockidx, domain, PORT
 
   if stat != 0 { <#blue#;エラー処理#>
-  *errorjulius
     redraw 0
-    pos 0, 0
     mes "Error in opening socket"
     redraw 1
-    await 30
-    goto *errorjulius
+    wait 30
     stop
   }
 
   sdim words, 4096, 0
   ddim cm, 0
   \end{lstlisting}
-  \textpageref{19}
+  \textpageref{21}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{HSPで\\Juliusの認識結果を使おう -4}
-  \begin{lstlisting}[title=\textasciitilde/07/julius.hsp,label=julius.hsp,basicstyle=\scriptsize]
+  \begin{lstlisting}[title=\textasciitilde/07/julius.hsp,label=julius.hsp-part3,basicstyle=\scriptsize]
   repeat -1
     if is_recieved(sockidx) = 0 {
       get_word_list words, cm
@@ -663,21 +705,32 @@
     await 30
   loop
   \end{lstlisting}
-  \textpageref{19}
+  \textpageref{21}
 \end{frame}
 
 \begin{frame}
   \begin{exampleblock}{問題を解いてみよう}
     \begin{itemize}
-      \item 教科書20ページ 問題6-10(2問)
+      \item 教科書22ページ 問題7-10(2問)
     \end{itemize}
   \end{exampleblock}
-  \textpageref{20}
+  \textpageref{22}
+\end{frame}
+
+\begin{frame}
+  \frametitle{困ったとき：Juliusとパス}
+  \begin{itemize}
+    \item 起動しないときは、ターミナルでstopjulius.sh\\を一度実行し、もう一度起動する
+    \item HSPで指定するパスには「\texttt{\textasciitilde}」（チルダ）は使えない
+    \item "kudamono.dic"は実行中のディレクトリから探す
+    \item 別の場所なら、相対パスか絶対パスを使う
+  \end{itemize}
+  \textpageref{22}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{音声でLEDのON OFFをする -1}
-  \begin{lstlisting}[title=\textasciitilde/07/ledvoice.hsp,label=ledvoice.hsp]
+  \frametitle{音声でLEDを動かす -1}
+  \begin{lstlisting}[title=\textasciitilde/07/ledbyvoice.hsp,label=ledbyvoice.hsp-part1]
     #include "hsp3dish.as"
     #include "julius.as"
 
@@ -686,18 +739,20 @@
     mes "Loading Julius..."
     redraw 1
 
-    init_julius "/07/onoff.dic" <#blue#;辞書を読み込む#>
+    init_julius "onoff.dic" <#blue#;辞書を読み込む#>
 
     sockidx = 0
     domain = "127.0.0.1"
     PORT = 10500
   \end{lstlisting}
-  \textpageref{22}
+  \textpageref{23}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{音声でLEDのON OFFをする -2}
-  \begin{lstlisting}[title=\textasciitilde/07/ledvoice.hsp,label=ledvoice.hsp]
+  \frametitle{音声でLEDを動かす -2}
+  \begin{lstlisting}[title=\textasciitilde/07/ledbyvoice.hsp,label=ledbyvoice.hsp-part2]
+    sockopen sockidx, domain, PORT
+
     if stat != 0 {
       redraw 0
       mes "Error in opening socket"
@@ -706,16 +761,17 @@
       stop
     }
 
-    sdim wrods, 4096, 0
+    sdim words, 4096, 0
     ddim cm, 0
   \end{lstlisting}
-  \textpageref{22}
+  \textpageref{23}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{音声でLEDのON OFFをする -3}
-  \begin{lstlisting}[title=\textasciitilde/07/ledvoice.hsp,label=ledvoice.hsp,basicstyle=\scriptsize]
-    repeat -1
+  \frametitle{音声でLEDを動かす -3}
+  \vspace{0.45cm}
+  \begin{lstlisting}[title=\textasciitilde/07/ledbyvoice.hsp,label=ledbyvoice.hsp-part3,basicstyle=\scriptsize]
+  repeat -1
     if is_recieved(sockidx) = 0 {
       get_word_list words, cm
       repeat length(words)
@@ -733,53 +789,83 @@
     mes "話しかけてLEDのONとOFFをしよう"
     redraw 1
     await 30
+  loop
   \end{lstlisting}
-  \textpageref{22}
-\end{frame}
-
-\begin{frame}
-  \begin{exampleblock}{問題を解いてみよう}
-    \begin{itemize}
-      \item 教科書23ページ 問題6-11(5問)(2問は宿題)
-    \end{itemize}
-  \end{exampleblock}
   \textpageref{23}
 \end{frame}
 
-\begin{frame}
-  \frametitle{宿題}
+\begin{frame}[fragile]
+  \frametitle{言葉とLEDの対応}
+\begin{lstlisting}[title=onoff.yomi]
+ON おん
+OFF おふ
+\end{lstlisting}
   \begin{itemize}
-    \item 教科書24ページ
-    \begin{itemize}
-      \item 5問の内、1問だけ挑戦しよう
-      \item レベルアップしたい人は、5問全部に挑戦してみよう
-    \end{itemize}
+    \item 左がラベル、右が読み方
+    \item words(cnt)がONなら点灯、OFFなら消灯
+    \item cm(cnt) > 0.7のときだけ結果を使う
   \end{itemize}
   \textpageref{24}
 \end{frame}
 
 \begin{frame}
+  \begin{exampleblock}{問題を解いてみよう}
+    \begin{itemize}
+      \item 教科書24ページ 問題7-11(5問)\\最後の1問は時間があれば
+    \end{itemize}
+  \end{exampleblock}
+  \textpageref{24}
+\end{frame}
+
+\begin{frame}
+  \frametitle{しきい値を比べてみよう}
+  \begin{itemize}
+    \item cmのしきい値を0.3、0.7、0.9に変えて試す
+    \item それぞれで「ON」「OFF」と、辞書にない言葉\\（例：「こんにちは」）を話しかける
+    \item 反応のしやすさと、関係のない言葉への反応を比べる
+  \end{itemize}
+  \textpageref{24}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{時間があれば：\\読み方を変えよう}
+  \begin{itemize}
+    \item ラベルON / OFFはそのまま、読みを変える
+  \end{itemize}
+\begin{lstlisting}[title=onoff.yomi]
+ON つける
+OFF けす
+\end{lstlisting}
+  \begin{itemize}
+    \item 保存後は辞書を作り直して、HSPを再実行する
+  \end{itemize}
+\begin{lstlisting}[title=ターミナル]
+convert_yomi.sh onoff.yomi > onoff.dic
+\end{lstlisting}
+  \textpageref{24}
+\end{frame}
+
+\begin{frame}
+  \frametitle{宿題}
+  \begin{itemize}
+    \item 教科書25ページの5問から好きな問題を1つ以上
+    \item キー入力で数字を読み上げる
+    \item 画像をクリックして名前を読み上げる
+    \item 声で文字の色や表示する画像を変える
+  \end{itemize}
+  \textpageref{25}
+\end{frame}
+
+\begin{frame}
   \frametitle{数を認識させてみよう（発展）}
   \begin{itemize}
-    \item 数を認識できる
-    \begin{itemize}
-      \item いち、じゅうさん、せんよんひゃくさんじゅうなな、など
-    \end{itemize}
-    \item 数を認識させるには「文法」を使う
-    \begin{itemize}
-      \item 1000（千）まで認識させたかったら1000個以上の単語を登録
-      \begin{itemize}
-        \item 1(いち)から1000(千)まで登録
-        \item 同じ数字でも違う読み(7:なな、しち)
-      \end{itemize}
-      \item 文法でルールを決める
-    \end{itemize}
-    \item 参考：
-    \begin{itemize}
-      \item http://www.atmarkit.co.jp/fxml/ddd/ddd004/ddd004-bnf.html
-      \item http://julius.osdn.jp/index.php?q=doc/grammar.html
-    \end{itemize}
+    \item 言葉を組み合わせるルールを「文法」で決める
+    \item 例：「ひゃく」＋「にじゅう」＋「さん」\\→「ひゃくにじゅうさん」
+    \item 数を一つずつ単語として登録する手間を減らせる
+    \item 7には「なな」「しち」のような読み方もある
+    \item 興味があれば、先生に聞いてみよう
   \end{itemize}
+  \textpageref{26}
 \end{frame}
 
 \begin{frame}
@@ -788,7 +874,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{OpenJTalkやJuliusでできることを考えよう}
+  \frametitle{音声でできることを考えよう}
   \begin{itemize}
     \item 例えば…
     \begin{itemize}
@@ -805,7 +891,7 @@
 \begin{frame}
   \frametitle{作りたいものを考えよう}
   \begin{itemize}
-    \item OpenJTalkやJuliusを使って作りたいものを考えてみよう(5-10分)
+    \item Open JTalkやJuliusを使って作りたいものを考えてみよう(5-10分)
     \item チームのみんなで作りたいものを発表してみよう、一緒に考えてみよう(5-10分)
     \begin{itemize}
       \item むずかしさはどれくらいだろう
@@ -813,22 +899,16 @@
     \end{itemize}
   \end{itemize}
 \end{frame}
+
 \begin{frame}
   \frametitle{手順}
-  \begin{enumerate}
+  \begin{itemize}
     \item 演習用のフォルダを作る
-    \item 必要なファイルをフォルダにコピーしよう
-    \begin{itemize}
-      \item hspファイル
-      \item yomiファイル
-      \item htsvoiceファイル
-    \end{itemize}
-    \item プログラミングをしてみよう
-    \begin{itemize}
-      \item hspファイルを書き換えてみる
-      \item 新しくhspファイルを作ってみる
-    \end{itemize}
-  \end{enumerate}
+    \item 使う.hsp、.yomi、.dicをコピーする
+    \item 声音のフォルダも中身ごとコピーする\\htsvoice-tohoku-f01の名前と構造を保とう
+    \item プログラムからの相対パスが合うか確認する
+    \item プログラムを書き換えたり、新しく作ったりしよう
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
